@@ -1,0 +1,7 @@
+version: '2'
+services:
+  sandbox:
+    build: .
+    volumes:
+      - ../:/root/dotfiles
+    tty: true
