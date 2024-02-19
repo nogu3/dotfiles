@@ -4,4 +4,6 @@ services:
     build: .
     volumes:
       - ../:/root/dotfiles
+    working_dir: /root/dotfiles
     tty: true
+    init: true
