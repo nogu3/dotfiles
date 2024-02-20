@@ -1,9 +1,9 @@
-version: '2'
+version: '3.9'
 services:
   sandbox:
     build: .
+    init: true
     volumes:
       - ../:/root/dotfiles
     working_dir: /root/dotfiles
-    tty: true
-    init: true
+    command: ["sleep", "infinity"]
