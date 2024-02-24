@@ -6,4 +6,7 @@ services:
     volumes:
       - ../:/home/sandbox/workdir
       - ~/.gitconfig:/home/sandbox/.gitconfig
+      - homedir:/home/sandbox
     command: ["sleep", "infinity"]
+volumes:
+  homedir:
