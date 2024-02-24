@@ -6,6 +6,7 @@ return {
     vim.g.coc_global_extensions = {
        "coc-json",
        "coc-solargraph",
+			 "coc-docker",
     }
   end
 }
