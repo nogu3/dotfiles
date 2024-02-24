@@ -39,5 +39,15 @@ RUN curl -Lo "delta.deb" https://github.com/dandavison/delta/releases/download/0
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt install -y nodejs
 
-RUN git config --global --add safe.directory /root/dotfiles
+# create user
+# https://qiita.com/Spritaro/items/602118d946a4383bd2bb
+ARG USERNAME=sandbox
+ARG GROUPNAME=sandbox
+ARG UID=1000
+ARG GID=1000
 
+RUN groupadd -g $GID $GROUPNAME && \
+    useradd -m -s /bin/bash -u $UID -g $GID $USERNAME
+
+USER $USERNAME
+WORKDIR /home/$USERNAME/workdir

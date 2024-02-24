@@ -4,6 +4,6 @@ services:
     build: .
     init: true
     volumes:
-      - ../:/root/dotfiles
-    working_dir: /root/dotfiles
+      - ../:/home/sandbox/workdir
+      - ~/.gitconfig:/home/sandbox/.gitconfig
     command: ["sleep", "infinity"]
