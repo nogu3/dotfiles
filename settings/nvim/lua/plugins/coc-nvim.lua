@@ -7,6 +7,7 @@ return {
        "coc-json",
        "coc-solargraph",
 			 "coc-docker",
+			 "coc-lua",
     }
   end
 }
