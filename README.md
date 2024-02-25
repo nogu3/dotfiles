@@ -1,5 +1,11 @@
 # dotfiles
 ## TODO
+### cd
+1. auto complete path when cd, nvim, etc...
+
+### Docker
+1. sh init.sh when docker exec
+
 ### nvim
 1. add lsp
   - markdown-lint
@@ -9,8 +15,8 @@
 1. run ale
 1. to hankaku when insert mode to normal mode 
 
-### Docker
-1. sh init.sh when docker exec
+### lazygit
+1. unconfirm user, password when git push 
 
 ### tmux
 1. smooze copy
