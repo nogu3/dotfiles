@@ -1,3 +1,5 @@
+local opt = vim.opt
+
 -- lazy.nvim setup
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -10,7 +12,7 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   })
 end
-vim.opt.rtp:prepend(lazypath)
+opt.rtp:prepend(lazypath)
 
 -- plugin setup
 require("lazy").setup("plugins", {
@@ -25,3 +27,14 @@ require("lazy").setup("plugins", {
      },
   },
 })
+
+-- show line number
+opt.number=true
+-- auto indent when new line
+opt.autoindent=true
+-- convert tabs to spaces
+opt.tabstop=2
+
+
+-- autocomplete enter 
+vim.api.nvim_set_keymap('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<C-g>u<CR>"', {noremap = true, silent = true, expr = true})
