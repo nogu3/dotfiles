@@ -35,6 +35,8 @@ opt.autoindent=true
 -- convert tabs to spaces
 opt.tabstop=2
 
-
+-- keymap
 -- autocomplete enter 
 vim.api.nvim_set_keymap('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<C-g>u<CR>"', {noremap = true, silent = true, expr = true})
+-- jj to esc
+vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true, silent = true})
