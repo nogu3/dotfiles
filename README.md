@@ -4,11 +4,11 @@
 1. zsh autocomplete confirm not ctrl + e. tab
 
 ### nvim
-1. install telescope.nvim 
 1. repare autoindent
   1. not tab. space
   1. shift indent when comment
 1. lazygit on nvim
+1. filetree
 1. run ale
 1. to hankaku when insert mode to normal mode 
 1. change theme iceberg
@@ -19,7 +19,7 @@
 
 ### lazygit
 1. unconfirm user, password when git push 
-  1. use gh auth
+  1. use gh auth -> not working
 1. stop force push when require pull 
 
 ### tmux
