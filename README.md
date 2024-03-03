@@ -16,6 +16,10 @@
 1. add lsp
   - markdown-lint
   - markdown-preview
+#### watch later
+1. https://github.com/mhinz/neovim-remote
+1. https://qiita.com/acomagu/items/5f10ce7bcb2fcfc9732f
+  1. open multi file at the same time 
 
 ### lazygit
 1. unconfirm user, password when git push 
