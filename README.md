@@ -2,6 +2,7 @@
 ## TODO
 ### cd
 1. auto complete path when cd, nvim, etc...
+2. test
 
 ### nvim
 1. add lsp
