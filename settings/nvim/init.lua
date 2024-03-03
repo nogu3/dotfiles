@@ -1,4 +1,20 @@
 local opt = vim.opt
+-- change leader key
+vim.api.nvim_set_keymap('n', '<Space>', '', {noremap = true, silent = true})
+vim.g.mapleader = ' '
+
+-- show line number
+opt.number=true
+-- auto indent when new line
+opt.autoindent=true
+-- convert tabs to spaces
+opt.tabstop=2
+
+-- keymap
+-- autocomplete enter 
+vim.api.nvim_set_keymap('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<C-g>u<CR>"', {noremap = true, silent = true, expr = true})
+-- jj to esc
+vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true, silent = true})
 
 -- lazy.nvim setup
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -27,19 +43,6 @@ require("lazy").setup("plugins", {
      },
   },
 })
-
--- show line number
-opt.number=true
--- auto indent when new line
-opt.autoindent=true
--- convert tabs to spaces
-opt.tabstop=2
-
--- keymap
--- autocomplete enter 
-vim.api.nvim_set_keymap('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<C-g>u<CR>"', {noremap = true, silent = true, expr = true})
--- jj to esc
-vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true, silent = true})
 
 -- telescope
 local builtin = require('telescope.builtin')
