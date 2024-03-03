@@ -15,3 +15,6 @@ ln -s "`pwd`/settings/nvim/init.lua" ~/.config/nvim/init.lua
 rm -f ~/.config/nvim/lua/plugins
 ln -s "`pwd`/settings/nvim/lua/plugins" ~/.config/nvim/lua/plugins
 
+# zsh
+rm -f ~/.zshrc
+ln -s "`pwd`/settings/zsh/.zshrc" ~/.zshrc

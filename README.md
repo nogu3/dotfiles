@@ -1,8 +1,5 @@
 # dotfiles
 ## TODO
-### cd
-1. auto complete path when cd, nvim, etc...
-
 ### nvim
 1. install telescope.nvim 
 1. lazygit on nvim
