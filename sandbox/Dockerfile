@@ -13,7 +13,7 @@ RUN apt update \
     g++ \
     make
 
-# install lsp and linter
+# install lsp and linter for ruby
 RUN gem install \
     solargraph \
     rubocop
@@ -25,6 +25,7 @@ RUN curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linu
 
 ENV PATH="$PATH:/opt/nvim-linux64/bin"
 
+# install lazygit
 # https://github.com/jesseduffield/lazygit
 RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*') \
     && curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" \
@@ -67,3 +68,4 @@ WORKDIR /workspaces/$USERNAME
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
    && git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions \
    && git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
