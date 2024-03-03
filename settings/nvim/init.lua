@@ -40,3 +40,11 @@ opt.tabstop=2
 vim.api.nvim_set_keymap('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<C-g>u<CR>"', {noremap = true, silent = true, expr = true})
 -- jj to esc
 vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true, silent = true})
+
+-- telescope
+local builtin = require('telescope.builtin')
+-- find file
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+-- grep file
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+
