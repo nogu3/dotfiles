@@ -10,6 +10,7 @@
 1. lazygit on nvim
 1. filetree
 1. run ale
+1. split init.lua
 1. to hankaku when insert mode to normal mode 
 1. change theme iceberg
   1. https://github.com/cocopon/iceberg.vim
