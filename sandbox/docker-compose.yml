@@ -4,9 +4,10 @@ services:
     build: .
     init: true
     volumes:
-      - ../:/home/sandbox/workdir
+      - ../:/workspaces/sandbox
       - ~/.gitconfig:/home/sandbox/.gitconfig
-      - homedir:/home/sandbox
+      - home_dir:/home/sandbox
     command: ["sleep", "infinity"]
+
 volumes:
-  homedir:
+  home_dir:

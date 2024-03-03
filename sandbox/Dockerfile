@@ -2,6 +2,7 @@ FROM ubuntu:22.04
 
 RUN apt update \
     && apt install -y \
+    zsh \
     tmux \
     curl \
     git \
@@ -39,6 +40,16 @@ RUN curl -Lo "delta.deb" https://github.com/dandavison/delta/releases/download/0
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt install -y nodejs
 
+# install oh-my-zsh 
+# RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
+#    && git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions \
+#    && git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+# setup entrypoint 
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
 # create user
 # https://qiita.com/Spritaro/items/602118d946a4383bd2bb
 ARG USERNAME=sandbox
@@ -46,8 +57,13 @@ ARG GROUPNAME=sandbox
 ARG UID=1000
 ARG GID=1000
 
+# create workdir
+RUN mkdir -p /workspaces/$USERNAME \
+    && chown ${UID}:${GID} /workspaces/${USERNAME}
+
 RUN groupadd -g $GID $GROUPNAME && \
-    useradd -m -s /bin/bash -u $UID -g $GID $USERNAME
+    useradd -m -s /usr/bin/zsh -u $UID -g $GID $USERNAME
 
 USER $USERNAME
-WORKDIR /home/$USERNAME/workdir
+WORKDIR /workspaces/$USERNAME
+
