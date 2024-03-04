@@ -5,6 +5,7 @@
   1. not tab. space
   1. shift indent when comment
 1. lazygit on nvim
+  1. https://zenn.dev/stafes_blog/articles/524e4c8c80db24
 1. run ale
 1. to hankaku when insert mode to normal mode 
 1. change theme iceberg
