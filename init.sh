@@ -8,12 +8,9 @@ rm -f ~/.config/lazygit/config.yml
 ln -s "`pwd`/settings/lazygit/config.yml" ~/.config/lazygit/config.yml
 
 # neovim
-mkdir -p ~/.config/nvim/lua
-rm -f ~/.config/nvim/init.lua
-ln -s "`pwd`/settings/nvim/init.lua" ~/.config/nvim/init.lua
-
-rm -f ~/.config/nvim/lua/plugins
-ln -s "`pwd`/settings/nvim/lua/plugins" ~/.config/nvim/lua/plugins
+mkdir -p ~/.config
+rm -f ~/.config/nvim
+ln -s "`pwd`/settings/nvim" ~/.config/nvim
 
 # zsh
 rm -f ~/.zshrc
