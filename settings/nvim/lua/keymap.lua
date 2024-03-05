@@ -16,3 +16,16 @@ require("telescope").load_extension "file_browser"
 -- show file browser
 vim.keymap.set('n', '<leader>fb', ":Telescope file_browser<CR>" , { noremap = true })
 
+-- toggleterm
+local Terminal = require("toggleterm.terminal").Terminal
+local lazygit = Terminal:new({
+	cmd = "lazygit",
+	direction = "float",
+	hidden = true
+})
+
+function _lazygit_toggle()
+	lazygit:toggle()
+end
+
+vim.api.nvim_set_keymap("n", "lg", "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
