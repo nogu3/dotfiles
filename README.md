@@ -1,6 +1,7 @@
 # dotfiles
 ## TODO
 ### nvim
+1. in .gitignore out .git/ on telescope find_files
 1. repare autoindent
   1. not tab. space
   1. shift indent when comment
