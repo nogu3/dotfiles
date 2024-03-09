@@ -3,6 +3,7 @@
 ### nvim
 1. Set basic settings
   1. ref: https://qiita.com/unbosoms/items/8b26cb292a8ef99255b7
+  1. ref: https://github.com/k0kubun/dotfiles/blob/master/config/.config/nvim/init.vim
   1. display space and tab
 1. Repare autoindent
   1. not tab. space
