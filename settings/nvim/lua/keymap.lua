@@ -1,8 +1,8 @@
 -- keymap
--- autocomplete enter 
+-- autocomplete enter
 vim.api.nvim_set_keymap('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<C-g>u<CR>"', {noremap = true, silent = true, expr = true})
--- jj to esc
-vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true, silent = true})
+-- esc
+vim.keymap.set('i', 'jj', '<Esc>', {noremap = true, silent = true})
 
 -- telescope
 local builtin = require('telescope.builtin')
@@ -24,8 +24,12 @@ local lazygit = Terminal:new({
 	hidden = true
 })
 
+-- lazygit
 function _lazygit_toggle()
 	lazygit:toggle()
 end
 
-vim.api.nvim_set_keymap("n", "lg", "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>lg", "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
+
+-- ale
+vim.keymap.set("n", "<leader>ft", ":ALEFix<CR>", {noremap = true, silent = true})
