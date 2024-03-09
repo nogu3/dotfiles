@@ -2,19 +2,20 @@
 ## TODO
 ### nvim
 1. in .gitignore out .git/ on telescope find_files
-1. repare autoindent
-  1. not tab. space
-  1. shift indent when comment
 1. run ale
 1. search nvim plugin "bufferline"
 1. search buffer
   1. https://zenn.dev/sa2knight/articles/e0a1b2ee30e9ec22dea9
+1. repare autoindent
+  1. not tab. space
+  1. shift indent when comment
+1. display space and tab
 1. to hankaku when insert mode to normal mode 
-1. change theme iceberg
-  1. https://github.com/cocopon/iceberg.vim
 1. add lsp
   - markdown-lint
   - markdown-preview
+1. change theme iceberg
+  1. https://github.com/cocopon/iceberg.vim
 
 #### watch later
 1. https://github.com/mhinz/neovim-remote
