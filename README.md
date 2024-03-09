@@ -1,7 +1,6 @@
 # dotfiles
 ## TODO
 ### nvim
-1. in .gitignore out .git/ on telescope find_files
 1. run ale
 1. search nvim plugin "bufferline"
 1. search buffer
