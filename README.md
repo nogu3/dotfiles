@@ -1,7 +1,6 @@
 # dotfiles
 ## TODO
 ### nvim
-1. search nvim plugin "bufferline"
 1. repare autoindent
   1. not tab. space
   1. shift indent when comment
@@ -10,8 +9,6 @@
 1. add linter
   - markdown-lint
   - markdown-preview
-1. change theme iceberg
-  1. https://github.com/cocopon/iceberg.vim
 
 #### watch later
 1. https://github.com/mhinz/neovim-remote
