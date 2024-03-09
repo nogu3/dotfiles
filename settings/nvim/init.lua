@@ -9,9 +9,21 @@ opt.number=true
 opt.autoindent=true
 -- convert tabs to spaces
 opt.tabstop=2
+-- set Truecolor for bufferline
+opt.termguicolors = true
 
 require("plugin_manager")
 require("keymap")
+
+-- set colorscheme
+vim.cmd [[
+try
+  colorscheme iceberg
+catch /^Vim\%((\a\+)\)\=:E185/
+  colorscheme default
+  set background=dark
+endtry
+]]
 
 -- ale
 vim.g.ale_disable_lsp = 1

@@ -35,3 +35,6 @@ require('telescope').setup({
   },
 })
 
+
+-- bufferline
+require("bufferline").setup{}

@@ -2,8 +2,6 @@
 ## TODO
 ### nvim
 1. search nvim plugin "bufferline"
-1. search buffer
-  1. https://zenn.dev/sa2knight/articles/e0a1b2ee30e9ec22dea9
 1. repare autoindent
   1. not tab. space
   1. shift indent when comment
@@ -12,7 +10,6 @@
 1. add linter
   - markdown-lint
   - markdown-preview
-  - lua
 1. change theme iceberg
   1. https://github.com/cocopon/iceberg.vim
 
@@ -22,6 +19,8 @@
   1. open multi file at the same time
 1. https://zenn.dev/kenkenlysh/articles/6c93a4dbfeb2e2
 1. https://zenn.dev/hisasann/articles/neovim-settings-to-lua#keymaps%E8%A8%AD%E5%AE%9A%E3%82%92%E3%81%99%E3%82%8B
+1. understand buffer
+  1. https://zenn.dev/sa2knight/articles/e0a1b2ee30e9ec22dea9
 
 ### lazygit
 1. unconfirm user, password when git push
