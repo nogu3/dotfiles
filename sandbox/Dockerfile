@@ -56,7 +56,9 @@ ARG GID=1000
 
 # create workdir
 RUN mkdir -p /workspaces/$USERNAME \
-    && chown ${UID}:${GID} /workspaces/${USERNAME}
+    && chown ${UID}:${GID} /workspaces/${USERNAME} \
+    && mkdir -p /workspaces/src \
+    && chown ${UID}:${GID} /workspaces/src
 
 RUN groupadd -g $GID $GROUPNAME && \
     useradd -m -s /usr/bin/zsh -u $UID -g $GID $USERNAME
