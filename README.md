@@ -1,9 +1,6 @@
 # dotfiles
 ## TODO
 ### nvim
-1. Working bprev shortcut
-1. Add shortcut close buffer file
-1. Show hidden file
 1. Change hankaku mode when insert mode to normal mode
 1. Change command mode when ctrl + shift + p
 1. Add lint for markdown
