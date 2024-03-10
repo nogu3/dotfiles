@@ -8,8 +8,12 @@
 1. Repare autoindent
   1. not tab. space
   1. shift indent when comment
+1. Do something when initial display
+  1. Think and research
+1. Working bprev shortcut
 1. Show hidden file
 1. Change hankaku mode when insert mode to normal mode
+1. Change command mode when ctrl + Shift + p 
 1. Add lint for markdown
   - markdown-lint
   - markdown-preview
