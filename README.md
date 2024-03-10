@@ -8,6 +8,7 @@
 1. Repare autoindent
   1. not tab. space
   1. shift indent when comment
+1. Show hidden file
 1. Change hankaku mode when insert mode to normal mode
 1. Add lint for markdown
   - markdown-lint
@@ -29,3 +30,4 @@
 
 ### tmux
 1. Smooze copy
+
