@@ -103,5 +103,6 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias nv="nvim"
+alias sandbox="cd /workspaces/sandbox"
+alias src="cd /workspaces/src"
