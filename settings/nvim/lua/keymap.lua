@@ -4,9 +4,11 @@ local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<C-g>u<CR>"', {noremap = true, silent = true, expr = true})
 -- esc
 vim.keymap.set('i', 'jj', '<Esc>', opts)
--- move buffer
-vim.keymap.set("n", "<C-n>", ":bnext<Return>", opts)
-vim.keymap.set("n", "<C-p>", ":bprev<Return>", opts)
+-- control buffer
+vim.keymap.set("n", "<leader>j", ":bnext<CR>", opts)
+vim.keymap.set("n", "<leader>k", ":bprev<CR>", opts)
+vim.keymap.set("n", "<leader>x", ":bw<CR>", opts)
+vim.keymap.set("n", "<leader>ax", ":%bd<CR>", opts)
 
 
 -- telescope
