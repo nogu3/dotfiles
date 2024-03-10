@@ -1,7 +1,19 @@
 local opt = vim.opt
+
 -- change leader key
 vim.api.nvim_set_keymap('n', '<Space>', '', {noremap = true, silent = true})
 vim.g.mapleader = ' '
+
+-- not create backup file
+opt.backup = false
+-- not create swap file
+opt.swapfile = false
+-- auto reload when File being edited changed
+opt.autoread = true
+-- open file when File being edited exist
+opt.hidden = true
+-- show command on Status line when Command being entered 
+opt.showcmd = true
 
 -- show line number
 opt.number=true
