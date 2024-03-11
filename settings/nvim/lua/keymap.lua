@@ -5,10 +5,12 @@ vim.api.nvim_set_keymap('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<
 -- esc
 vim.keymap.set('i', 'jj', '<Esc>', opts)
 -- control buffer
-vim.keymap.set("n", "<leader>j", ":bnext<CR>", opts)
-vim.keymap.set("n", "<leader>k", ":bprev<CR>", opts)
+vim.keymap.set("n", "<leader>k", ":bnext<CR>", opts)
+vim.keymap.set("n", "<leader>j", ":bprev<CR>", opts)
 vim.keymap.set("n", "<leader>x", ":bw<CR>", opts)
 vim.keymap.set("n", "<leader>ax", ":%bd<CR>", opts)
+-- create empty file
+vim.keymap.set("n", "<leader>n", ":tabnew<CR>", opts)
 
 
 -- telescope
