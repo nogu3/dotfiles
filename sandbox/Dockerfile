@@ -38,6 +38,11 @@ RUN curl -Lo "delta.deb" https://github.com/dandavison/delta/releases/download/0
     && dpkg -i delta.deb \
     && rm delta.deb
 
+# install jump
+RUN curl -Lo "jump.deb" https://github.com/gsamokovarov/jump/releases/download/v0.51.0/jump_0.51.0_amd64.deb \
+    && dpkg -i jump.deb \
+    && rm jump.deb
+
 # install nodejs
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt install -y nodejs
