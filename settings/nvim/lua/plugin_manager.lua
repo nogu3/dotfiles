@@ -55,4 +55,7 @@ telescope.setup({
 })
 
 -- bufferline
-require("bufferline").setup{}
+require("bufferline").setup()
+
+-- lualine
+require('lualine').setup()
