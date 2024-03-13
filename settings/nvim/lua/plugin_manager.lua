@@ -59,3 +59,6 @@ require("bufferline").setup()
 
 -- lualine
 require('lualine').setup()
+
+-- marks
+require('marks').setup()
