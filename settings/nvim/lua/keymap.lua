@@ -12,6 +12,8 @@ vim.keymap.set("n", "<leader>ax", ":%bd<CR>", opts)
 -- create empty file
 vim.keymap.set("n", "<leader>n", ":tabnew<CR>", opts)
 
+vim.keymap.set("n", "<leader>fp", ":let @+ = expand('%')<CR>", opts)
+
 
 -- telescope
 local builtin = require('telescope.builtin')

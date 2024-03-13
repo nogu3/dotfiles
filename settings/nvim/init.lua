@@ -4,6 +4,9 @@ local opt = vim.opt
 vim.api.nvim_set_keymap('n', '<Space>', '', {noremap = true, silent = true})
 vim.g.mapleader = ' '
 
+-- show environment dependent characters
+-- opt.ambiwidth='double'
+
 -- not create backup file
 opt.backup = false
 -- not create swap file
@@ -80,3 +83,22 @@ vim.g.ale_fixers = {
   ['*'] = { "remove_trailing_lines", "trim_whitespace" },
   ['ruby'] = {'rubocop'}
 }
+
+opt.clipboard = "unnamedplus"
+
+-- windows wsl only settings 
+-- but if you write if vim.fn.has("win64") == 1 then , system cant use clipboard.
+if vim.fn.has('wsl') == 1 then
+  vim.g.clipboard = {
+  name = "win32yank-wsl",
+  copy = {
+    ["+"] = "win32yank.exe -i --crlf",
+    ["*"] = "win32yank.exe -i --crlf"
+    },
+  paste = {
+    ["+"] = "win32yank.exe -o --crlf",
+    ["*"] = "win32yank.exe -o --crlf"
+    },
+  cache_enable = 0,
+  }
+end
