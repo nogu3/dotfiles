@@ -3,6 +3,11 @@ local opts = { noremap = true, silent = true }
 -- autocomplete enter
 vim.api.nvim_set_keymap('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<C-g>u<CR>"', {noremap = true, silent = true, expr = true})
 
+-- copy current to mark
+vim.keymap.set("n", "cm", "y'm", opts)
+-- delete current to mark
+vim.keymap.set("n", "dm", "d'm", opts)
+
 -- esc
 vim.keymap.set('i', 'jj', '<Esc>', opts)
 
@@ -31,6 +36,8 @@ vim.keymap.set('n', '<leader>ff', builtin.live_grep, {})
 require("telescope").load_extension "file_browser"
 -- show file browser
 vim.keymap.set('n', '<leader>fb', ":Telescope file_browser<CR>" , { noremap = true })
+-- search config dir
+vim.keymap.set('n', '<leader>nv', ":Telescope find_files cwd=~/.config/nvim<CR>" , { noremap = true })
 
 
 -- toggleterm
