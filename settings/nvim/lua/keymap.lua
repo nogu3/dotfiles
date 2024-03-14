@@ -3,9 +3,6 @@ local opts = { noremap = true, silent = true }
 -- autocomplete enter
 vim.api.nvim_set_keymap('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<C-g>u<CR>"', {noremap = true, silent = true, expr = true})
 
--- ;
-vim.keymap.set('n', '<leader>c', ':', {silent=true})
-
 -- esc
 vim.keymap.set('i', 'jj', '<Esc>', opts)
 
