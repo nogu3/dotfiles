@@ -1,5 +1,10 @@
 FROM ubuntu:22.04
 
+# amd64 or arm64
+ARG ARCH=amd64
+# x86_64 or arm64
+ARG ARCH_ALIAS=x86_64
+
 RUN apt update \
     && apt install -y \
     zsh \
@@ -28,18 +33,18 @@ ENV PATH="$PATH:/opt/nvim-linux64/bin"
 # install lazygit
 # https://github.com/jesseduffield/lazygit
 RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*') \
-    && curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" \
+    && curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_${ARCH_ALIAS}.tar.gz" \
     && tar xf lazygit.tar.gz lazygit \
     && install lazygit /usr/local/bin \
     && rm -r lazygit lazygit.tar.gz
 
 # install delta
-RUN curl -Lo "delta.deb" https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_amd64.deb \
+RUN curl -Lo "delta.deb" https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_${ARCH}.deb \
     && dpkg -i delta.deb \
     && rm delta.deb
 
 # install jump
-RUN curl -Lo "jump.deb" https://github.com/gsamokovarov/jump/releases/download/v0.51.0/jump_0.51.0_amd64.deb \
+RUN curl -Lo "jump.deb" https://github.com/gsamokovarov/jump/releases/download/v0.51.0/jump_0.51.0_${ARCH}.deb \
     && dpkg -i jump.deb \
     && rm jump.deb
 
