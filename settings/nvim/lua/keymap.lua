@@ -56,3 +56,6 @@ vim.keymap.set("n", "<leader>ft", ":ALEFix<CR>", opts)
 
 -- coc.nvim_set_keymap
 vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', {noremap = true, silent = true})
+
+-- OpenGithubFile
+vim.keymap.set('n', '<leader>og', ':OpenGithubFile<CR>)', {noremap = true, silent = true})
