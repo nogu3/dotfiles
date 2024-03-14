@@ -71,3 +71,10 @@ require('Comment').setup({
     },
 })
 
+-- endwise
+require('nvim-treesitter.configs').setup {
+    endwise = {
+        enable = true,
+    },
+}
+
