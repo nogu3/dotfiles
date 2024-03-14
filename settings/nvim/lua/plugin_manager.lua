@@ -62,3 +62,12 @@ require('lualine').setup()
 
 -- marks
 require('marks').setup()
+
+-- comment
+require('Comment').setup({
+    toggler = {
+        ---Line-comment toggle keymap
+        line = '<leader>c',
+    },
+})
+
