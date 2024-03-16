@@ -16,7 +16,14 @@ RUN apt update \
     # require install solargraph
     ruby-dev \
     g++ \
-    make
+    make \
+    # require build neovim
+    ninja-build \
+    gettext \
+    cmake \
+    unzip \
+    curl \
+    build-essential
 
 # install lsp and linter for ruby
 RUN gem install \
@@ -24,9 +31,11 @@ RUN gem install \
     rubocop
 
 # install neovim
-RUN curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz \
-    && rm -rf /opt/nvim \
-    && tar -C /opt -xzf nvim-linux64.tar.gz
+RUN git clone https://github.com/neovim/neovim \
+    && cd neovim \
+    && git checkout stable \
+    && make CMAKE_BUILD_TYPE=RelWithDebInfo \
+    && make install
 
 ENV PATH="$PATH:/opt/nvim-linux64/bin"
 
@@ -42,11 +51,6 @@ RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygi
 RUN curl -Lo "delta.deb" https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_${ARCH}.deb \
     && dpkg -i delta.deb \
     && rm delta.deb
-
-# install jump
-RUN curl -Lo "jump.deb" https://github.com/gsamokovarov/jump/releases/download/v0.51.0/jump_0.51.0_${ARCH}.deb \
-    && dpkg -i jump.deb \
-    && rm jump.deb
 
 # install nodejs
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
