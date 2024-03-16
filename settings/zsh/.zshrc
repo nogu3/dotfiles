@@ -6,7 +6,7 @@ if [[ -f "$ZPROFILE" ]]; then
 fi
 
 # setup jump
-eval "$(jump shell)"
+eval "$(jump shell)" &> /dev/null
 
 # aliases
 alias nv="nvim"
