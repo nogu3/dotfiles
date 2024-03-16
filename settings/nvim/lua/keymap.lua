@@ -1,6 +1,6 @@
 -- keymap
 -- autocomplete enter
-vim.keymap.set('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<C-g>u<CR>"', {expr = true})
+vim.keymap.set('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<CR>"', {expr = true})
 
 -- copy current to mark
 vim.keymap.set("n", "cm", "y'm<CR>")
