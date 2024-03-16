@@ -65,9 +65,13 @@ require("plugin_manager")
 require("keymap")
 
 -- set colorscheme
+-- colorscheme iceberg
+-- colorscheme tokyonight-moon
+-- colorscheme rose-pine
+-- colorscheme hybrid
 vim.cmd [[
 try
-  colorscheme iceberg
+  colorscheme tokyonight-moon
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme default
   set background=dark
@@ -81,7 +85,7 @@ vim.g.ale_lint_on_save = 1
 vim.g.ale_fix_on_save = 0
 vim.g.ale_fixers = {
   ['*'] = { "remove_trailing_lines", "trim_whitespace" },
-  ['ruby'] = {'rubocop'}
+  ['ruby'] = {'rubocop'},
 }
 
 opt.clipboard = "unnamedplus"
