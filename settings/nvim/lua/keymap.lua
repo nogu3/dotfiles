@@ -1,6 +1,10 @@
 -- keymap
 -- autocomplete enter
 vim.keymap.set('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<CR>"', {expr = true})
+local opts = {silent = true, noremap = true, expr = true, replace_keycodes = false}
+vim.keymap.set("i", "<Down>", 'coc#pum#visible() ? coc#pum#next(1) : "<Down>"', opts)
+vim.keymap.set("i", "<Up>", 'coc#pum#visible() ? coc#pum#prev(1) : "<Up>"', opts)
+vim.keymap.set("i", "<c-space>", "coc#refresh()", {silent = true, expr = true})
 
 -- copy current to mark
 vim.keymap.set("n", "cm", "y'm<CR>")
