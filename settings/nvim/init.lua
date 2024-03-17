@@ -62,6 +62,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- whitespace
+-- https://github.com/rose-pine/neovim/blob/c52167563e6aa44b5fa6fe007faa2bcac71050f0/lua/rose-pine/palette.lua#L11
 vim.g.better_whitespace_guicolor='#eb6f92'
 
 -- ale
