@@ -15,7 +15,7 @@ opt.swapfile = false
 opt.autoread = true
 -- open file when File being edited exist
 opt.hidden = true
--- show command on Status line when Command being entered 
+-- show command on Status line when Command being entered
 opt.showcmd = true
 -- tab to space
 opt.expandtab = true
@@ -61,22 +61,8 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
-require("plugin_manager")
-require("keymap")
-
--- set colorscheme
--- colorscheme iceberg
--- colorscheme tokyonight-moon
--- colorscheme rose-pine
--- colorscheme hybrid
-vim.cmd [[
-try
-  colorscheme rose-pine
-catch /^Vim\%((\a\+)\)\=:E185/
-  colorscheme default
-  set background=dark
-endtry
-]]
+-- whitespace
+vim.g.better_whitespace_guicolor='#eb6f92'
 
 -- ale
 vim.g.ale_disable_lsp = 1
@@ -90,7 +76,7 @@ vim.g.ale_fixers = {
 
 opt.clipboard = "unnamedplus"
 
--- windows wsl only settings 
+-- windows wsl only settings
 -- but if you write if vim.fn.has("win64") == 1 then , system cant use clipboard.
 -- if vim.fn.has('wsl') == 1 then
 --   vim.g.clipboard = {
@@ -106,3 +92,17 @@ opt.clipboard = "unnamedplus"
 --   cache_enable = 0,
 --   }
 -- end
+
+require("plugin_manager")
+require("keymap")
+
+-- set colorscheme
+vim.cmd [[
+try
+  colorscheme rose-pine
+catch /^Vim\%((\a\+)\)\=:E185/
+  colorscheme default
+  set background=dark
+endtry
+]]
+
