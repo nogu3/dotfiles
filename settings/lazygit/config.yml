@@ -12,5 +12,5 @@ gui:
 refresher:
   refreshInterval: 3
 os:
-  editCommand: "nvim"
+  open: 'nvim --server /tmp/nvim-server.pipe --remote-tab "$(pwd)/{{filename}}"'
 

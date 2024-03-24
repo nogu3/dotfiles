@@ -9,6 +9,7 @@ fi
 eval "$(jump shell)" &> /dev/null
 
 # aliases
+alias nvim="nvim --listen /tmp/nvim-server.pipe ."
 alias nv="nvim"
 alias sandbox="cd /workspaces/sandbox"
 alias src="cd /workspaces/src"
