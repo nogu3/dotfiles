@@ -9,10 +9,25 @@ fi
 eval "$(jump shell)" &> /dev/null
 
 # aliases
-alias nvim="nvim --listen /tmp/nvim-server.pipe ."
-alias nv="nvim"
 alias sandbox="cd /workspaces/sandbox"
 alias src="cd /workspaces/src"
+alias nvim="nvim --listen /tmp/nvim-server.pipe ."
+alias nv="nvim"
+# docker
+du() {
+  docker compose up -d $@
+}
+dd() {
+  docker compose down $@
+}
+de() {
+  docker compose exec $@ bash
+}
+dez() {
+  docker compose exec $@ zsh
+}
+alias dl="docker compose logs -f"
+alias dp="docker ps -a"
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
