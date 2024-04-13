@@ -17,6 +17,8 @@ opt.autoread = true
 opt.hidden = true
 -- show command on Status line when Command being entered
 opt.showcmd = true
+-- show mode is off. Because unnessary.
+opt.showmode = false
 -- tab to space
 opt.expandtab = true
 
