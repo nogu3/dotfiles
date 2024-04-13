@@ -44,8 +44,21 @@ eval "$(jump shell zsh)"
 # aliases
 alias ls='exa -a --icons'
 alias ll='exa -la --sort=type --icons --header --time-style=long-iso'
-alias nvim="nvim --listen /tmp/nvim-server.pipe ."
-alias nv="nvim"
+
+# nvim
+# main
+alias nv="nvd"
+# nvim on host
+alias nvh="nvim --listen /tmp/nvim-server.pipe ."
+# nvim on docker
+nvd() {
+  docker run -it --rm \
+    -v codecraft_home:/home/sandbox \
+    -v .:/workspaces/src \
+    -w /workspaces/src \
+    codecraft \
+    nvim --listen /tmp/nvim-server.pipe .
+}
 
 # docker
 du() {

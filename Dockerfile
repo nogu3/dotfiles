@@ -62,11 +62,6 @@ RUN curl -Lo "jump.deb" https://github.com/gsamokovarov/jump/releases/download/v
     && dpkg -i jump.deb \
     && rm jump.deb
 
-# setup entrypoint
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-
 # create user
 # https://qiita.com/Spritaro/items/602118d946a4383bd2bb
 ARG USERNAME=sandbox
