@@ -18,6 +18,9 @@ keyset("n", "<leader>s", ":w<CR>")
 -- force quit
 keyset("n", "<leader>qq", ":q!<CR>")
 
+-- select all
+keyset("n", "<leader>a", "gg<S-v>G", silent)
+
 -- esc
 keyset('i', 'jj', '<Esc>')
 
