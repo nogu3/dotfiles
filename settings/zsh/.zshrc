@@ -75,3 +75,7 @@ dez() {
 }
 alias dl="docker compose logs -f"
 alias dp="docker ps -a"
+
+# git
+alias gp="git pull"
+alias gf="git fetch"
