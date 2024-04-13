@@ -86,3 +86,16 @@ RUN groupadd -g $GID $GROUPNAME && \
 USER $USERNAME
 WORKDIR /workspaces/$USERNAME
 
+# copy init.sh
+COPY --chown=${USERNAME}:${GROUPNAME} init.sh /workspaces/sandbox/init.sh
+RUN chmod +x /workspaces/sandbox/init.sh \
+    && ./init.sh
+
+# copy settings
+COPY --chown=${USERNAME}:${GROUPNAME} settings/ /workspaces/sandbox/settings/
+
+# install zinit
+# RUN zsh -c "echo 'install zinit'"
+
+# lazy.nvim sync
+# RUN nvim --headless "+Lazy! sync" +qa
