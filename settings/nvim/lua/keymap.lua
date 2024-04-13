@@ -1,5 +1,7 @@
 -- keymap
 local keyset = vim.keymap.set
+local silent = {silent = true, noremap = true}
+
 -- autocomplete enter
 keyset('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<CR>"', {expr = true})
 local opts = {silent = true, noremap = true, expr = true, replace_keycodes = false}
@@ -11,18 +13,22 @@ keyset("i", "<c-space>", "coc#refresh()", {silent = true, expr = true})
 keyset("n", "cm", "y'm<CR>")
 -- delete current to mark
 keyset("n", "dm", "d'm<CR>")
+-- save
+keyset("n", "<leader>s", ":w<CR>")
+-- force quit
+keyset("n", "<leader>qq", ":q!<CR>")
 
 -- esc
 keyset('i', 'jj', '<Esc>')
 
 -- control buffer
-keyset("n", "<leader>k", ":bnext<CR>")
-keyset("n", "<leader>j", ":bprev<CR>")
-keyset("n", "<leader>x", ":bw<CR>")
-keyset("n", "<leader>xx", ":bw!<CR>")
-keyset("n", "<leader>ax", ":%bd<CR>")
+keyset("n", "<leader>k", ":bnext<CR>", silent)
+keyset("n", "<leader>j", ":bprev<CR>", silent)
+keyset("n", "<leader>x", ":bw<CR>", silent)
+keyset("n", "<leader>xx", ":bw!<CR>", silent)
+keyset("n", "<leader>ax", ":%bd<CR>", silent)
 -- create empty file
-keyset("n", "<leader>n", ":tabnew<CR>")
+keyset("n", "<leader>n", ":tabnew<CR>", silent)
 
 -- copy clipboard relative file path
 keyset("n", "<leader>fp", ":let @+ = expand('%')<CR>")
@@ -33,6 +39,8 @@ local builtin = require('telescope.builtin')
 keyset('n', '<leader>p', builtin.find_files)
 -- grep file
 keyset('n', '<leader>ff', builtin.live_grep)
+-- find colorscheme
+keyset('n', '<leader>cs', builtin.colorscheme)
 
 -- telescope file browser
 require("telescope").load_extension "file_browser"

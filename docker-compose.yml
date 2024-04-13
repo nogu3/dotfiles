@@ -4,10 +4,13 @@ services:
     build: .
     init: true
     volumes:
-      - ../:/workspaces/sandbox
+      - .:/workspaces/sandbox
       - source_dir:/workspaces/src
       - ~/.gitconfig:/home/sandbox/.gitconfig
       - home_dir:/home/sandbox
+      - /tmp/tmux-1000:/tmp/tmux-1000
+    environment:
+      - TMUX=$TMUX
     command: ["sleep", "infinity"]
 
 volumes:

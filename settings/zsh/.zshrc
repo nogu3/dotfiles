@@ -5,14 +5,6 @@ if [[ -f "$ZPROFILE" ]]; then
   source "$ZPROFILE"
 fi
 
-# setup jump
-eval "$(jump shell)" &> /dev/null
-
-# aliases
-alias nv="nvim"
-alias sandbox="cd /workspaces/sandbox"
-alias src="cd /workspaces/src"
-
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
     print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
@@ -45,3 +37,41 @@ zinit light sindresorhus/pure
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma/fast-syntax-highlighting
+
+# setup jump
+eval "$(jump shell zsh)"
+
+# aliases
+alias ls='exa -a --icons'
+alias ll='exa -la --sort=type --icons --header --time-style=long-iso'
+
+# nvim
+# main
+alias nv="nvd"
+# nvim on host
+alias nvh="nvim --listen /tmp/nvim-server.pipe ."
+# nvim on docker
+nvd() {
+  docker run -it --rm \
+    -v codecraft_home:/home/sandbox \
+    -v .:/workspaces/src \
+    -w /workspaces/src \
+    codecraft \
+    nvim --listen /tmp/nvim-server.pipe .
+}
+
+# docker
+du() {
+  docker compose up -d $@
+}
+dd() {
+  docker compose down $@
+}
+de() {
+  docker compose exec $@ bash
+}
+dez() {
+  docker compose exec $@ zsh
+}
+alias dl="docker compose logs -f"
+alias dp="docker ps -a"

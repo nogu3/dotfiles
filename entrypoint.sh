@@ -6,5 +6,5 @@ set -e
 
 sh init.sh
 
-# run CMD  
+# run CMD
 exec "$@"

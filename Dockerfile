@@ -12,6 +12,7 @@ RUN apt update \
     tmux \
     curl \
     git \
+    exa \
     ruby \
     # require install solargraph
     ruby-dev \
@@ -56,10 +57,10 @@ RUN curl -Lo "delta.deb" https://github.com/dandavison/delta/releases/download/0
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt install -y nodejs
 
-# setup entrypoint 
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+# install jump
+RUN curl -Lo "jump.deb" https://github.com/gsamokovarov/jump/releases/download/v0.51.0/jump_0.51.0_${ARCH}.deb \
+    && dpkg -i jump.deb \
+    && rm jump.deb
 
 # create user
 # https://qiita.com/Spritaro/items/602118d946a4383bd2bb
@@ -79,4 +80,12 @@ RUN groupadd -g $GID $GROUPNAME && \
 
 USER $USERNAME
 WORKDIR /workspaces/$USERNAME
+
+# copy init.sh
+COPY --chown=${USERNAME}:${GROUPNAME} init.sh /workspaces/sandbox/init.sh
+RUN chmod +x /workspaces/sandbox/init.sh \
+    && ./init.sh
+
+# copy settings
+COPY --chown=${USERNAME}:${GROUPNAME} settings/ /workspaces/sandbox/settings/
 
