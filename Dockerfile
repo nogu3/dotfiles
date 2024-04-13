@@ -94,8 +94,3 @@ RUN chmod +x /workspaces/sandbox/init.sh \
 # copy settings
 COPY --chown=${USERNAME}:${GROUPNAME} settings/ /workspaces/sandbox/settings/
 
-# install zinit
-# RUN zsh -c "echo 'install zinit'"
-
-# lazy.nvim sync
-# RUN nvim --headless "+Lazy! sync" +qa
