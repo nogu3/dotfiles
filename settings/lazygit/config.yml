@@ -2,6 +2,7 @@ git:
   paging:
     colorArg: always
     pager: delta --paging=never --side-by-side
+  # disableForcePushing: true
 gui:
   sidePanelWidth: 0.15
   theme:
@@ -12,5 +13,5 @@ gui:
 refresher:
   refreshInterval: 3
 os:
-  open: 'nvim --server /tmp/nvim-server.pipe --remote-tab "$(pwd)/{{filename}}"'
+  open: 'nvim --server /tmp/nvim-server.pipe --remote-tab "{{filename}}"'
 
