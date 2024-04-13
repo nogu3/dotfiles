@@ -2,7 +2,7 @@ git:
   paging:
     colorArg: always
     pager: delta --paging=never --side-by-side
-  # disableForcePushing: true
+  disableForcePushing: true
 gui:
   sidePanelWidth: 0.15
   theme:
