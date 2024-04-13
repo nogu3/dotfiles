@@ -1,6 +1,7 @@
 -- keymap
 local keyset = vim.keymap.set
 local silent = {silent = true, noremap = true}
+
 -- autocomplete enter
 keyset('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<CR>"', {expr = true})
 local opts = {silent = true, noremap = true, expr = true, replace_keycodes = false}
@@ -12,6 +13,10 @@ keyset("i", "<c-space>", "coc#refresh()", {silent = true, expr = true})
 keyset("n", "cm", "y'm<CR>")
 -- delete current to mark
 keyset("n", "dm", "d'm<CR>")
+-- save
+keyset("n", "<leader>s", ":w<CR>")
+-- force quit
+keyset("n", "<leader>qq", ":q!<CR>")
 
 -- esc
 keyset('i', 'jj', '<Esc>')
