@@ -49,15 +49,22 @@ alias ll='exa -la --sort=type --icons --header --time-style=long-iso'
 # main
 alias nv="nvd"
 # nvim on host
-alias nvh="nvim --listen /tmp/nvim-server.pipe ."
+nvh() {
+  nvim --listen /tmp/nvim-server.pipe $@
+}
+
 # nvim on docker
 nvd() {
   docker run -it --rm \
     -v codecraft_home:/home/sandbox \
     -v .:/workspaces/src \
+    -v /tmp/tmux-1000:/tmp/tmux-1000 \
     -w /workspaces/src \
+    -e TMUX=$TMUX \
+    -e HOST_UID=$(id -u $USER) \
+    -e HOST_GID=$(id -g $USER) \
     codecraft \
-    nvim --listen /tmp/nvim-server.pipe .
+    nvim --listen /tmp/nvim-server.pipe $@
 }
 
 # docker

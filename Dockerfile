@@ -24,7 +24,9 @@ RUN apt update \
     cmake \
     unzip \
     curl \
-    build-essential
+    build-essential \
+    # require entrypoint.sh
+    gosu
 
 # install lsp and linter for ruby
 RUN gem install \
@@ -62,6 +64,11 @@ RUN curl -Lo "jump.deb" https://github.com/gsamokovarov/jump/releases/download/v
     && dpkg -i jump.deb \
     && rm jump.deb
 
+# setup entrypoint
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
 # create user
 # https://qiita.com/Spritaro/items/602118d946a4383bd2bb
 ARG USERNAME=sandbox
@@ -78,14 +85,11 @@ RUN mkdir -p /workspaces/$USERNAME \
 RUN groupadd -g $GID $GROUPNAME && \
     useradd -m -s /usr/bin/zsh -u $UID -g $GID $USERNAME
 
-USER $USERNAME
-WORKDIR /workspaces/$USERNAME
+# USER $USERNAME
+# WORKDIR /workspaces/$USERNAME
 
 # copy init.sh
-COPY --chown=${USERNAME}:${GROUPNAME} init.sh /workspaces/sandbox/init.sh
-RUN chmod +x /workspaces/sandbox/init.sh \
-    && ./init.sh
-
+COPY --chown=${USERNAME}:${GROUPNAME} init.sh /tmp/codecraft/init.sh
 # copy settings
-COPY --chown=${USERNAME}:${GROUPNAME} settings/ /workspaces/sandbox/settings/
+COPY --chown=${USERNAME}:${GROUPNAME} settings/ /tmp/codecraft/settings/
 
