@@ -85,9 +85,6 @@ RUN mkdir -p /workspaces/$USERNAME \
 RUN groupadd -g $GID $GROUPNAME && \
     useradd -m -s /usr/bin/zsh -u $UID -g $GID $USERNAME
 
-# USER $USERNAME
-# WORKDIR /workspaces/$USERNAME
-
 # copy init.sh
 COPY --chown=${USERNAME}:${GROUPNAME} init.sh /tmp/codecraft/init.sh
 # copy settings
