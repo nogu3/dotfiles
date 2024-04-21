@@ -3,6 +3,7 @@ services:
   sandbox:
     build: .
     init: true
+    working_dir: /workspaces/sandbox
     volumes:
       - .:/workspaces/sandbox
       - source_dir:/workspaces/src
