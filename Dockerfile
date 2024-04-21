@@ -59,11 +59,6 @@ RUN curl -Lo "delta.deb" https://github.com/dandavison/delta/releases/download/0
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt install -y nodejs
 
-# install jump
-RUN curl -Lo "jump.deb" https://github.com/gsamokovarov/jump/releases/download/v0.51.0/jump_0.51.0_${ARCH}.deb \
-    && dpkg -i jump.deb \
-    && rm jump.deb
-
 # setup entrypoint
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
@@ -90,3 +85,5 @@ COPY --chown=${USERNAME}:${GROUPNAME} init.sh /tmp/codecraft/init.sh
 # copy settings
 COPY --chown=${USERNAME}:${GROUPNAME} settings/ /tmp/codecraft/settings/
 
+# install zoxide
+RUN curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | gosu ${USERNAME} bash

@@ -38,8 +38,11 @@ zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma/fast-syntax-highlighting
 
-# setup jump
-eval "$(jump shell zsh)"
+# add zoxide bin path
+export PATH=$PATH:~/.local/bin
+
+# setup zoxide
+eval "$(zoxide init zsh)"
 
 # aliases
 alias ls='exa -a --icons'
