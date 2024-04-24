@@ -34,7 +34,7 @@ keyset("n", "<leader>ax", ":%bd<CR>", silent)
 keyset("n", "<leader>n", ":tabnew<CR>", silent)
 
 -- copy clipboard relative file path
-keyset("n", "<leader>fp", ":let @+ = expand('%')<CR>")
+keyset("n", "<leader>fp", ":let @+ = expand('%')<CR>", silent)
 
 -- telescope
 local builtin = require('telescope.builtin')
