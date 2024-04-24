@@ -88,3 +88,12 @@ require('nvim-treesitter.configs').setup {
     },
 }
 
+-- rose-pine
+require("rose-pine").setup({
+  variant = "moon",
+  styles = {
+    bold = true,
+    italic = true,
+    transparency = true,
+  },
+})
