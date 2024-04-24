@@ -8,6 +8,7 @@ return {
        "coc-solargraph",
        "coc-docker",
        "coc-lua",
+       "coc-markdownlint",
     }
   end
 }
