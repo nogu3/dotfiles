@@ -12,7 +12,7 @@ services:
       - /tmp/tmux-1000:/tmp/tmux-1000
     environment:
       - TMUX=$TMUX
-    command: ["sleep", "infinity"]
+    command: [ "sh" , "-c", "/workspaces/sandbox/init.sh && sleep infinity"]
 
 volumes:
   home_dir:
