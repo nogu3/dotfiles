@@ -16,5 +16,10 @@ rm -f ~/.config/nvim
 ln -s "$SCRIPT_DIR/settings/nvim" ~/.config/nvim
 
 # zsh
+# common
 rm -f ~/.zshrc
 ln -s "$SCRIPT_DIR/settings/zsh/.zshrc" ~/.zshrc
+
+# specific
+rm -f ~/.zshrc_local
+ln -s "$SCRIPT_DIR/settings/zsh/.zshrc_local" ~/.zshrc_local

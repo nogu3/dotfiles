@@ -6,7 +6,7 @@ if [[ -f "$ZPROFILE" ]]; then
 fi
 
 # import local setting
-source "./zshrc_local"
+source "${HOME}/.zshrc_local"
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
@@ -44,7 +44,7 @@ zinit light zdharma/fast-syntax-highlighting
 # add zoxide bin path
 export PATH=$PATH:~/.local/bin
 
-# theme dracura
+# theme dracura for exa
 # https://draculatheme.com/exa
 export EXA_COLORS="uu=36:gu=37:sn=32:sb=32:da=34:ur=34:uw=35:ux=36:ue=36:gr=34:gw=35:gx=36:tr=34:tw=35:tx=36:"
 
@@ -57,7 +57,7 @@ alias ll='exa -la --sort=type --icons --header --time-style=long-iso'
 
 # nvim
 # main
-alias nv="nvd"
+alias nv="nvh"
 # nvim on host
 nvh() {
   nvim --listen /tmp/nvim-server.pipe $@
