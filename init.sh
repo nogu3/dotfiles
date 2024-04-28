@@ -1,5 +1,5 @@
-#!/bin/bash
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+#!/bin/zsh
+SCRIPT_DIR="${0:a:h}"
 
 # tmux
 rm -f ~/.tmux.conf
