@@ -48,12 +48,15 @@ export PATH=$PATH:~/.local/bin
 # https://draculatheme.com/exa
 export EXA_COLORS="uu=36:gu=37:sn=32:sb=32:da=34:ur=34:uw=35:ux=36:ue=36:gr=34:gw=35:gx=36:tr=34:tw=35:tx=36:"
 
+# theme iceberg-dark
+export LS_COLORS="$(vivid generate iceberg-dark)"
+
 # setup zoxide
 eval "$(zoxide init zsh)"
 
 # aliases
-alias ls='exa -a --icons'
-alias ll='exa -la --sort=type --icons --header --time-style=long-iso'
+alias ls='eza -a --icons --git'
+alias ll='eza -la --sort=type --icons --git --header --time-style=long-iso'
 
 # nvim
 # main
