@@ -12,7 +12,6 @@ RUN apt update \
     tmux \
     curl \
     git \
-    exa \
     ruby \
     # require install solargraph
     ruby-dev \
@@ -26,7 +25,17 @@ RUN apt update \
     curl \
     build-essential \
     # require entrypoint.sh
-    gosu
+    gosu \
+    # require eza
+    wget \
+    gpg
+
+RUN mkdir -p /etc/apt/keyrings \
+    && wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc |  gpg --dearmor -o /etc/apt/keyrings/gierens.gpg \
+    && echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" |  tee /etc/apt/sources.list.d/gierens.list \
+    && chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list \
+    && apt update \
+    && apt install -y eza
 
 # install lsp and linter for ruby
 RUN gem install \
@@ -54,6 +63,11 @@ RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygi
 RUN curl -Lo "delta.deb" https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_${ARCH}.deb \
     && dpkg -i delta.deb \
     && rm delta.deb
+
+# install vivid
+RUN curl -Lo "vivid.deb" https://github.com/sharkdp/vivid/releases/download/v0.9.0/vivid_0.9.0_${ARCH}.deb \
+    && dpkg -i vivid.deb \
+    && rm vivid.deb
 
 # install nodejs
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
