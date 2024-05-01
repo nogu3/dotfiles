@@ -1,0 +1,49 @@
+FROM alpine:3.19.1
+
+RUN apk update \
+    && apk add --no-cache \
+    neovim \
+    zsh \
+    eza \
+    ripgrep \
+    fd \
+    delta \
+    curl \
+    su-exec \
+    shadow \
+    zoxide \
+    git \
+    lazygit \
+    nodejs \
+    npm \
+    ruby \
+    ruby-dev \
+    g++ \
+    make
+
+RUN gem install solargraph
+
+# setup entrypoint
+COPY entrypoint.alpine.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+# create user
+# https://qiita.com/Spritaro/items/602118d946a4383bd2bb
+ARG USERNAME=sandbox
+ARG GROUPNAME=sandbox-group
+
+RUN addgroup $GROUPNAME && \
+    adduser -s $(which zsh) -D -G $GROUPNAME $USERNAME
+
+# create workdir
+RUN mkdir -p /workspaces/$USERNAME \
+    && chown ${USERNAME}:${GROUPNAME} /workspaces/${USERNAME} \
+    && mkdir -p /workspaces/src \
+    && chown ${USERNAME}:${GROUPNAME} /workspaces/src
+
+# copy init.sh
+COPY --chown=${USERNAME}:${GROUPNAME} init.sh /tmp/codecraft/init.sh
+# copy settings
+COPY --chown=${USERNAME}:${GROUPNAME} settings/ /tmp/codecraft/settings/
+

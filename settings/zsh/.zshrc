@@ -72,11 +72,12 @@ nvd() {
     -v codecraft_home:/home/sandbox \
     -v .:/workspaces/src \
     -v /tmp/tmux-1000:/tmp/tmux-1000 \
+    -v ~/.gitconfig:/home/sandbox/.gitconfig:ro \
     -w /workspaces/src \
     -e TMUX=$TMUX \
     -e HOST_UID=$(id -u $USER) \
     -e HOST_GID=$(id -g $USER) \
-    codecraft \
+    codecraft:alpine \
     nvim --listen /tmp/nvim-server.pipe $@
 }
 
@@ -84,12 +85,15 @@ nvd() {
 du() {
   docker compose up -d $@
 }
+
 dd() {
   docker compose down $@
 }
+
 de() {
   docker compose exec $@ bash
 }
+
 dez() {
   docker compose exec $@ zsh
 }
