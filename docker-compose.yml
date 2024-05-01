@@ -1,19 +1,19 @@
 version: '3.9'
 services:
   sandbox:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.alpine
     init: true
-    working_dir: /workspaces/sandbox
+    working_dir: /workspaces/src
     volumes:
-      - .:/workspaces/sandbox
-      - source_dir:/workspaces/src
+      - .:/workspaces/src
       - ~/.gitconfig:/home/sandbox/.gitconfig
       - home_dir:/home/sandbox
       - /tmp/tmux-1000:/tmp/tmux-1000
     environment:
       - TMUX=$TMUX
-    command: [ "sh" , "-c", "/workspaces/sandbox/init.sh && sleep infinity"]
+    command: [ "sh" , "-c", "/workspaces/src/init.sh && sleep infinity"]
 
 volumes:
   home_dir:
-  source_dir:
