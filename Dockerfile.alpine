@@ -11,6 +11,7 @@ RUN apk update \
     delta \
     curl \
     zoxide \
+    tmux \
     # git
     git \
     lazygit \
