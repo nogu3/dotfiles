@@ -21,7 +21,7 @@ map("n", "<leader>cm", "y'm<cr><esc>", silent("Copy as mark"))
 map("n", "<leader>dm", "d'm<cr><esc>", silent("Delete as mark"))
 
 -- save
-map({ "i", "x", "n", "s" }, "<leader>cs", "<cmd>w<cr><esc>", silent("Save File"))
+map({ "x", "n", "s" }, "<leader>cs", "<cmd>w<cr><esc>", silent("Save File"))
 
 -- select all
 map("n", "<leader>a", "gg<S-v>G", silent("Select All"))
