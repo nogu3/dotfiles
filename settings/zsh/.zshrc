@@ -55,8 +55,8 @@ export LS_COLORS="$(vivid generate iceberg-dark)"
 eval "$(zoxide init zsh)"
 
 # aliases
-alias ls='eza -a --icons --git'
-alias ll='eza -la --sort=type --icons --git --header --time-style=long-iso'
+alias ls='eza -a --icons'
+alias ll='eza -la --sort=type --icons --header --time-style=long-iso'
 
 # nvim
 # main
