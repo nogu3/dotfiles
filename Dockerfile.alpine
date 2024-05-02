@@ -28,8 +28,6 @@ RUN apk update \
     g++ \
     make
 
-RUN gem install solargraph
-
 RUN cargo install --root /usr/local \
     vivid \
     eza
