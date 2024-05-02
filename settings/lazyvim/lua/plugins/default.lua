@@ -69,6 +69,9 @@ return {
         "typescript",
         "vim",
         "yaml",
+        "make",
+        "ruby",
+        "sql",
       },
     },
   },
@@ -87,6 +90,7 @@ return {
 
         -- ruby
         "solargraph",
+        "rubocop",
       },
     },
   },
