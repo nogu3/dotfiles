@@ -13,7 +13,8 @@ ln -s "$SCRIPT_DIR/settings/lazygit/config.yml" ~/.config/lazygit/config.yml
 # neovim
 mkdir -p ~/.config
 rm -f ~/.config/nvim
-ln -s "$SCRIPT_DIR/settings/nvim" ~/.config/nvim
+# ln -s "$SCRIPT_DIR/settings/nvim" ~/.config/nvim
+ln -s "$SCRIPT_DIR/settings/lazyvim" ~/.config/nvim
 
 # zsh
 # common
