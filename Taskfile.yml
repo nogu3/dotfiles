@@ -8,7 +8,8 @@ vars:
 tasks:
   default:
     cmds:
-      - "echo 'Hello nogu3/dotfiles'"
+      - 'echo "Hello nogu3/dotfiles"'
+      - 'echo "Currency dir is $(pwd)"'
     silent: true
   build:
     cmds:
@@ -20,8 +21,9 @@ tasks:
     silent: true
   reset/nvim:
     cmds:
-      - rm -rf ~/.config/nvim
-      - rm -rf ~/.local/share/nvim
-      - rm -rf ~/.local/state/nvim
-      - rm -rf ~/.cache/nvim
+      - "rm -rf ~/.config/nvim"
+      - "rm -rf ~/.local/share/nvim"
+      - "rm -rf ~/.local/state/nvim"
+      - "rm -rf ~/.cache/nvim"
+      - "$(pwd)/init.sh"
     silent: true
