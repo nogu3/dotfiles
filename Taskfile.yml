@@ -1,0 +1,27 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  DOCKER_BUILD_COMMAND: "docker build -f Dockerfile.alpine . -t codecraft:alpine"
+
+tasks:
+  default:
+    cmds:
+      - "echo 'Hello nogu3/dotfiles'"
+    silent: true
+  build:
+    cmds:
+      - "{{DOCKER_BUILD_COMMAND}}"
+    silent: true
+  build/nocache:
+    cmds:
+      - "{{DOCKER_BUILD_COMMAND}} --no-cache"
+    silent: true
+  reset/nvim:
+    cmds:
+      - rm -rf ~/.config/nvim
+      - rm -rf ~/.local/share/nvim
+      - rm -rf ~/.local/state/nvim
+      - rm -rf ~/.cache/nvim
+    silent: true
