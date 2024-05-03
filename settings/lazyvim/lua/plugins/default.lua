@@ -15,12 +15,6 @@ return {
     end,
   },
 
-  -- mason
-  {
-    "williamboman/mason.nvim",
-    keys = { { "<leader>cM", "<cmd>Mason<cr>", desc = "Mason" } },
-  },
-
   -- telescope
   {
     "nvim-telescope/telescope.nvim",
@@ -72,6 +66,7 @@ return {
         "make",
         "ruby",
         "sql",
+        "dockerfile",
       },
     },
   },
@@ -79,6 +74,7 @@ return {
   -- mason
   {
     "williamboman/mason.nvim",
+    keys = { { "<leader>cM", "<cmd>Mason<cr>", desc = "Mason" } },
     opts = {
       ensure_installed = {
         -- lua
@@ -91,6 +87,16 @@ return {
         -- ruby
         "solargraph",
         "rubocop",
+
+        -- markdown
+        "markdownlint",
+        "marksman",
+
+        -- yaml
+        "yamllint",
+
+        -- dockerfile
+        "hadolint",
       },
     },
   },
