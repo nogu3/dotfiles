@@ -8,7 +8,8 @@ services:
     working_dir: /workspaces/src
     volumes:
       - .:/workspaces/src
-      - ~/.gitconfig:/home/sandbox/.gitconfig
+      - ~/.gitconfig:/home/sandbox/.gitconfig:ro
+      - ~/.config/gh:/home/sandbox/.config/gh:ro
       - home_dir:/home/sandbox
       - /tmp/tmux-1000:/tmp/tmux-1000
     environment:

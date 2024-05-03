@@ -17,6 +17,7 @@ RUN apk update \
     # git
     git \
     lazygit \
+    github-cli \
     # use docker
     su-exec \
     shadow \
