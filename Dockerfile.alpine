@@ -12,6 +12,8 @@ RUN apk update \
     curl \
     zoxide \
     tmux \
+    unzip \
+    wget \
     # git
     git \
     lazygit \
