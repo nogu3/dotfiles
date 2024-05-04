@@ -12,10 +12,6 @@ local function silent(desc)
   }
 end
 
--- delete default keymap from LazyVim
--- delete flash
-vim.keymap.del("n", "s")
-
 -- mark
 map("n", "<leader>cm", "y'm<cr><esc>", silent("Copy as mark"))
 map("n", "<leader>dm", "d'm<cr><esc>", silent("Delete as mark"))

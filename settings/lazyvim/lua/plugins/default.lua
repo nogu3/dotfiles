@@ -71,10 +71,23 @@ return {
     },
   },
 
+  -- flash
+  {
+    "folke/flash.nvim",
+    keys = {
+      -- disable the default flash keymap
+      { "s", mode = { "n", "x", "o" }, false },
+    },
+  },
+
   -- mason
   {
     "williamboman/mason.nvim",
-    keys = { { "<leader>cM", "<cmd>Mason<cr>", desc = "Mason" } },
+    keys = {
+      -- delete default shortcut
+      { "<leader>cm", false },
+      { "<leader>cM", "<cmd>Mason<cr>", desc = "Mason" },
+    },
     opts = {
       ensure_installed = {
         -- lua
