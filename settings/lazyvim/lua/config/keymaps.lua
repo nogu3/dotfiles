@@ -13,8 +13,8 @@ local function silent(desc)
 end
 
 -- mark
-map("n", "<leader>cm", "y'm<cr><esc>", silent("Copy as mark"))
-map("n", "<leader>dm", "d'm<cr><esc>", silent("Delete as mark"))
+map("n", "cm", "y'm<cr><esc>", silent("Copy as mark"))
+map("n", "dm", "d'm<cr><esc>", silent("Delete as mark"))
 
 -- save
 map({ "x", "n", "s" }, "<leader>cs", "<cmd>w<cr><esc>", silent("Save File"))
