@@ -11,6 +11,16 @@ tasks:
       - 'echo "Hello nogu3/dotfiles"'
       - 'echo "Currency dir is $(pwd)"'
     silent: true
+  exec:
+    aliases: [e]
+    cmds:
+      - "docker compose exec -u sandbox sandbox zsh"
+    silent: true
+  exec/root:
+    aliases: [er]
+    cmds:
+      - "docker compose exec -u root sandbox zsh"
+    silent: true
   build:
     cmds:
       - "{{DOCKER_BUILD_COMMAND}}"
