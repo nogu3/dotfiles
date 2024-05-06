@@ -40,6 +40,21 @@ return {
           -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
           find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
         },
+        live_grep = {
+          vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            -- 隠しファイルを含める
+            "--hidden",
+            -- .git ディレクトリを除外する
+            "--glob=!.git/*",
+          },
+        },
       },
     },
   },
@@ -48,14 +63,14 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
+      highlight = { enable = true },
+      indent = { enable = true },
       ensure_installed = {
         "bash",
         "html",
         "javascript",
         "json",
         "lua",
-        "markdown",
-        "markdown_inline",
         "python",
         "query",
         "regex",
@@ -100,10 +115,6 @@ return {
         -- ruby
         "solargraph",
         "rubocop",
-
-        -- markdown
-        "markdownlint",
-        "marksman",
 
         -- yaml
         "yamllint",
