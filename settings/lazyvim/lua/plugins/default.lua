@@ -49,9 +49,9 @@ return {
             "--line-number",
             "--column",
             "--smart-case",
-            -- 隠しファイルを含める
+            -- contain hidden file
             "--hidden",
-            -- .git ディレクトリを除外する
+            -- ignore .git dir
             "--glob=!.git/*",
           },
         },
@@ -62,28 +62,24 @@ return {
   -- treesitter
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = {
-      highlight = { enable = true },
-      indent = { enable = true },
-      ensure_installed = {
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, {
         "bash",
+        "make",
+        "python",
+        "lua",
+        "sql",
         "html",
         "javascript",
-        "json",
-        "lua",
-        "python",
         "query",
         "regex",
         "tsx",
         "typescript",
         "vim",
-        "yaml",
-        "make",
-        "ruby",
-        "sql",
-        "dockerfile",
-      },
-    },
+      })
+      opts.highlight = { enable = true }
+      opts.indent = { enable = true }
+    end,
   },
 
   -- flash
@@ -128,6 +124,13 @@ return {
   -- then: setup supertab in cmp
   {
     "hrsh7th/nvim-cmp",
+    version = false, -- last release is way too old
+    event = "InsertEnter",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+    },
 
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
