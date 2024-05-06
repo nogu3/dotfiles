@@ -71,13 +71,14 @@ nvd() {
   docker run -it --rm \
     -v codecraft_home:/home/sandbox \
     -v .:/workspaces/src \
+    # TODO auto set volume on tmux
     -v /tmp/tmux-1000:/tmp/tmux-1000 \
     -v ~/.gitconfig:/home/sandbox/.gitconfig:ro \
     -w /workspaces/src \
     -e TMUX=$TMUX \
     -e HOST_UID=$(id -u $USER) \
     -e HOST_GID=$(id -g $USER) \
-    codecraft:alpine \
+    codecraft \
     nvim --listen /tmp/nvim-server.pipe $@
 }
 

@@ -39,14 +39,6 @@ RUN cargo install --root /usr/local \
     vivid \
     eza
 
-# install go-task
-RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
-
-# setup entrypoint
-# COPY entrypoint.alpine.sh /usr/local/bin/entrypoint.sh
-# RUN chmod +x /usr/local/bin/entrypoint.sh
-# ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-
 ARG USERNAME=sandbox
 ARG GROUPNAME=sandbox-group
 

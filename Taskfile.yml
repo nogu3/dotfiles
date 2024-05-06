@@ -3,7 +3,7 @@
 version: '3'
 
 vars:
-  DOCKER_BUILD_COMMAND: "docker build -f Dockerfile.alpine -t codecraft:alpine --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) ."
+  DOCKER_BUILD_COMMAND: "docker build -t codecraft --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) ."
 
 tasks:
   default:
