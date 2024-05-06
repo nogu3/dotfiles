@@ -68,10 +68,11 @@ nvh() {
 
 # nvim on docker
 nvd() {
+  TMUX_SESSION_PATH=`tmux display-message -p "#{socket_path}"`
   docker run -it --rm \
     -v codecraft_home:/home/sandbox \
     -v .:/workspaces/src \
-    -v /tmp/tmux-1000:/tmp/tmux-1000 \
+    -v $TMUX_SESSION_PATH:$TMUX_SESSION_PATH \
     -v ~/.gitconfig:/home/sandbox/.gitconfig:ro \
     -v ~/.config/gh:/home/sandbox/.config/gh:ro \
     -w /workspaces/src \
