@@ -50,7 +50,7 @@ RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/loc
 ARG USERNAME=sandbox
 ARG GROUPNAME=sandbox-group
 
-RUN addgroup -g ${GROUP_ID} $GROUPNAME && \
+RUN groupadd -o -g ${GROUP_ID} $GROUPNAME && \
     adduser -u ${USER_ID} -s $(which zsh) -D -G $GROUPNAME $USERNAME
 
 # create workdir
