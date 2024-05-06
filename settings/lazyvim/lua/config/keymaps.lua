@@ -22,9 +22,6 @@ map({ "x", "n", "s" }, "<leader>cs", "<cmd>w<cr><esc>", silent("Save File"))
 -- select all
 map("n", "<leader>a", "gg<S-v>G", silent("Select All"))
 
--- esc
-map("i", "jj", "<Esc>", silent("Quit insert mode"))
-
 -- control buffer
 map("n", "<leader>k", ":bnext<CR>", silent("Next Buffer"))
 map("n", "<leader>j", ":bprev<CR>", silent("Previous Buffer"))
