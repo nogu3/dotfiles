@@ -4,6 +4,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.alpine
+      args:
+        USER_ID: ${HOST_USER_ID}
+        GROUP_ID: ${HOST_GROUP_ID}
     init: true
     working_dir: /workspaces/src
     volumes:
