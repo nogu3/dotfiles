@@ -1,5 +1,8 @@
 FROM alpine:3.19.1
 
+ARG USER_ID
+ARG GROUP_ID
+
 RUN apk update \
     && apk add --no-cache \
     # editor
@@ -24,6 +27,7 @@ RUN apk update \
     nodejs \
     npm \
     # programming
+    python3 \
     rust \
     cargo \
     ruby \
@@ -39,15 +43,15 @@ RUN cargo install --root /usr/local \
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
 
 # setup entrypoint
-COPY entrypoint.alpine.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+# COPY entrypoint.alpine.sh /usr/local/bin/entrypoint.sh
+# RUN chmod +x /usr/local/bin/entrypoint.sh
+# ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 ARG USERNAME=sandbox
 ARG GROUPNAME=sandbox-group
 
-RUN addgroup $GROUPNAME && \
-    adduser -s $(which zsh) -D -G $GROUPNAME $USERNAME
+RUN addgroup -g ${GROUP_ID} $GROUPNAME && \
+    adduser -u ${USER_ID} -s $(which zsh) -D -G $GROUPNAME $USERNAME
 
 # create workdir
 RUN install -m 770 -o ${USERNAME} -g ${GROUPNAME} -d /workspaces/src
@@ -56,4 +60,9 @@ RUN install -m 770 -o ${USERNAME} -g ${GROUPNAME} -d /workspaces/src
 COPY --chown=${USERNAME}:${GROUPNAME} init.sh /tmp/codecraft/init.sh
 # copy settings
 COPY --chown=${USERNAME}:${GROUPNAME} settings/ /tmp/codecraft/settings/
+
+USER ${USERNAME}
+
+RUN chmod +x /tmp/codecraft/init.sh \
+    && /tmp/codecraft/init.sh
 
