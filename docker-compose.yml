@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 services:
   sandbox:
     build:
@@ -6,17 +6,18 @@ services:
       args:
         USER_ID: ${HOST_USER_ID}
         GROUP_ID: ${HOST_GROUP_ID}
+        USER_NAME: ${USER}
     init: true
     working_dir: /workspaces/src
     volumes:
       - .:/workspaces/src
-      - ~/.gitconfig:/home/sandbox/.gitconfig:ro
-      - ~/.config/gh:/home/sandbox/.config/gh:ro
-      - home_dir:/home/sandbox
-      - /tmp/tmux-1000:/tmp/tmux-1000
+      - ~/.gitconfig:/home/${USER}/.gitconfig:ro
+      - ~/.config/gh:/home/${USER}/.config/gh:ro
+      - home_dir:/home/${USER}
+      - ~/.tmux/sessions:/home/${USER}/.tmux/sessions
     environment:
       - TMUX=$TMUX
-    command: [ "sh" , "-c", "/workspaces/src/init.sh && sleep infinity"]
+    command: ["sh", "-c", "/workspaces/src/init.sh && sleep infinity"]
 
 volumes:
   home_dir:

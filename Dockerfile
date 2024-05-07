@@ -1,60 +1,61 @@
 FROM alpine:3.19.1
 
-ARG USER_ID
-ARG GROUP_ID
-
 RUN apk update \
-    && apk add --no-cache \
-    # editor
-    neovim \
-    # utility
-    zsh \
-    ripgrep \
-    fd \
-    delta \
-    curl \
-    zoxide \
-    tmux \
-    unzip \
-    wget \
-    # git
-    git \
-    lazygit \
-    github-cli \
-    # use docker
-    su-exec \
-    shadow \
-    nodejs \
-    npm \
-    # programming
-    python3 \
-    rust \
-    cargo \
-    ruby \
-    ruby-dev \
-    g++ \
-    make
+  && apk add --no-cache \
+  # editor
+  neovim \
+  # utility
+  zsh \
+  ripgrep \
+  fd \
+  delta \
+  curl \
+  zoxide \
+  tmux \
+  unzip \
+  wget \
+  # git
+  git \
+  lazygit \
+  github-cli \
+  # use docker
+  su-exec \
+  shadow \
+  nodejs \
+  npm \
+  # programming
+  python3 \
+  rust \
+  cargo \
+  ruby \
+  ruby-dev \
+  g++ \
+  make
 
 RUN cargo install --root /usr/local \
-    vivid \
-    eza
+  vivid \
+  eza
 
-ARG USERNAME=sandbox
-ARG GROUPNAME=sandbox-group
+ARG USER_ID
+ARG GROUP_ID
+ARG USER_NAME
+ARG GROUP_NAME=sandbox-group
 
-RUN groupadd -o -g ${GROUP_ID} $GROUPNAME && \
-    adduser -u ${USER_ID} -s $(which zsh) -D -G $GROUPNAME $USERNAME
+RUN groupadd -o -g ${GROUP_ID} $GROUP_NAME \
+  && adduser -u ${USER_ID} -s $(which zsh) -D -G $GROUP_NAME $USER_NAME
 
 # create workdir
-RUN install -m 770 -o ${USERNAME} -g ${GROUPNAME} -d /workspaces/src
+RUN install -m 770 -o ${USER_NAME} -g ${GROUP_NAME} -d \
+  /workspaces/src \
+  /home/${USER_NAME}/.tmux
 
 # copy init.sh
-COPY --chown=${USERNAME}:${GROUPNAME} init.sh /tmp/codecraft/init.sh
+COPY --chown=${USER_NAME}:${GROUP_NAME} init.sh /tmp/codecraft/init.sh
 # copy settings
-COPY --chown=${USERNAME}:${GROUPNAME} settings/ /tmp/codecraft/settings/
+COPY --chown=${USER_NAME}:${GROUP_NAME} settings/ /tmp/codecraft/settings/
 
-USER ${USERNAME}
+USER ${USER_NAME}
 
 RUN chmod +x /tmp/codecraft/init.sh \
-    && /tmp/codecraft/init.sh
+  && /tmp/codecraft/init.sh
 

@@ -1,9 +1,9 @@
 # https://taskfile.dev
 
-version: '3'
+version: "3"
 
 vars:
-  DOCKER_BUILD_COMMAND: "docker build -t codecraft --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) ."
+  DOCKER_BUILD_COMMAND: "docker build -t codecraft --build-arg USER_NAME=$(whoami) --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) ."
 
 tasks:
   default:
@@ -14,7 +14,7 @@ tasks:
   exec:
     aliases: [e]
     cmds:
-      - "docker compose exec -u sandbox sandbox zsh"
+      - "docker compose exec -u $(whoami) sandbox zsh"
     silent: true
   exec/root:
     aliases: [er]
@@ -22,10 +22,12 @@ tasks:
       - "docker compose exec -u root sandbox zsh"
     silent: true
   build:
+    aliases: [b]
     cmds:
       - "{{.DOCKER_BUILD_COMMAND}}"
     silent: true
   build/nocache:
+    aliases: [bc]
     cmds:
       - "{{.DOCKER_BUILD_COMMAND}} --no-cache"
     silent: true

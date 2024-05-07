@@ -54,9 +54,13 @@ export LS_COLORS="$(vivid generate iceberg-dark)"
 # setup zoxide
 eval "$(zoxide init zsh)"
 
+# setup tmux
+export TMUX_TMPDIR=~/.tmux/sessions
+mkdir -p $TMUX_TMPDIR
+
 # aliases
 alias ls='eza -a --icons'
-alias ll='eza -la --sort=type --icons --header --time-style=long-iso'
+alias ll='eza -lag --sort=type --icons --header --time-style=long-iso'
 
 # nvim
 # main
@@ -68,17 +72,15 @@ nvh() {
 
 # nvim on docker
 nvd() {
-  TMUX_SESSION_PATH=`tmux display-message -p "#{socket_path}"`
   docker run -it --rm \
-    -v codecraft_home:/home/sandbox \
+    -u $USER \
     -v .:/workspaces/src \
-    -v $TMUX_SESSION_PATH:$TMUX_SESSION_PATH \
-    -v ~/.gitconfig:/home/sandbox/.gitconfig:ro \
-    -v ~/.config/gh:/home/sandbox/.config/gh:ro \
+    -v codecraft_home:/home/$USER \
+    -v $TMUX_TMPDIR:$TMUX_TMPDIR \
+    -v ~/.gitconfig:/home/$USER/.gitconfig:ro \
+    -v ~/.config/gh:/home/$USER/.config/gh:ro \
     -w /workspaces/src \
     -e TMUX=$TMUX \
-    -e HOST_UID=$(id -u $USER) \
-    -e HOST_GID=$(id -g $USER) \
     codecraft \
     nvim --listen /tmp/nvim-server.pipe $@
 }
