@@ -66,6 +66,9 @@ eval "$(zoxide init zsh)"
 export TMUX_TMPDIR=~/.tmux/sessions
 mkdir -p $TMUX_TMPDIR
 
+# setup my scripts
+export PATH=$PATH:~/.scripts
+
 
 ### aliases
 alias ls='eza -a --icons'
