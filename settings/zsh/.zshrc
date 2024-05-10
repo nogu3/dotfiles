@@ -1,13 +1,3 @@
-# import .zprofile
-ZPROFILE="${HOME}/.zprofile"
-
-if [[ -f "$ZPROFILE" ]]; then
-  source "$ZPROFILE"
-fi
-
-# import local setting
-source "${HOME}/.zshrc_local"
-
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
     print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
@@ -31,7 +21,9 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
+### Zinit 
 zinit ice wait'!0'
+
 # colorschema
 zinit ice pick"async.zsh" src"pure.zsh"
 zinit light sindresorhus/pure
@@ -41,15 +33,31 @@ zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma/fast-syntax-highlighting
 
-# add zoxide bin path
-export PATH=$PATH:~/.local/bin
 
-# theme dracura for exa
+### import .z~
+# import .zprofile
+ZPROFILE="${HOME}/.zprofile"
+
+if [[ -f "$ZPROFILE" ]]; then
+  source "$ZPROFILE"
+fi
+
+# import local setting
+source "${HOME}/.zshrc_local"
+
+
+### color theme for eza
+# theme dracura for eza
 # https://draculatheme.com/exa
 export EXA_COLORS="uu=36:gu=37:sn=32:sb=32:da=34:ur=34:uw=35:ux=36:ue=36:gr=34:gw=35:gx=36:tr=34:tw=35:tx=36:"
 
 # theme iceberg-dark
 export LS_COLORS="$(vivid generate iceberg-dark)"
+
+
+### setup utility
+# add zoxide bin path
+export PATH=$PATH:~/.local/bin
 
 # setup zoxide
 eval "$(zoxide init zsh)"
@@ -58,7 +66,8 @@ eval "$(zoxide init zsh)"
 export TMUX_TMPDIR=~/.tmux/sessions
 mkdir -p $TMUX_TMPDIR
 
-# aliases
+
+### aliases
 alias ls='eza -a --icons'
 alias ll='eza -lag --sort=type --icons --header --time-style=long-iso'
 
