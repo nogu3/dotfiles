@@ -4,7 +4,7 @@
 
 local opt = vim.opt
 
--- -- not create backup file
+-- not create backup file
 opt.backup = false
 -- not create swap file
 opt.swapfile = false
@@ -24,3 +24,6 @@ vim.wo.list = true
 
 -- copy yank to clipboaed via tmux
 opt.clipboard = "unnamedplus"
+
+-- invalid autoformat
+vim.g.autoformat = false
