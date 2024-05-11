@@ -76,6 +76,7 @@ return {
         "tsx",
         "typescript",
         "vim",
+        "ruby",
       })
       opts.highlight = { enable = true }
       opts.indent = { enable = true }
@@ -111,12 +112,40 @@ return {
         -- ruby
         "solargraph",
         "rubocop",
+      },
+    },
+  },
 
-        -- yaml
-        "yamllint",
+  --lsp
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        solargraph = {},
+      },
+    },
+  },
 
-        -- dockerfile
-        "hadolint",
+  -- formatter
+  {
+    "stevearc/conform.nvim",
+    optional = true,
+    opts = {
+      formatters_by_ft = {
+        ["markdown"] = { "prettier" },
+        ["ruby"] = { "rubocop" },
+      },
+    },
+  },
+
+  -- linter
+  {
+    "mfussenegger/nvim-lint",
+    optional = true,
+    opts = {
+      linters_by_ft = {
+        markdown = { "markdownlint" },
+        ruby = { "rubocop" },
       },
     },
   },
