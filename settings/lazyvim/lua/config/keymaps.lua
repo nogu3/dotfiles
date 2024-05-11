@@ -30,8 +30,8 @@ map({ "x", "n", "s" }, "<leader>cs", "<cmd>w<cr><esc>", silent("Save File"))
 map("n", "<leader>a", "gg<S-v>G", silent("Select All"))
 
 -- buffer
-map("n", "<leader>k", ":bnext<cr>", silent("Next Buffer"))
-map("n", "<leader>j", ":bprev<cr>", silent("Previous Buffer"))
+map("n", "<S-j>", ":bprev<cr>", silent("Prev Buffer"))
+map("n", "<S-l>", ":bnext<cr>", silent("Next Buffer"))
 map("n", "<leader>ba", ":%bd<cr>", silent("Delete All Buffers"))
 
 -- nvim
