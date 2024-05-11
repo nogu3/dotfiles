@@ -15,6 +15,11 @@ return {
     end,
   },
 
+  -- open github url
+  {
+    "Almo7aya/openingh.nvim",
+  },
+
   -- telescope
   {
     "nvim-telescope/telescope.nvim",

@@ -16,6 +16,10 @@ end
 map("n", "cm", "y'm<cr><esc>", silent("Copy to mark"))
 map("n", "dm", "d'm<cr><esc>", silent("Delete to mark"))
 
+-- open github url
+map("n", "<leader>go", ":OpenInGHFile<cr>", silent("Open github url to current file"))
+map("n", "<leader>gl", ":OpenInGHFileLines<cr>", silent("Open github url to current file with line"))
+
 -- save
 map({ "x", "n", "s" }, "<leader>cs", "<cmd>w<cr><esc>", silent("Save File"))
 
@@ -23,8 +27,8 @@ map({ "x", "n", "s" }, "<leader>cs", "<cmd>w<cr><esc>", silent("Save File"))
 map("n", "<leader>a", "gg<S-v>G", silent("Select All"))
 
 -- control buffer
-map("n", "<leader>k", ":bnext<CR>", silent("Next Buffer"))
-map("n", "<leader>j", ":bprev<CR>", silent("Previous Buffer"))
-map("n", "<leader>x", ":bw<CR>", silent("Quit Buffer"))
-map("n", "<leader>xx", ":bw!<CR>", silent("Force Quit Buffer"))
-map("n", "<leader>ax", ":%bd<CR>", silent("All Quit Buffer"))
+map("n", "<leader>k", ":bnext<cr>", silent("Next Buffer"))
+map("n", "<leader>j", ":bprev<cr>", silent("Previous Buffer"))
+map("n", "<leader>x", ":bw<cr>", silent("Quit Buffer"))
+map("n", "<leader>xx", ":bw!<cr>", silent("Force Quit Buffer"))
+map("n", "<leader>ax", ":%bd<cr>", silent("All Quit Buffer"))
