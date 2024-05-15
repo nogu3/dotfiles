@@ -117,6 +117,10 @@ return {
         -- ruby
         "solargraph",
         "rubocop",
+
+        -- markdown
+        "prettier",
+        "markdownlint",
       },
     },
   },
