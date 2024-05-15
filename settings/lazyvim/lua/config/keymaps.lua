@@ -32,7 +32,7 @@ map("n", "<leader>gl", ":OpenInGHFileLines<cr>", silent("Open github url to curr
 
 -- file
 -- copy relative file path
-map("n", "<leader>fp", ":let @+ = expand('%')<cr>", silent("Copy relative file path"))
+map("n", "<leader>fp", ":let @+ = expand('%:.')<cr>", silent("Copy relative file path"))
 
 -- code
 -- save
