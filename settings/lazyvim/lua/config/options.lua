@@ -29,5 +29,3 @@ vim.wo.list = true
 -- copy yank to clipboaed via tmux
 opt.clipboard = "unnamedplus"
 
--- invalid autoformat
-vim.g.autoformat = false
