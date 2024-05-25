@@ -54,7 +54,10 @@ RUN apk update \
   shadow \
   # programming
   ruby \
-  ruby-dev
+  ruby-dev \
+  # require solargraph
+  make \
+  g++
 
 ARG USER_ID
 ARG GROUP_ID
