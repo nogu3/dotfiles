@@ -1,4 +1,16 @@
+FROM rust:alpine3.19 AS rust-library
+
+RUN apk update \
+  && apk add --no-cache \
+  build-base
+
+RUN cargo install --root /usr/local \
+  vivid \
+  eza
+
 FROM alpine:3.19.1
+COPY --from=rust-library /usr/local/bin/vivid /usr/local/bin/vivid
+COPY --from=rust-library /usr/local/bin/eza /usr/local/bin/eza
 
 RUN apk update \
   && apk add --no-cache \
@@ -23,8 +35,8 @@ RUN apk update \
   npm \
   # programming
   python3 \
-  rust \
-  cargo \
+  # rust \
+  # cargo \
   ruby \
   ruby-dev \
   g++ \
@@ -44,9 +56,9 @@ RUN git clone https://github.com/neovim/neovim \
   && cd ../ \
   && rm -rf neovim
 
-RUN cargo install --root /usr/local \
-  vivid \
-  eza
+# RUN cargo install --root /usr/local \
+#   vivid \
+#   eza
 
 ARG USER_ID
 ARG GROUP_ID
