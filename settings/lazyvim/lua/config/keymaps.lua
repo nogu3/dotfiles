@@ -41,4 +41,3 @@ map({ "x", "n", "s" }, "<leader>cs", "<cmd>w<cr><esc>", silent("Save File"))
 -- nvim
 -- checkhealth
 map("n", "<leader>nc", ":checkhealth<cr>", silent("Checkhealth"))
-
