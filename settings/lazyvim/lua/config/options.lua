@@ -25,9 +25,6 @@ opt.listchars = {
 -- Turn on the setting to see the hidden characters
 vim.wo.list = true
 
--- copy yank to clipboaed via tmux
-opt.clipboard = "unnamedplus"
-
 if vim.fn.has("nvim-0.10") == 1 then
   vim.g.clipboard = {
     name = "OSC 52",
