@@ -105,8 +105,9 @@ return {
       { "<leader>cm", false },
       { "<leader>cM", "<cmd>Mason<cr>", desc = "Mason" },
     },
-    opts = {
-      ensure_installed = {
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, {
         -- lua
         "stylua",
 
@@ -121,8 +122,8 @@ return {
         -- markdown
         "prettier",
         "markdownlint",
-      },
-    },
+      })
+    end,
   },
 
   --lsp
