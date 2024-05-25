@@ -2,8 +2,6 @@ FROM alpine:3.19.1
 
 RUN apk update \
   && apk add --no-cache \
-  # editor
-  neovim \
   # utility
   zsh \
   ripgrep \
@@ -30,7 +28,21 @@ RUN apk update \
   ruby \
   ruby-dev \
   g++ \
-  make
+  make \
+  build-base \
+  # requier build neovim
+  cmake \
+  coreutils \
+  gettext-tiny-dev
+
+# neovim install for stable
+RUN git clone https://github.com/neovim/neovim \
+  && cd neovim \
+  && git checkout stable \
+  && make CMAKE_BUILD_TYPE=RelWithDebInfo \
+  && make install \
+  && cd ../ \
+  && rm -rf neovim
 
 RUN cargo install --root /usr/local \
   vivid \
@@ -53,6 +65,7 @@ RUN install -m 770 -o ${USER_NAME} -g ${GROUP_NAME} -d \
 COPY --chown=${USER_NAME}:${GROUP_NAME} init.sh /tmp/codecraft/init.sh
 # copy settings
 COPY --chown=${USER_NAME}:${GROUP_NAME} settings/ /tmp/codecraft/settings/
+# TODO copy scripts
 
 USER ${USER_NAME}
 
