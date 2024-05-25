@@ -8,7 +8,28 @@ RUN cargo install --root /usr/local \
   vivid \
   eza
 
+FROM alpine:3.19.1 AS neovim-builder
+
+RUN apk update \
+  && apk add --no-cache \
+  git \
+  build-base \
+  cmake \
+  coreutils \
+  curl \
+  unzip \
+  gettext-tiny-dev
+
+RUN git clone https://github.com/neovim/neovim /neovim
+
+WORKDIR /neovim
+
+RUN git checkout v0.10.0 \
+  && make CMAKE_BUILD_TYPE=Release \
+  && make install DESTDIR=/neovim/build
+
 FROM alpine:3.19.1
+COPY --from=neovim-builder /neovim/build/usr/local /usr/local
 COPY --from=rust-library /usr/local/bin/vivid /usr/local/bin/vivid
 COPY --from=rust-library /usr/local/bin/eza /usr/local/bin/eza
 
@@ -29,36 +50,11 @@ RUN apk update \
   lazygit \
   github-cli \
   # use docker
-  su-exec \
+  # using groupadd
   shadow \
-  nodejs \
-  npm \
   # programming
-  python3 \
-  # rust \
-  # cargo \
   ruby \
-  ruby-dev \
-  g++ \
-  make \
-  build-base \
-  # requier build neovim
-  cmake \
-  coreutils \
-  gettext-tiny-dev
-
-# neovim install for stable
-RUN git clone https://github.com/neovim/neovim \
-  && cd neovim \
-  && git checkout stable \
-  && make CMAKE_BUILD_TYPE=RelWithDebInfo \
-  && make install \
-  && cd ../ \
-  && rm -rf neovim
-
-# RUN cargo install --root /usr/local \
-#   vivid \
-#   eza
+  ruby-dev
 
 ARG USER_ID
 ARG GROUP_ID
