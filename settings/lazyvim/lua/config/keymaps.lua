@@ -14,30 +14,36 @@ end
 
 -- general
 -- mark
-map("n", "cm", "y'm<cr><esc>", silent("Copy to mark"))
-map("n", "dm", "d'm<cr><esc>", silent("Delete to mark"))
+map("n", "cm", "y'm<Return><Esc>", silent("Copy to mark"))
+map("n", "dm", "d'm<Return><Esc>", silent("Delete to mark"))
 
--- select all
-map("n", "<leader>a", "gg<S-v>G", silent("Select All"))
+-- select all copy
+map("n", "<leader>a", "gg<S-v>Gy", silent("Select all and Copy"))
+
+-- copy line without yank
+map("n", "t", ":t.<Return>", silent("Copy line without yank"))
+
+-- delete line without yank
+map("n", "T", '"_dd', silent("Delete line without yank"))
 
 -- buffer
-map("n", "<S-j>", ":bprev<cr>", silent("Prev Buffer"))
-map("n", "<S-l>", ":bnext<cr>", silent("Next Buffer"))
-map("n", "<leader>ba", ":%bd<cr>", silent("Delete All Buffers"))
+map("n", "<S-j>", ":bprev<Return>", silent("Prev Buffer"))
+map("n", "<S-l>", ":bnext<Return>", silent("Next Buffer"))
+map("n", "<leader>ba", ":%bd<Return>", silent("Delete All Buffers"))
 
 -- git
 -- open github url
-map("n", "<leader>go", ":OpenInGHFile<cr>", silent("Open github url to current file"))
-map("n", "<leader>gl", ":OpenInGHFileLines<cr>", silent("Open github url to current file with line"))
+map("n", "<leader>go", ":OpenInGHFile<Return>", silent("Open github url to current file"))
+map("n", "<leader>gl", ":OpenInGHFileLines<Return>", silent("Open github url to current file with line"))
 
 -- file
 -- copy relative file path
-map("n", "<leader>fp", ":let @+ = expand('%:.')<cr>", silent("Copy relative file path"))
+map("n", "<leader>fp", ":let @+ = expand('%:.')<Return>", silent("Copy relative file path"))
 
 -- code
 -- save
-map({ "x", "n", "s" }, "<leader>cs", "<cmd>w<cr><esc>", silent("Save File"))
+map({ "x", "n", "s" }, "<leader>cs", "<cmd>w<Return><Esc>", silent("Save File"))
 
 -- nvim
 -- checkhealth
-map("n", "<leader>nc", ":checkhealth<cr>", silent("Checkhealth"))
+map("n", "<leader>nc", ":checkhealth<Return>", silent("Checkhealth"))
