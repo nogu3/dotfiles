@@ -78,6 +78,9 @@ end, { desc = "Lazygit (cwd)" })
 -- copy relative file path
 map("n", "<leader>fp", ":let @+ = expand('%:.')<Return>", silent("Copy relative file path"))
 
+-- new file
+map("n", "<leader>m", "<cmd>enew<cr>", { desc = "New File" })
+
 -- code
 -- save
 map({ "x", "n", "s" }, "<leader>cs", "<cmd>w<Return><Esc>", silent("Save File"))
