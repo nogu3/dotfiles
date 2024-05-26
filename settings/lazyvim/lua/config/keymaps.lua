@@ -35,8 +35,6 @@ map("n", "T", '"_dd', silent("Delete line without yank"))
 
 -- comment line like vscode
 local keys = { "<C-/>", "<C-_>" }
-
--- 配列の内容を出力
 for _, key in ipairs(keys) do
   -- https://www.reddit.com/r/neovim/comments/1b7kjm4/lazyvim_how_to_remove_a_keybinding/
   delmap("n", key)
@@ -64,6 +62,10 @@ map("n", "<leader>ba", ":%bd<Return>", silent("Delete All Buffers"))
 -- open github url
 map("n", "<leader>go", ":OpenInGHFile<Return>", silent("Open github url to current file"))
 map("n", "<leader>gl", ":OpenInGHFileLines<Return>", silent("Open github url to current file with line"))
+
+map("n", "<leader><space>", function()
+  LazyVim.lazygit()
+end, { desc = "Lazygit (cwd)" })
 
 -- file
 -- copy relative file path
