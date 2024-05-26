@@ -12,6 +12,12 @@ local function silent(desc)
   }
 end
 
+local function silent_expr(desc)
+  local silent_option = silent(desc)
+  silent_option["expr"] = true
+  return silent_option
+end
+
 -- text edit
 -- mark
 map("n", "cm", "y'm<Return><Esc>", silent("Copy to mark"))
@@ -26,6 +32,18 @@ map("n", "t", ":t.<Return>", silent("Copy line without yank"))
 -- delete line without yank
 map("n", "T", '"_dd', silent("Delete line without yank"))
 
+-- move indent like vscode
+map("n", "<C-[>", "<<", silent("Back Indent"))
+map("n", "<C-]>", ">>", silent("Go Indent"))
+
+-- comment line like vscode
+-- https://www.reddit.com/r/neovim/comments/1b7kjm4/lazyvim_how_to_remove_a_keybinding/
+vim.keymap.del("n", "<c-_>")
+map("n", "<C-_>", function()
+  -- https://github.com/echasnovski/mini.comment/blob/081bf6876eedaeffd85544752f82c18454694238/lua/mini/comment.lua#L442
+  return MiniComment.operator() .. "_"
+end, silent_expr("Comment line"))
+
 -- move start or end
 if vim.fn.has("mac") == 1 then
   map("n", "<C-a>", "^", silent("Move to start char"))
@@ -36,8 +54,8 @@ end
 
 -- file
 -- buffer
-map("n", "<S-j>", ":bprev<Return>", silent("Prev Buffer"))
-map("n", "<S-l>", ":bnext<Return>", silent("Next Buffer"))
+map("n", "<C-p>", ":bprev<Return>", silent("Prev Buffer"))
+map("n", "<C-n>", ":bnext<Return>", silent("Next Buffer"))
 map("n", "<leader>ba", ":%bd<Return>", silent("Delete All Buffers"))
 
 -- git
