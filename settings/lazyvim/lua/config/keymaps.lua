@@ -58,6 +58,12 @@ map("n", "<C-p>", ":bprev<Return>", silent("Prev Buffer"))
 map("n", "<C-n>", ":bnext<Return>", silent("Next Buffer"))
 map("n", "<leader>ba", ":%bd<Return>", silent("Delete All Buffers"))
 
+-- window
+map("n", "<C-i>", "<C-w>k", silent("Move window to Up"))
+map("n", "<C-j>", "<C-w>h", silent("Move window to Left"))
+map("n", "<C-k>", "<C-w>j", silent("Move window to Down"))
+map("n", "<C-l>", "<C-w>l", silent("Move window to Right"))
+
 -- git
 -- open github url
 map("n", "<leader>go", ":OpenInGHFile<Return>", silent("Open github url to current file"))
