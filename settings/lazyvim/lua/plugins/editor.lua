@@ -1,4 +1,5 @@
 return {
+  -- neo-tree
   {
     "nvim-neo-tree/neo-tree.nvim",
     keys = {
@@ -29,6 +30,7 @@ return {
     "nvim-telescope/telescope.nvim",
     keys = {
       { "<leader><space>", false },
+      { "<leader>/", LazyVim.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
       {
         "<leader>p",
         function()
