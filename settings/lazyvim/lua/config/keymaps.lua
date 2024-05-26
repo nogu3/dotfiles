@@ -54,6 +54,7 @@ end
 
 -- file
 -- buffer
+delmap("n", "<leader>`")
 map("n", "<C-p>", ":bprev<Return>", silent("Prev Buffer"))
 map("n", "<C-n>", ":bnext<Return>", silent("Next Buffer"))
 map("n", "<leader>ba", ":%bd<Return>", silent("Delete All Buffers"))
