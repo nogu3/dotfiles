@@ -23,4 +23,49 @@ return {
       },
     },
   },
+
+  -- telescope
+  {
+    "nvim-telescope/telescope.nvim",
+    keys = {
+      { "<leader><space>", false },
+      {
+        "<leader>p",
+        function()
+          require("telescope.builtin").find_files()
+        end,
+        desc = "Find File",
+      },
+    },
+    -- change some options
+    opts = {
+      defaults = {
+        layout_strategy = "horizontal",
+        layout_config = { prompt_position = "top" },
+        sorting_strategy = "ascending",
+        winblend = 0,
+      },
+      pickers = {
+        find_files = {
+          -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
+          find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+        },
+        live_grep = {
+          vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            -- contain hidden file
+            "--hidden",
+            -- ignore .git dir
+            "--glob=!.git/*",
+          },
+        },
+      },
+    },
+  },
 }
