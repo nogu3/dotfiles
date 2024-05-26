@@ -12,7 +12,7 @@ local function silent(desc)
   }
 end
 
--- general
+-- text edit
 -- mark
 map("n", "cm", "y'm<Return><Esc>", silent("Copy to mark"))
 map("n", "dm", "d'm<Return><Esc>", silent("Delete to mark"))
@@ -26,6 +26,14 @@ map("n", "t", ":t.<Return>", silent("Copy line without yank"))
 -- delete line without yank
 map("n", "T", '"_dd', silent("Delete line without yank"))
 
+if vim.fn.has("mac") == 1 then
+  map("n", "<D-Left>", "^", silent("Move to start char"))
+  map("n", "<D-Right>", "$", silent("Move to end char"))
+else
+  map("n", "<home>", "^", silent("Move to start char"))
+end
+
+-- file
 -- buffer
 map("n", "<S-j>", ":bprev<Return>", silent("Prev Buffer"))
 map("n", "<S-l>", ":bnext<Return>", silent("Next Buffer"))
