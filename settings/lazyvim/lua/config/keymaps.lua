@@ -26,6 +26,7 @@ map("n", "t", ":t.<Return>", silent("Copy line without yank"))
 -- delete line without yank
 map("n", "T", '"_dd', silent("Delete line without yank"))
 
+-- move start or end
 if vim.fn.has("mac") == 1 then
   map("n", "<C-a>", "^", silent("Move to start char"))
   map("n", "<C-e>", "$", silent("Move to end char"))
