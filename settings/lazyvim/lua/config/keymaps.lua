@@ -33,10 +33,6 @@ map("n", "t", ":t.<Return>", silent("Copy line without yank"))
 -- delete line without yank
 map("n", "T", '"_dd', silent("Delete line without yank"))
 
--- move indent like vscode
-map("n", "<C-[>", "<<", silent("Back Indent"))
-map("n", "<C-]>", ">>", silent("Go Indent"))
-
 -- comment line like vscode
 local keys = { "<C-/>", "<C-_>" }
 
