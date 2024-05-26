@@ -37,12 +37,17 @@ map("n", "<C-[>", "<<", silent("Back Indent"))
 map("n", "<C-]>", ">>", silent("Go Indent"))
 
 -- comment line like vscode
--- https://www.reddit.com/r/neovim/comments/1b7kjm4/lazyvim_how_to_remove_a_keybinding/
-vim.keymap.del("n", "<c-_>")
-map("n", "<C-_>", function()
-  -- https://github.com/echasnovski/mini.comment/blob/081bf6876eedaeffd85544752f82c18454694238/lua/mini/comment.lua#L442
-  return MiniComment.operator() .. "_"
-end, silent_expr("Comment line"))
+local keys = { "<C-/>", "<C-_>" }
+
+-- 配列の内容を出力
+for _, key in ipairs(keys) do
+  -- https://www.reddit.com/r/neovim/comments/1b7kjm4/lazyvim_how_to_remove_a_keybinding/
+  vim.keymap.del("n", key)
+  map("n", key, function()
+    -- https://github.com/echasnovski/mini.comment/blob/081bf6876eedaeffd85544752f82c18454694238/lua/mini/comment.lua#L442
+    return MiniComment.operator() .. "_"
+  end, silent_expr("Comment line"))
+end
 
 -- move start or end
 if vim.fn.has("mac") == 1 then
