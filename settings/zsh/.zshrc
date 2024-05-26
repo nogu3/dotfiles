@@ -82,11 +82,6 @@ nvh() {
   nvim --listen /tmp/nvim-server.pipe $@
 }
 
-# nvim to remote
-nvr() {
-  nvim --remote-ui --server localhost:$@
-}
-
 # nvim on docker
 nvd() {
   docker run -it --rm \
