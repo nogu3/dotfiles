@@ -32,6 +32,7 @@ return {
       { "<leader><space>", false },
       { "<leader>/", LazyVim.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
       { "<leader>?", LazyVim.telescope("grep_string", { cwd = false, word_match = "-w" }), desc = "Word (cwd)" },
+      { "<leader>r", LazyVim.telescope("oldfiles", { cwd = vim.uv.cwd() }), desc = "Recent (cwd)" },
       {
         "<leader>p",
         function()
