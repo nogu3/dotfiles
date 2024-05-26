@@ -4,13 +4,13 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     keys = {
       {
-        "<leader>fE",
+        "<leader>e",
         function()
           require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
         end,
         desc = "Explorer NeoTree (cwd)",
       },
-      { "<leader>e", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
+      { "<leader>fE", false },
       { "<leader>E", false },
       { "<leader>ge", false },
       { "<leader>be", false },
@@ -31,6 +31,7 @@ return {
     keys = {
       { "<leader><space>", false },
       { "<leader>/", LazyVim.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
+      { "<leader>?", LazyVim.telescope("grep_string", { cwd = false, word_match = "-w" }), desc = "Word (cwd)" },
       {
         "<leader>p",
         function()
