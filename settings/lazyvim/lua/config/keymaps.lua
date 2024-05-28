@@ -26,6 +26,8 @@ map("n", "dm", "d'm<Return><Esc>", silent("Delete to mark"))
 
 -- select all copy
 map("n", "<leader>a", "gg<S-v>Gy", silent("Select all and Copy"))
+-- select all delete
+map("n", "<leader>A", "gg<S-v>Gd", silent("Select all and Delete"))
 
 -- copy line without yank
 map("n", "t", ":t.<Return>", silent("Copy line without yank"))
