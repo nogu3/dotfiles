@@ -47,9 +47,13 @@ end
 -- move start or end
 if vim.fn.has("mac") == 1 then
   map({ "n", "v" }, "<C-a>", "^", silent("Move to start char"))
+  map({ "i" }, "<C-a>", "<C-o>^", silent("Move to start char"))
+
   map({ "n", "v" }, "<C-e>", "$", silent("Move to end char"))
+  map({ "i" }, "<C-e>", "<C-o>$", silent("Move to end char"))
 else
   map({ "n", "v" }, "<home>", "^", silent("Move to start char"))
+  map({ "i" }, "<home>", "<C-o>^", silent("Move to start char"))
 end
 
 -- file
