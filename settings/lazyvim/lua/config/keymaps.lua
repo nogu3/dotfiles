@@ -63,6 +63,7 @@ end
 delmap("n", "<leader>`")
 map("n", "<C-p>", ":bprev<Return>", silent("Prev Buffer"))
 map("n", "<C-n>", ":bnext<Return>", silent("Next Buffer"))
+map("n", "<leader>d", LazyVim.ui.bufremove, silent("Delete Buffer"))
 map("n", "<leader>ba", ":%bd<Return>", silent("Delete All Buffers"))
 
 -- window
@@ -88,7 +89,7 @@ end, { desc = "Lazygit (cwd)" })
 map("n", "<leader>fp", ":let @+ = expand('%:.')<Return>", silent("Copy relative file path"))
 
 -- new file
-map("n", "<leader>m", "<cmd>enew<cr>", { desc = "New File" })
+map("n", "<leader>n", "<cmd>enew<cr>", { desc = "New File" })
 
 -- code
 -- save
@@ -96,4 +97,4 @@ map({ "x", "n", "s" }, "<leader>cs", "<cmd>w<Return><Esc>", silent("Save File"))
 
 -- nvim
 -- checkhealth
-map("n", "<leader>nc", ":checkhealth<Return>", silent("Checkhealth"))
+map("n", "<leader>uh", ":checkhealth<Return>", silent("Checkhealth"))
