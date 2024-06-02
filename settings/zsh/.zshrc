@@ -82,21 +82,6 @@ nvh() {
   nvim --listen /tmp/nvim-server.pipe $@
 }
 
-# nvim on docker
-nvd() {
-  docker run -it --rm \
-    -u $USER \
-    -v .:/workspaces/src \
-    -v codecraft_home:/home/$USER \
-    -v $TMUX_TMPDIR:$TMUX_TMPDIR \
-    -v ~/.gitconfig:/home/$USER/.gitconfig:ro \
-    -v ~/.config/gh:/home/$USER/.config/gh:ro \
-    -w /workspaces/src \
-    -e TMUX=$TMUX \
-    codecraft \
-    nvim --listen /tmp/nvim-server.pipe $@
-}
-
 # docker
 du() {
   docker compose up -d $@
