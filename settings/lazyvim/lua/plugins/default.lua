@@ -18,6 +18,9 @@ return {
   -- open github url
   {
     "Almo7aya/openingh.nvim",
+    init = function()
+      vim.g.openingh_copy_to_register = true
+    end,
   },
 
   -- treesitter

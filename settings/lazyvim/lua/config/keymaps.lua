@@ -79,9 +79,8 @@ map("n", "<C-l>", "<C-w>l", silent("Move window to Right"))
 -- git
 -- delete Lazyvim Changelog
 delmap("n", "<leader>L")
--- open github url
-map("n", "<leader>go", ":OpenInGHFile<Return>", silent("Open github url to current file"))
-map("n", "<leader>gl", ":OpenInGHFileLines<Return>", silent("Open github url to current file with line"))
+-- copy github url tiwh line
+map("n", "<leader>gl", ":OpenInGHFileLines! +<Return>", silent("Copy github url to current file with line"))
 
 -- lazygit on cwd
 map("n", "<leader><space>", function()
