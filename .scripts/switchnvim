@@ -1,15 +1,19 @@
-#!/bin/bash
+#!/bin/zsh
+# TODO change to variable path
+WORKSPACE_DIR="/workspaces/src"
 
 mode=$1
-mkdir -p ~/.config
-rm -f ~/.config/nvim
 
 case "$mode" in
 "lazyvim")
-	ln -s "$SCRIPT_DIR/settings/lazyvim" ~/.config/nvim
+	mkdir -p ~/.config
+	rm -f ~/.config/nvim
+	ln -s "$WORKSPACE_DIR/settings/lazyvim" ~/.config/nvim
 	;;
 "zenvim")
-	ln -s "$SCRIPT_DIR/settings/zenvim" ~/.config/nvim
+	mkdir -p ~/.config
+	rm -f ~/.config/nvim
+	ln -s "$WORKSPACE_DIR/settings/zenvim" ~/.config/nvim
 	;;
 *)
 	echo "$mode isn't supported."
