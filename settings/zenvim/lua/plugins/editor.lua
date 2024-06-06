@@ -1,4 +1,5 @@
 return {
+	-- telescope
 	{
 		"nvim-telescope/telescope.nvim",
 		cmd = "Telescope",
@@ -7,6 +8,7 @@ return {
 		},
 	},
 
+	-- which-key
 	{
 
 		"folke/which-key.nvim",
