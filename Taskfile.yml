@@ -4,6 +4,7 @@ version: "3"
 
 vars:
   DOCKER_BUILD_COMMAND: "docker build -t codecraft --build-arg USER_NAME=$(whoami) --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) ."
+  USER_NAME: "codecraft"
 
 tasks:
   default:
@@ -14,7 +15,7 @@ tasks:
   exec:
     aliases: [e]
     cmds:
-      - "docker compose exec -u $(whoami) sandbox zsh"
+      - "docker compose exec -u {{.USER_NAME}} sandbox zsh"
     silent: true
   exec/root:
     aliases: [er]

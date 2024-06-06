@@ -52,6 +52,7 @@ RUN apk update \
   # use docker
   # using groupadd
   shadow \
+  su-exec \
   # programming
   ruby \
   ruby-dev \
@@ -59,10 +60,15 @@ RUN apk update \
   make \
   g++
 
-ARG USER_ID
-ARG GROUP_ID
-ARG USER_NAME
-ARG GROUP_NAME=sandbox-group
+# setup entrypoint
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+ARG USER_ID=1001
+ARG GROUP_ID=1001
+ARG USER_NAME=codecraft
+ARG GROUP_NAME=codecraft
 
 RUN groupadd -o -g ${GROUP_ID} $GROUP_NAME \
   && adduser -u ${USER_ID} -s $(which zsh) -D -G $GROUP_NAME $USER_NAME
@@ -78,8 +84,8 @@ COPY --chown=${USER_NAME}:${GROUP_NAME} init.sh /tmp/codecraft/init.sh
 COPY --chown=${USER_NAME}:${GROUP_NAME} settings/ /tmp/codecraft/settings/
 # TODO copy scripts
 
-USER ${USER_NAME}
+# USER ${USER_NAME}
 
-RUN chmod +x /tmp/codecraft/init.sh \
-  && /tmp/codecraft/init.sh
+RUN chmod +x /tmp/codecraft/init.sh
+  # && /tmp/codecraft/init.sh
 

@@ -3,21 +3,23 @@ services:
   sandbox:
     build:
       context: .
-      args:
-        USER_ID: ${HOST_USER_ID}
-        GROUP_ID: ${HOST_GROUP_ID}
-        USER_NAME: ${USER}
+      # args:
+      # USER_ID: ${HOST_USER_ID}
+      # GROUP_ID: ${HOST_GROUP_ID}
+      # USER_NAME: ${USER}
+    user: "1001:1001"
     init: true
     working_dir: /workspaces/src
     volumes:
       - .:/workspaces/src
-      - ~/.gitconfig:/home/${USER}/.gitconfig:ro
-      - ~/.config/gh:/home/${USER}/.config/gh:ro
-      - home_dir:/home/${USER}
-      - ~/.tmux/sessions:/home/${USER}/.tmux/sessions
-    environment:
-      - TMUX=$TMUX
-    command: ["sh", "-c", "/workspaces/src/init.sh && sleep infinity"]
+      - ~/.gitconfig:/home/${USER_NAME}/.gitconfig:ro
+      - ~/.config/gh:/home/${USER_NAME}/.config/gh:ro
+      - home_dir:/home/${USER_NAME}
+      # - ~/.tmux/sessions:/home/${USER}/.tmux/sessions
+    # environment:
+    # - TMUX=$TMUX
+    # command: ["sh", "-c", "/workspaces/src/init.sh && sleep infinity"]
+    command: ["sleep", "infinity"]
 
 volumes:
   home_dir:
