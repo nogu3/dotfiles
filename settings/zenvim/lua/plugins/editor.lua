@@ -4,6 +4,9 @@ return {
 		"nvim-telescope/telescope.nvim",
 		cmd = "Telescope",
 		keys = {
+			{ "<leader>p", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+			{ "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
+			{ "<leader>,", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
 			{ "<leader>r", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
 		},
 	},
