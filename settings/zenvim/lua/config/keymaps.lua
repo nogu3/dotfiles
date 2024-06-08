@@ -19,6 +19,9 @@ end
 -- quit
 map("n", "<leader>qq", "<cmd>q!<cr>", silent("Quit All"))
 
+-- save file
+map({ "x", "n", "s" }, "<leader>s", "<cmd>w<cr><esc>", silent("Save File"))
+
 -- checkhealth
 map("n", "<leader>nc", "<cmd>checkhealth<cr>", silent("Checkhealth"))
 
