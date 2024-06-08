@@ -25,6 +25,8 @@ opt.cursorline = true
 
 -- show line number
 opt.number = true
+-- Relative line numbers
+opt.relativenumber = true
 -- convert tabs to spaces
 opt.tabstop = 2
 -- space count when auto indent
@@ -36,6 +38,9 @@ opt.termguicolors = true
 opt.ignorecase = true
 -- Search case sensitive when search str contain upper case
 opt.smartcase = true
+
+-- Confirm to save changes before exiting modified buffer
+opt.confirm = true
 
 -- Set up how to show hidden characters
 opt.listchars = {
