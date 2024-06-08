@@ -18,3 +18,9 @@ end
 
 -- quit
 map("n", "<leader>qq", "<cmd>q!<cr>", silent("Quit All"))
+
+-- checkhealth
+map("n", "<leader>nc", "<cmd>checkhealth<cr>", silent("Checkhealth"))
+
+-- lazy
+map("n", "<leader>nl", "<cmd>Lazy<cr>", silent("Lazy.nvim"))
