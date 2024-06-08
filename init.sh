@@ -15,6 +15,9 @@ mkdir -p ~/.config
 rm -f ~/.config/nvim
 ln -s "$SCRIPT_DIR/settings/lazyvim" ~/.config/nvim
 
+# default mode
+~/.scripts/switchnvim "zenvim"
+
 # zsh
 # common
 rm -f ~/.zshrc
@@ -27,3 +30,4 @@ ln -s "$SCRIPT_DIR/settings/zsh/.zshrc_local" ~/.zshrc_local
 # scripts
 rm -f ~/.scripts
 ln -s "$SCRIPT_DIR/.scripts" ~/.scripts
+
