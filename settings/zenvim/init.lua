@@ -1,4 +1,4 @@
--- TODO refactor auto require
+-- HACK refactor auto require
 require("config.options")
 require("config.lazy")
 require("config.keymaps")
