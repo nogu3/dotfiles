@@ -1,4 +1,5 @@
 return {
+	-- bufferline
 	{
 		"akinsho/bufferline.nvim",
 		event = "VeryLazy",
@@ -12,6 +13,16 @@ return {
 		},
 		config = function(_, opts)
 			require("bufferline").setup(opts)
+		end,
+	},
+
+	--lualine
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		event = "VeryLazy",
+		config = function(_, opts)
+			require("lualine").setup(opts)
 		end,
 	},
 }
