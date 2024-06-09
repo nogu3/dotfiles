@@ -33,8 +33,9 @@ return {
 					{ "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
 					{ "filename", path = 1 },
 				},
-				lualine_x = { "encoding", "filetype" },
-				lualine_y = { "progress" },
+				lualine_x = { "encoding" },
+				lualine_y = { "filetype" },
+				-- FIXME Change Ln: n, Col: n
 				lualine_z = { "location" },
 			},
 		},
