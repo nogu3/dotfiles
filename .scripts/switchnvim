@@ -1,5 +1,5 @@
 #!/bin/zsh
-# TODO change to variable path
+# FIXME change to variable path
 WORKSPACE_DIR="/workspaces/src"
 
 mode=$1
@@ -9,11 +9,13 @@ case "$mode" in
 	mkdir -p ~/.config
 	rm -f ~/.config/nvim
 	ln -s "$WORKSPACE_DIR/settings/lazyvim" ~/.config/nvim
+  echo "$mode is changed."
 	;;
 "zenvim")
 	mkdir -p ~/.config
 	rm -f ~/.config/nvim
 	ln -s "$WORKSPACE_DIR/settings/zenvim" ~/.config/nvim
+  echo "$mode is changed."
 	;;
 *)
 	echo "$mode isn't supported."
