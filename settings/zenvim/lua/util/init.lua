@@ -30,3 +30,8 @@ end
 function _G.keymap_silent_expr(mode, lhs, rhs, desc)
 	keymap(mode, lhs, rhs, keymap_options_silent_expr(desc))
 end
+
+function _G.list_extend_with_nil(target_list, append_list)
+	target_list = target_list or {}
+	vim.list_extend(target_list, append_list)
+end

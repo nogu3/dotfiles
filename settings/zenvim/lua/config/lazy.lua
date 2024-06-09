@@ -13,7 +13,14 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins", {
+require("lazy").setup({
+	spec = {
+		-- default plugins
+		{ import = "plugins" },
+
+		-- extras
+		{ import = "plugins.extras.lang.lua" },
+	},
 	performance = {
 		rtp = {
 			disabled_plugins = {
