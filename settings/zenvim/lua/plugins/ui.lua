@@ -18,6 +18,7 @@ return {
 
 	--lualine
 	{
+		-- FIXME Statusline format
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		event = "VeryLazy",
@@ -30,8 +31,29 @@ return {
 				lualine_a = { "mode" },
 				lualine_b = { "branch" },
 				lualine_c = {
-					{ "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-					{ "filename", path = 1 },
+					{
+						"filetype",
+						icon_only = true,
+						separator = "",
+						padding = {
+							left = 1,
+							right = 0,
+						},
+					},
+					{
+						"filename",
+						path = 1,
+						symbols = {
+							-- Text to show when the file is modified.
+							modified = "[+]",
+							-- Text to show when the file is non-modifiable or readonly.
+							readonly = "[-]",
+							-- Text to show for unnamed buffers.
+							unnamed = "[No Name]",
+							-- Text to show for newly created file before first write
+							newfile = "[New]",
+						},
+					},
 				},
 				lualine_x = { "encoding" },
 				lualine_y = { "filetype" },
