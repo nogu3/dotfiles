@@ -1,4 +1,5 @@
 node_modules/
 settings/nvim/lazy-lock.json
 settings/lazyvim/lazy-lock.json
+settings/zenvim/lazy-lock.json
 
