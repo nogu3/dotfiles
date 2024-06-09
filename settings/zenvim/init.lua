@@ -1,3 +1,5 @@
+require("util")
+
 -- HACK refactor auto require
 require("config.options")
 require("config.lazy")

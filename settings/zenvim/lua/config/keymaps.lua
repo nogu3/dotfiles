@@ -1,29 +1,11 @@
--- default keymaps
-local map = vim.keymap.set
-local delmap = vim.keymap.del
-
-local function silent(desc)
-	return {
-		silent = true,
-		noremap = true,
-		desc = desc,
-	}
-end
-
-local function silent_expr(desc)
-	local silent_option = silent(desc)
-	silent_option["expr"] = true
-	return silent_option
-end
-
 -- quit
-map("n", "<leader>qq", "<cmd>q!<cr>", silent("Quit All"))
+keymap_silent("n", "<leader>qq", "<cmd>q!<cr>", "Quit All")
 
 -- save file
-map({ "x", "n", "s" }, "<leader>s", "<cmd>w<cr><esc>", silent("Save File"))
+keymap_silent({ "x", "n", "s" }, "<leader>s", "<cmd>w<cr><esc>", "Save File")
 
 -- checkhealth
-map("n", "<leader>nc", "<cmd>checkhealth<cr>", silent("Checkhealth"))
+keymap_silent("n", "<leader>nc", "<cmd>checkhealth<cr>", "Checkhealth")
 
 -- lazy
-map("n", "<leader>nl", "<cmd>Lazy<cr>", silent("Lazy.nvim"))
+keymap_silent("n", "<leader>nl", "<cmd>Lazy<cr>", "Lazy.nvim")

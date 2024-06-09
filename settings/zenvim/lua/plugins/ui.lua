@@ -61,6 +61,7 @@ return {
 			{ "<leader>D", "<cmd>bd!<cr>", desc = "Force Delete Buffer" },
 			{ "<leader>ba", "<cmd>%bd<cr>", desc = "Delete All Buffers" },
 		},
+		-- HACK config: true
 		config = function(_, opts)
 			require("bufferline").setup(opts)
 		end,

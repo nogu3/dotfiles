@@ -31,7 +31,6 @@ return {
 
 	-- which-key
 	{
-
 		"folke/which-key.nvim",
 		event = "VeryLazy",
 		opts = {
@@ -47,6 +46,26 @@ return {
 			local wk = require("which-key")
 			wk.setup(opts)
 			wk.register(opts.defaults)
+		end,
+	},
+
+	-- lazygit
+	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		config = function(_, opts)
+			require("toggleterm").setup(opts)
+
+			local Terminal = require("toggleterm.terminal").Terminal
+			local lazygit = Terminal:new({
+				cmd = "lazygit",
+				direction = "float",
+				hidden = true,
+			})
+
+			keymap_silent("n", "<leader><Space>", function()
+				lazygit:toggle()
+			end, "Lazygit")
 		end,
 	},
 }
