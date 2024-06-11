@@ -1,4 +1,4 @@
-require("util")
+_G.Zenvim = require("util")
 
 -- HACK refactor auto require
 require("config.options")
