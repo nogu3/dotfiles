@@ -22,6 +22,7 @@ end
 
 local M = {}
 
+-- FIXME _G convert to M
 _G.keymap = vim.keymap.set
 _G.delmap = vim.keymap.del
 
