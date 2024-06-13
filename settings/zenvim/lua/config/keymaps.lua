@@ -29,6 +29,9 @@ Zenvim.keymap_silent("n", "<leader>A", "gg<S-v>Gd", "Select all and Delete")
 -- redo
 Zenvim.keymap_silent("n", "U", "<C-r>", "Redo")
 
+-- delete without yank
+Zenvim.keymap_silent("n", "x", '"_x', "Delete")
+
 -- FIXME Not Working
 -- move start or end
 if vim.fn.has("mac") == 1 then
