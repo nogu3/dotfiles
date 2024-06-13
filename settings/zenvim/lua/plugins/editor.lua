@@ -42,11 +42,11 @@ return {
             prompt_position = "top",
           },
           sorting_strategy = "ascending",
-        mappings = {
-          n = {
-            ["q"] = require("telescope.actions").close,
+          mappings = {
+            n = {
+              ["q"] = require("telescope.actions").close,
+            },
           },
-        },
         },
       }
     end,
@@ -86,7 +86,7 @@ return {
         hidden = true,
       })
 
-      keymap_silent("n", "<leader><Space>", function()
+      Zenvim.keymap_silent("n", "<leader><Space>", function()
         lazygit:toggle()
       end, "Lazygit")
     end,

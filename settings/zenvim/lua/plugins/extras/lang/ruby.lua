@@ -5,7 +5,7 @@ return {
     "williamboman/mason.nvim",
     optional = true,
     opts = function(_, opts)
-      list_extend_with_nil(opts.ensure_installed, {
+      Zenvim.list_extend_with_nil(opts.ensure_installed, {
         "rubocop",
         "solargraph",
       })

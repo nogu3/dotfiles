@@ -22,19 +22,18 @@ end
 
 local M = {}
 
--- FIXME _G convert to M
-_G.keymap = vim.keymap.set
-_G.delmap = vim.keymap.del
+M.keymap = vim.keymap.set
+M.delmap = vim.keymap.del
 
-function _G.keymap_silent(mode, lhs, rhs, desc)
-  keymap(mode, lhs, rhs, keymap_options_silent(desc))
+function M.keymap_silent(mode, lhs, rhs, desc)
+  M.keymap(mode, lhs, rhs, keymap_options_silent(desc))
 end
 
-function _G.keymap_silent_expr(mode, lhs, rhs, desc)
-  keymap(mode, lhs, rhs, keymap_options_silent_expr(desc))
+function M.keymap_silent_expr(mode, lhs, rhs, desc)
+  M.keymap(mode, lhs, rhs, keymap_options_silent_expr(desc))
 end
 
-function _G.list_extend_with_nil(target_list, append_list)
+function M.list_extend_with_nil(target_list, append_list)
   target_list = target_list or {}
   vim.list_extend(target_list, append_list)
 end
