@@ -8,4 +8,4 @@ keymap_silent({ "x", "n", "s" }, "<leader>s", "<cmd>w<cr><esc>", "Save File")
 keymap_silent("n", "<leader>nc", "<cmd>checkhealth<cr>", "Checkhealth")
 
 -- lazy
-keymap_silent("n", "<leader>nl", "<cmd>Lazy<cr>", "Lazy.nvim")
+keymap_silent("n", "<leader>nL", "<cmd>Lazy<cr>", "Lazy.nvim")

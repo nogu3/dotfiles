@@ -35,52 +35,7 @@ return {
       vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
     end,
   },
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      "mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-    },
-    opts = {
-      -- TODO understand parameter
-      diagnostics = {
-        underline = true,
-        update_in_insert = false,
-        virtual_text = {
-          spacing = 4,
-          source = "if_many",
-          prefix = "●",
-        },
-      },
-      inlay_hints = {
-        enabled = true,
-        exclude = {},
-      },
-      codelens = {
-        enabled = false,
-      },
-      document_highlight = {
-        enabled = true,
-      },
-      capabilities = {
-        workspace = {
-          fileOperations = {
-            didRename = true,
-            willRename = true,
-          },
-        },
-      },
 
-      format = {
-        formatting_options = nil,
-        timeout_ms = nil,
-      },
-
-      servers = {},
-      setup = {},
-    },
-    config = true,
-  },
   {
     "williamboman/mason.nvim",
     cmd = "Mason",
@@ -117,8 +72,54 @@ return {
       end)
     end,
   },
-  -- auto completion
 
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+    },
+    keys = {
+      { "<leader>nl", "<cmd>LspInfo<cr>", desc = "LspInfo" },
+    },
+    opts = {
+      -- TODO understand parameter
+      diagnostics = {
+        underline = true,
+        update_in_insert = false,
+        virtual_text = {
+          spacing = 4,
+          source = "if_many",
+          prefix = "●",
+        },
+      },
+      inlay_hints = {
+        enabled = true,
+        exclude = {},
+      },
+      codelens = {
+        enabled = false,
+      },
+      document_highlight = {
+        enabled = true,
+      },
+      capabilities = {
+        workspace = {
+          fileOperations = {
+            didRename = true,
+            willRename = true,
+          },
+        },
+      },
+
+      format = {
+        formatting_options = nil,
+        timeout_ms = nil,
+      },
+    },
+  },
+
+  -- auto completion
   {
     "hrsh7th/nvim-cmp",
     -- last release tag is way too old
@@ -147,6 +148,9 @@ return {
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
         }),
       }
+    end,
+    config = function(_, opts)
+      require("cmp").setup(opts)
     end,
   },
 }
