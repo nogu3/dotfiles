@@ -34,6 +34,22 @@ return {
       { "<leader>,", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
       { "<leader>r", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
     },
+    opts = function()
+      return {
+        defaults = {
+          layout_strategy = "horizontal",
+          layout_config = {
+            prompt_position = "top",
+          },
+          sorting_strategy = "ascending",
+        mappings = {
+          n = {
+            ["q"] = require("telescope.actions").close,
+          },
+        },
+        },
+      }
+    end,
   },
 
   -- which-key
