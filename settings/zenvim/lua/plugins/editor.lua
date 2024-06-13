@@ -22,7 +22,13 @@ return {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
     keys = {
-      { "<leader>p", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+      {
+        "<leader>p",
+        function()
+          require("telescope.builtin").find_files()
+        end,
+        desc = "Find files",
+      },
       { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
       {
         "<leader>?",
@@ -46,6 +52,24 @@ return {
             n = {
               ["q"] = require("telescope.actions").close,
             },
+          },
+          vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--hidden",
+            "--glob",
+            "!**/.git/*",
+          },
+        },
+        pickers = {
+          find_files = {
+            -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
+            find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
           },
         },
       }
