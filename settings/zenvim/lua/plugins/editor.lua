@@ -72,8 +72,28 @@ return {
             find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
           },
         },
+        extensions = {
+          file_browser = {
+            -- altenative default nettrw
+            hijack_netrw = true,
+            initial_mode = "normal",
+          },
+        },
       }
     end,
+  },
+
+  -- filer
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "nvim-lua/plenary.nvim",
+    },
+    keys = {
+      { "<leader>e", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", desc = "Open file browser" },
+    },
+    after = "nvim-telescope/telescope.nvim",
   },
 
   -- which-key
