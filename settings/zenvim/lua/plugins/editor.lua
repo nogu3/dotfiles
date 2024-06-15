@@ -86,6 +86,8 @@ return {
         mode = { "n", "v" },
         ["<leader>n"] = { name = "Neovim" },
         ["<leader>b"] = { name = "Buffers" },
+        ["<leader>f"] = { name = "File" },
+        ["<leader>c"] = { name = "Code" },
       },
     },
 

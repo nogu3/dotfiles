@@ -54,4 +54,9 @@ function M.get_line_number_on_cursol()
   return vim.api.nvim_win_get_cursor(0)[1]
 end
 
+function M.set_register_with_print_message(register, content, message)
+  vim.fn.setreg(register, content)
+  print(message)
+end
+
 return M

@@ -44,10 +44,13 @@ end
 
 -- file
 -- copy relative file path
-Zenvim.keymap_silent("n", "<leader>fp", ":let @+ = expand('%:.')<Return>", "Copy relative file path")
+Zenvim.keymap_silent("n", "<leader>fp", function()
+  local relative_path = Zenvim.get_relative_path()
+  Zenvim.set_register_with_print_message("+", relative_path, "Copy relative file path to clipboard")
+end, "Copy relative file path")
 
 -- new file
-Zenvim.keymap_silent("n", "<leader>N", "<cmd>enew<cr>", "New File")
+Zenvim.keymap_silent("n", "<leader>fn", "<cmd>enew<cr>", "New File")
 
 -- save file
 Zenvim.keymap_silent({ "x", "n", "s" }, "<leader>s", "<cmd>w<cr><esc>", "Save File")
@@ -60,7 +63,6 @@ Zenvim.keymap_silent("n", "<leader>gl", function()
     local line_number = Zenvim.get_line_number_on_cursol()
     return vim.fn.system("ghurl " .. relative_path .. " " .. line_number)
   end, function(url)
-    vim.fn.setreg("+", url)
-    print("Copy github url to clipboard")
+    Zenvim.set_register_with_print_message("+", url, "Copy github url to clipboard")
   end)
 end, "Copy github url to clipboard")
