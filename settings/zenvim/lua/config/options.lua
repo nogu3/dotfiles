@@ -22,6 +22,8 @@ opt.expandtab = true
 
 -- Strong cursol line
 opt.cursorline = true
+-- Column of context
+opt.scrolloff = 4
 
 -- show line number
 opt.number = true
