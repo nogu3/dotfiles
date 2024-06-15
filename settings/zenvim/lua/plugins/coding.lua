@@ -1,6 +1,7 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    event = Zenvim.event_lazy_file(),
     -- last release is way too old
     version = false,
     build = ":TSUpdate",
@@ -17,6 +18,7 @@ return {
   {
 
     "stevearc/conform.nvim",
+    event = Zenvim.event_lazy_file(),
     dependencies = { "williamboman/mason.nvim" },
     keys = {
       { "<leader>nf", "<cmd>ConformInfo<cr>", desc = "Conform" },
@@ -51,6 +53,7 @@ return {
 
   {
     "williamboman/mason.nvim",
+    event = Zenvim.event_lazy_file(),
     keys = {
       { "<leader>nm", "<cmd>Mason<cr>", desc = "Mason" },
     },
@@ -87,6 +90,7 @@ return {
 
   {
     "neovim/nvim-lspconfig",
+    event = Zenvim.event_lazy_file(),
     dependencies = {
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
@@ -161,8 +165,6 @@ return {
         }),
       }
     end,
-    config = function(_, opts)
-      require("cmp").setup(opts)
-    end,
+    config = true,
   },
 }
