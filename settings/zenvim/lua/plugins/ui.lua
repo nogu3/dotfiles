@@ -28,6 +28,20 @@ return {
         end,
         desc = "Go to prev hunk",
       },
+      {
+        "gP",
+        function()
+          require("gitsigns").preview_hunk_inline()
+        end,
+        desc = "Preview hunk",
+      },
+      {
+        "gr",
+        function()
+          require("gitsigns").reset_hunk()
+        end,
+        desc = "Reset hunk",
+      },
     },
   },
 
