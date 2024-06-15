@@ -18,8 +18,6 @@ return {
 
     "stevearc/conform.nvim",
     dependencies = { "williamboman/mason.nvim" },
-    lazy = true,
-    cmd = "ConformInfo",
     keys = {
       { "<leader>nf", "<cmd>ConformInfo<cr>", desc = "Conform" },
       {
@@ -53,7 +51,6 @@ return {
 
   {
     "williamboman/mason.nvim",
-    cmd = "Mason",
     keys = {
       { "<leader>nm", "<cmd>Mason<cr>", desc = "Mason" },
     },
