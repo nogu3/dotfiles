@@ -59,4 +59,12 @@ function M.set_register_with_print_message(register, content, message)
   print(message)
 end
 
+function M.event_lazy_file()
+  return {
+    "BufReadPost",
+    "BufNewFile",
+    "BufWritePre",
+  }
+end
+
 return M

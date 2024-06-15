@@ -1,4 +1,36 @@
 return {
+  -- gitsigns
+  {
+    "lewis6991/gitsigns.nvim",
+    event = Zenvim.event_lazy_file(),
+    opts = {
+      signs = {
+        add = { text = "▎" },
+        change = { text = "▎" },
+        delete = { text = "" },
+        topdelete = { text = "" },
+        changedelete = { text = "▎" },
+        untracked = { text = "▎" },
+      },
+    },
+    keys = {
+      {
+        "gn",
+        function()
+          require("gitsigns").nav_hunk("next")
+        end,
+        desc = "Go to next hunk",
+      },
+      {
+        "gp",
+        function()
+          require("gitsigns").nav_hunk("prev")
+        end,
+        desc = "Go to prev hunk",
+      },
+    },
+  },
+
   -- noice
   {
     "folke/noice.nvim",
