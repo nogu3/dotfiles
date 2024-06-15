@@ -1,5 +1,20 @@
 return {
   {
+    "nvim-treesitter/nvim-treesitter",
+    -- last release is way too old
+    version = false,
+    build = ":TSUpdate",
+    opts_extend = { "ensure_installed" },
+    opts = {
+      highlight = { enable = true },
+      indent = { enable = true },
+      ensure_installed = {},
+    },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+    end,
+  },
+  {
 
     "stevearc/conform.nvim",
     dependencies = { "williamboman/mason.nvim" },

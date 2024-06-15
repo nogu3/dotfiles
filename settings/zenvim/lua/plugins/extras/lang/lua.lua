@@ -1,4 +1,14 @@
 return {
+  -- nvim-treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      opts.ensure_installed = Zenvim.list_extend_with_nil(opts.ensure_installed, { 
+        "lua" 
+      })
+    end,
+  },
+
   -- lsp install
   {
     "williamboman/mason.nvim",
