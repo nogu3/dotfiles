@@ -1,9 +1,6 @@
 -- quit
 Zenvim.keymap_silent("n", "<leader>qq", "<cmd>q!<cr>", "Quit All")
 
--- save file
-Zenvim.keymap_silent({ "x", "n", "s" }, "<leader>s", "<cmd>w<cr><esc>", "Save File")
-
 -- checkhealth
 Zenvim.keymap_silent("n", "<leader>nc", "<cmd>checkhealth<cr>", "Checkhealth")
 
@@ -45,5 +42,25 @@ else
   Zenvim.keymap_silent({ "i" }, "<home>", "<C-o>^", "Move to start char")
 end
 
+-- file
+-- copy relative file path
+Zenvim.keymap_silent("n", "<leader>fp", ":let @+ = expand('%:.')<Return>", "Copy relative file path")
+
 -- new file
 Zenvim.keymap_silent("n", "<leader>N", "<cmd>enew<cr>", "New File")
+
+-- save file
+Zenvim.keymap_silent({ "x", "n", "s" }, "<leader>s", "<cmd>w<cr><esc>", "Save File")
+
+-- git
+-- copy github url to clipboard
+Zenvim.keymap_silent("n", "<leader>gl", function()
+  require("plenary.async").run(function()
+    local relative_path = Zenvim.get_relative_path()
+    local line_number = Zenvim.get_line_number_on_cursol()
+    return vim.fn.system("ghurl " .. relative_path .. " " .. line_number)
+  end, function(url)
+    vim.fn.setreg("+", url)
+    print("Copy github url to clipboard")
+  end)
+end, "Copy github url to clipboard")

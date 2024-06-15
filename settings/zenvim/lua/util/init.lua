@@ -24,6 +24,8 @@ local M = {}
 
 M.keymap = vim.keymap.set
 M.delmap = vim.keymap.del
+-- FIXME load timing
+-- M.async = require("plenary.async")
 
 function M.keymap_silent(mode, lhs, rhs, desc)
   M.keymap(mode, lhs, rhs, keymap_options_silent(desc))
@@ -42,6 +44,14 @@ function M.list_append_with_nil(target_list, key, value)
   target_list = target_list or {}
   target_list[key] = value
   return target_list
+end
+
+function M.get_relative_path()
+  return vim.fn.expand("%")
+end
+
+function M.get_line_number_on_cursol()
+  return vim.api.nvim_win_get_cursor(0)[1]
 end
 
 return M
