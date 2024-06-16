@@ -45,6 +45,13 @@ return {
     },
   },
 
+  -- FIXME migrate own script
+  -- show marks
+  {
+    "chentoast/marks.nvim",
+    config = true,
+  },
+
   -- noice
   {
     "folke/noice.nvim",
