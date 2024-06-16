@@ -64,7 +64,9 @@ RUN apk update \
   ruby-dev \
   # require solargraph
   make \
-  g++
+  g++ \
+  # use copilot
+  nodejs
 
 ARG USER_ID
 ARG GROUP_ID
