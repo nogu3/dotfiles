@@ -59,6 +59,17 @@ function M.set_register_with_print_message(register, content, message)
   print(message)
 end
 
+function M.create_augroup(name)
+  return vim.api.nvim_create_augroup("zenvim_" .. name, { clear = true })
+end
+
+function M.set_auto_command(event, group_name, callback)
+  vim.api.nvim_create_autocmd(event, {
+    group = M.create_augroup(group_name),
+    callback = callback,
+  })
+end
+
 function M.event_lazy_file()
   return {
     "BufReadPost",
