@@ -126,6 +126,38 @@ return {
     end,
   },
 
+  -- FIXME {} is highlight
+  -- indent-line
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    lazy = true,
+    event = Zenvim.event_lazy_file(),
+    opts = {
+      indent = {
+        char = "│",
+        tab_char = "│",
+      },
+      exclude = {
+        filetypes = {
+          "help",
+          "alpha",
+          "dashboard",
+          "Trouble",
+          "trouble",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm",
+          "vim",
+        },
+      },
+    },
+    main = "ibl",
+    config = function(_, opts)
+      require("ibl").setup(opts)
+    end,
+  },
+
   --lualine
   {
     -- FIXME Statusline format
