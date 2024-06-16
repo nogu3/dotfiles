@@ -16,7 +16,7 @@ rm -f ~/.config/nvim
 ln -s "$SCRIPT_DIR/settings/lazyvim" ~/.config/nvim
 
 # default mode
-~/.scripts/switchnvim "zenvim"
+./switchnvim.sh "zenvim"
 
 # zsh
 # common
