@@ -21,9 +21,6 @@ require("lazy").setup({
     -- extras
     { import = "plugins.extras.lang.lua" },
     { import = "plugins.extras.lang.ruby" },
-
-    -- lsp
-    { import = "plugins.extras.lsp" },
   },
   performance = {
     rtp = {

@@ -22,14 +22,13 @@ return {
     end,
   },
 
-  -- FIXME
   -- lsp config
-  -- {
-  --   "neovim/nvim-lspconfig",
-  --   config = function(_, _)
-  --     require("lspconfig").solargraph.setup({})
-  --   end,
-  -- },
+  {
+    "neovim/nvim-lspconfig",
+    opts = function(_, opts)
+      opts.formatters_by_ft = Zenvim.list_append_with_nil(opts.formatters_by_ft, "solargraph", {})
+    end,
+  },
 
   -- formatter
   {

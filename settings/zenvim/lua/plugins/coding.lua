@@ -1,4 +1,5 @@
 return {
+  -- parser
   {
     "nvim-treesitter/nvim-treesitter",
     event = Zenvim.event_lazy_file(),
@@ -16,8 +17,9 @@ return {
       require("nvim-treesitter.configs").setup(opts)
     end,
   },
-  {
 
+  -- formatter
+  {
     "stevearc/conform.nvim",
     event = Zenvim.event_lazy_file(),
     dependencies = { "williamboman/mason.nvim" },
@@ -134,6 +136,11 @@ return {
         timeout_ms = nil,
       },
     },
+    config = function(_, opts)
+      for lsp_name, lsp_settings in pairs(opts.formatters_by_ft) do
+        require("lspconfig")[lsp_name].setup(lsp_settings)
+      end
+    end,
   },
 
   -- auto completion
@@ -204,6 +211,21 @@ return {
     opts = {
       history = true,
       delete_check_events = "TextChanged",
+    },
+  },
+
+  {
+    {
+      "mfussenegger/nvim-lint",
+      event = Zenvim.event_lazy_file(),
+      opts = {
+        -- Event to trigger linters
+        events = { "BufWritePost", "BufReadPost", "InsertLeave" },
+        linters_by_ft = {},
+      },
+      config = function(_, opts)
+        require("lint").linters_by_ft = opts.linters_by_ft
+      end,
     },
   },
 }
