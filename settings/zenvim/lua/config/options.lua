@@ -9,6 +9,8 @@ opt.timeoutlen = 300
 opt.backup = false
 -- not create swap file
 opt.swapfile = false
+-- confirm when not saved file
+opt.confirm = true
 -- auto reload when File being edited changed
 opt.autoread = true
 -- open file when File being edited exist

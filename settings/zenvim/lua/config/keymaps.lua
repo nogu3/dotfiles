@@ -1,5 +1,5 @@
 -- quit
-Zenvim.keymap_silent("n", "<leader>qq", "<cmd>q!<cr>", "Quit All")
+Zenvim.keymap_silent("n", "<leader>qq", "<cmd>qa<cr>", "Quit All")
 
 -- checkhealth
 Zenvim.keymap_silent("n", "<leader>nc", "<cmd>checkhealth<cr>", "Checkhealth")
