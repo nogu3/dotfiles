@@ -228,4 +228,11 @@ return {
       end,
     },
   },
+
+  -- comment
+  {
+    "echasnovski/mini.comment",
+    version = false,
+    config = true,
+  },
 }
