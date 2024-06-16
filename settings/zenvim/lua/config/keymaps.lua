@@ -9,7 +9,10 @@ Zenvim.keymap_silent("n", "<leader>nL", "<cmd>Lazy<cr>", "Lazy.nvim")
 
 -- text edit
 -- mark
-Zenvim.keymap_silent("n", "cm", "y'm<Return><Esc>", "Copy to mark")
+Zenvim.keymap_silent("n", "cm", function()
+  vim.cmd("normal y'm")
+  vim.api.nvim_buf_del_mark(0, "m")
+end, "Copy to mark")
 Zenvim.keymap_silent("n", "dm", "d'm<Return><Esc>", "Delete to mark")
 
 -- window
