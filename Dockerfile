@@ -28,10 +28,17 @@ RUN git checkout v0.10.0 \
   && make CMAKE_BUILD_TYPE=Release \
   && make install DESTDIR=/neovim/build
 
+FROM alpine:3.19.1 AS other-library
+
+RUN apk update \
+  && apk add curl \
+  && sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
+
 FROM alpine:3.19.1
 COPY --from=neovim-builder /neovim/build/usr/local /usr/local
 COPY --from=rust-library /usr/local/bin/vivid /usr/local/bin/vivid
 COPY --from=rust-library /usr/local/bin/eza /usr/local/bin/eza
+COPY --from=other-library /usr/local/bin/task /usr/local/bin/task
 
 RUN apk update \
   && apk add --no-cache \
