@@ -1,7 +1,5 @@
 #!/bin/zsh
-# deplecated
-# FIXME change to variable path
-WORKSPACE_DIR="/workspaces/src"
+WORKSPACE_DIR="${0:a:h}"
 
 mode=$1
 
