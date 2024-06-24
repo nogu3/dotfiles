@@ -74,6 +74,9 @@ export PATH=$PATH:~/.scripts
 alias ls='eza -a --icons'
 alias ll='eza -lag --sort=type --icons --header --time-style=long-iso'
 
+# tmux
+alias ta="tmux a"
+
 # nvim
 # main
 alias nv="nvh"
