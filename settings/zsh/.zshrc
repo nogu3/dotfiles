@@ -66,6 +66,9 @@ eval "$(zoxide init zsh)"
 export TMUX_TMPDIR=~/.tmux/sessions
 mkdir -p $TMUX_TMPDIR
 
+# setup lazygit
+export LG_CONFIG_PATH=~/.config/lazygit/config.yml
+
 # setup my scripts
 export PATH=$PATH:~/.scripts
 
