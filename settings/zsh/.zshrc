@@ -68,9 +68,9 @@ mkdir -p $TMUX_TMPDIR
 
 # setup lazygit
 if [[ "$(uname)" == "Darwin" ]]; then
-  export XDG_CONFIG_HOME="~/.config"
+  export XDG_CONFIG_HOME=~/.config
 else
-  export LG_CONFIG_PATH="~/.config/lazygit/config.yml"
+  export LG_CONFIG_PATH=~/.config/lazygit/config.yml
 fi
 
 # setup my scripts
