@@ -67,7 +67,11 @@ export TMUX_TMPDIR=~/.tmux/sessions
 mkdir -p $TMUX_TMPDIR
 
 # setup lazygit
-export LG_CONFIG_PATH=~/.config/lazygit/config.yml
+if [[ "$(uname)" == "Darwin" ]]; then
+  export XDG_CONFIG_HOME="~/.config"
+else
+  export LG_CONFIG_PATH="~/.config/lazygit/config.yml"
+fi
 
 # setup my scripts
 export PATH=$PATH:~/.scripts
