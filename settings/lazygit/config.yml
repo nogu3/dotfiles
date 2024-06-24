@@ -1,15 +1,15 @@
+gui:
+  sidePanelWidth: 0.2
+  theme:
+    selectedLineBgColor:
+      - underline
+  nerdFontsVersion: '3'
+  showCommandLog: false
 git:
   paging:
     colorArg: always
     pager: delta --paging=never --side-by-side
   disableForcePushing: true
-gui:
-  sidePanelWidth: 0.15
-  theme:
-    selectedLineBgColor:
-      - underline
-    selectedRangeBgColor:
-      - underline
 refresher:
   refreshInterval: 3
 os:
