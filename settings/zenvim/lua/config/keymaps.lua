@@ -40,7 +40,6 @@ Zenvim.keymap_silent("n", "U", "<C-r>", "Redo")
 -- delete without yank
 Zenvim.keymap_silent("n", "x", '"_x', "Delete")
 
--- FIXME Not Working
 -- move start or end
 if vim.fn.has("mac") == 1 then
   Zenvim.keymap_silent({ "n", "v" }, "<C-a>", "^", "Move to start char")
