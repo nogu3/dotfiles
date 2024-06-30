@@ -16,10 +16,18 @@ end, "Copy to mark")
 Zenvim.keymap_silent("n", "dm", "d'm<Return><Esc>", "Delete to mark")
 
 -- window
+-- move
 Zenvim.keymap_silent("n", "<C-i>", "<C-w>k", "Move window to Up")
 Zenvim.keymap_silent("n", "<C-j>", "<C-w>h", "Move window to Left")
 Zenvim.keymap_silent("n", "<C-k>", "<C-w>j", "Move window to Down")
 Zenvim.keymap_silent("n", "<C-l>", "<C-w>l", "Move window to Right")
+
+-- create
+Zenvim.keymap_silent("n", "<leader>-", "<C-W>s", "Split Window Below")
+Zenvim.keymap_silent("n", "<leader>\\", "<C-W>v", "Split Window Right")
+
+-- delete
+Zenvim.keymap_silent("n", "<leader>wd", "<C-W>c", "Delete Window")
 
 -- select all copy
 Zenvim.keymap_silent("n", "<leader>a", "gg<S-v>Gy", "Select all and Copy")

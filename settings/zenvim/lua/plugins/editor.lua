@@ -108,6 +108,9 @@ return {
         ["<leader>b"] = { name = "Buffers" },
         ["<leader>f"] = { name = "File" },
         ["<leader>c"] = { name = "Code" },
+        ["<leader>g"] = { name = "Git" },
+        ["<leader>w"] = { name = "Window" },
+        ["<leader>q"] = { name = "Quit" },
       },
     },
 
