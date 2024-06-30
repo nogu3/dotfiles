@@ -74,9 +74,9 @@ return {
         },
         extensions = {
           file_browser = {
-            -- altenative default nettrw
-            hijack_netrw = true,
             initial_mode = "normal",
+            hidden = true,
+            no_ignore = true,
           },
         },
       }
