@@ -62,6 +62,9 @@ export PATH=$PATH:~/.local/bin
 # setup zoxide
 eval "$(zoxide init zsh)"
 
+# setup fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # setup tmux
 export TMUX_TMPDIR=~/.tmux/sessions
 mkdir -p $TMUX_TMPDIR
