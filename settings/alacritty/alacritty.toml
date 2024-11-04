@@ -1,5 +1,7 @@
+[general]
 import = [
-  "~/.config/alacritty/themes/iceberg.toml",
+  "themes/iceberg.toml",
+  # TODO import os file
 ]
 
 [env]
