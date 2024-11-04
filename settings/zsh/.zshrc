@@ -69,6 +69,12 @@ eval "$(zoxide init zsh)"
 export TMUX_TMPDIR=~/.tmux/sessions
 mkdir -p $TMUX_TMPDIR
 
+# tmux start session or attach session when tmux installed.
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+  tmux attach-session -t default || tmux new-session -s default
+fi
+
+
 # setup lazygit
 if [[ "$(uname)" == "Darwin" ]]; then
   export XDG_CONFIG_HOME=~/.config
