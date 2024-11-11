@@ -29,15 +29,16 @@ return {
         end,
         desc = "Find files",
       },
-      { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
+      { "<leader>,", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
       {
-        "<leader>?",
+        "<leader>.",
         function()
           require("telescope.builtin").grep_string()
         end,
         desc = "Word",
       },
-      { "<leader>,", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+      { "<leader>C", "<cmd>Telescope command_history<cr>", desc = "Find Command History" },
+      { "<leader>bb", "<cmd>Telescope buffers<cr>", desc = "Find Buffers" },
       { "<leader>r", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
     },
     opts = function()
@@ -104,20 +105,20 @@ return {
       plugins = { spelling = true },
       defaults = {
         mode = { "n", "v" },
-        ["<leader>n"] = { name = "Neovim" },
-        ["<leader>b"] = { name = "Buffers" },
-        ["<leader>f"] = { name = "File" },
-        ["<leader>c"] = { name = "Code" },
-        ["<leader>g"] = { name = "Git" },
-        ["<leader>w"] = { name = "Window" },
-        ["<leader>q"] = { name = "Quit" },
+        { "<leader>n", group = "Neovim" },
+        { "<leader>b", group = "Buffers" },
+        { "<leader>f", group = "File" },
+        { "<leader>c", group = "Code" },
+        { "<leader>g", group = "Git" },
+        { "<leader>w", group = "Window" },
+        { "<leader>q", group = "Quit" },
       },
     },
 
     config = function(_, opts)
       local wk = require("which-key")
       wk.setup(opts)
-      wk.register(opts.defaults)
+      wk.add(opts.defaults)
     end,
   },
 
