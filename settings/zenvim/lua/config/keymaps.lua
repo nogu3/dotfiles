@@ -15,7 +15,9 @@ Zenvim.keymap_silent("n", "cm", function()
 end, "Copy to mark")
 Zenvim.keymap_silent("n", "dm", "d'm<Return><Esc>", "Delete to mark")
 
-Zenvim.keymap_silent("n", "<leader>*", "*''cgn", "Change under cursol charactor")
+-- multi cursol
+Zenvim.keymap_silent("x", "<leader>r", 'y:%s/<C-r><C-r>"//g<Left><Left>', "Change select cursol charactor")
+Zenvim.keymap_silent("n", "<leader>*", "*''cgn<C-r><C-r>\"", "Change under cursol charactor")
 Zenvim.keymap_silent("n", "<leader>fr", function()
   Zenvim.replace_word_under_cursor()
 end, "Replace word under cursol")
