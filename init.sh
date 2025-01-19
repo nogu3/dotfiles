@@ -41,7 +41,7 @@ if [[ $OS -eq "WINDOWS" ]]; then
   echo "copy to alacritty setting files for Windows"
 
   cp -r "$SCRIPT_DIR/settings/alacritty/windows/alacritty.toml" /mnt/c/Users/noguk/AppData/Roaming/alacritty/alacritty.toml
-  cp -r "$SCRIPT_DIR/settings/alacritty/extensions/" /mnt/c/Users/noguk/AppData/Roaming/alacritty/extensions
+  cp -r "$SCRIPT_DIR/settings/alacritty/extensions/" /mnt/c/Users/noguk/AppData/Roaming/alacritty/
 else
   # TODO fix ln
 fi
