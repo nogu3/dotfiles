@@ -39,7 +39,7 @@ ln -s "$SCRIPT_DIR/.scripts" ~/.scripts
 
 if [[ $OS -eq "WINDOWS" ]]; then
   echo "copy to alacritty setting files for Windows"
-  # rm -fr /mnt/c/Users/noguk/AppData/Roaming/alacritty/
+
   cp -r "$SCRIPT_DIR/settings/alacritty/windows/alacritty.toml" /mnt/c/Users/noguk/AppData/Roaming/alacritty/alacritty.toml
   cp -r "$SCRIPT_DIR/settings/alacritty/extensions/" /mnt/c/Users/noguk/AppData/Roaming/alacritty/extensions
 else
