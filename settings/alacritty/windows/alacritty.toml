@@ -1,3 +1,5 @@
+# for windows
+
 [general]
 import = [
   "extensions/iceberg.toml",
@@ -5,13 +7,18 @@ import = [
 ]
 
 [env]
-TERM = "xterm-256color"
+TERM = "alacritty"
+WSLENV = "TERM"
+
+[terminal.shell]
+program = "/Windows/System32/wsl.exe --cd ~"
 
 [window]
 decorations = "None"
 startup_mode = "Maximized"
-opacity = 0.87
+opacity = 0.93
 
 [font]
 normal = { family = "Hack Nerd Font", style = "Regular" }
+size = 10
 
