@@ -1,6 +1,12 @@
 #!/bin/zsh
 SCRIPT_DIR="${0:a:h}"
 
+if uname -r | grep -qi microsoft; then
+  OS="WINDOWS"
+else
+  OS="LINUX"
+fi
+
 # tmux
 rm -f ~/.tmux.conf
 ln -s "$SCRIPT_DIR/settings/tmux/.tmux.conf" ~/.tmux.conf
@@ -31,3 +37,11 @@ ln -s "$SCRIPT_DIR/settings/zsh/.zshrc_local" ~/.zshrc_local
 rm -f ~/.scripts
 ln -s "$SCRIPT_DIR/.scripts" ~/.scripts
 
+if [[ $OS -eq "WINDOWS" ]]; then
+  echo "copy to alacritty setting files for Windows"
+  # rm -fr /mnt/c/Users/noguk/AppData/Roaming/alacritty/
+  cp -r "$SCRIPT_DIR/settings/alacritty/windows/alacritty.toml" /mnt/c/Users/noguk/AppData/Roaming/alacritty/alacritty.toml
+  cp -r "$SCRIPT_DIR/settings/alacritty/extensions/" /mnt/c/Users/noguk/AppData/Roaming/alacritty/extensions
+else
+  # TODO fix ln
+fi
