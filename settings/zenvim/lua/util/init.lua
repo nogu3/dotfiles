@@ -78,4 +78,26 @@ function M.event_lazy_file()
   }
 end
 
+function M.input_and_run_vim_command(input_meesage, vim_command_template)
+  local input_value = vim.fn.input(input_meesage)
+  if input_value == "" then
+    return ""
+  end
+  local vim_command = string.format(vim_command_template, input_value)
+  vim.cmd(vim_command)
+
+  return input_value
+end
+
+function M.replace_word_under_cursor()
+  -- get word under cursol
+  local current_word = vim.fn.expand("<cword>")
+
+  -- Use "\<" and "\>" to match entire words.
+  M.input_and_run_vim_command('Replace "' .. current_word .. '" : ', ":%%s/\\<" .. current_word .. "\\>/%s/g")
+
+  -- Go to Original Position
+  vim.cmd("''")
+end
+
 return M

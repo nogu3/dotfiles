@@ -20,6 +20,10 @@ Zenvim.keymap_silent("n", "<leader>fr", function()
   Zenvim.replace_word_under_cursor()
 end, "Replace word under cursol")
 
+Zenvim.keymap_silent("n", "<leader>ff", function()
+  Zenvim.input_and_run_vim_command("Set File Type", "set filetype=%s")
+end, "Set file type")
+
 -- window
 -- move
 Zenvim.keymap_silent("n", "<C-i>", "<C-w>k", "Move window to Up")
