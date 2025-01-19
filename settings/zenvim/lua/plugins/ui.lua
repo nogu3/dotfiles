@@ -21,6 +21,7 @@ return {
           require("gitsigns").nav_hunk("next")
         end,
         desc = "Go to next hunk",
+        mode = "n",
       },
       {
         "gp",
@@ -28,6 +29,7 @@ return {
           require("gitsigns").nav_hunk("prev")
         end,
         desc = "Go to prev hunk",
+        mode = "n",
       },
       {
         "gP",
@@ -35,6 +37,7 @@ return {
           require("gitsigns").preview_hunk_inline()
         end,
         desc = "Preview hunk",
+        mode = "n",
       },
       {
         "gr",
@@ -42,6 +45,7 @@ return {
           require("gitsigns").reset_hunk()
         end,
         desc = "Reset hunk",
+        mode = "n",
       },
     },
   },
