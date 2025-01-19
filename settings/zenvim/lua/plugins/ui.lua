@@ -1,4 +1,13 @@
 return {
+  -- auto remove higlight when *(search)
+  {
+    "nvimdev/hlsearch.nvim",
+    event = "BufRead",
+    config = function()
+      require("hlsearch").setup()
+    end,
+  },
+
   -- gitsigns
   {
     "lewis6991/gitsigns.nvim",
