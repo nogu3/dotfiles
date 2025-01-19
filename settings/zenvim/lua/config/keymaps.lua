@@ -14,7 +14,11 @@ Zenvim.keymap_silent("n", "cm", function()
   vim.api.nvim_buf_del_mark(0, "m")
 end, "Copy to mark")
 Zenvim.keymap_silent("n", "dm", "d'm<Return><Esc>", "Delete to mark")
+
 Zenvim.keymap_silent("n", "<leader>*", "*''cgn", "Change under cursol charactor")
+Zenvim.keymap_silent("n", "<leader>fr", function()
+  Zenvim.replace_word_under_cursor()
+end, "Replace word under cursol")
 
 -- window
 -- move
