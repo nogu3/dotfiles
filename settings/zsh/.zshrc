@@ -98,7 +98,7 @@ alias ta="tmux a"
 alias nv="nvh"
 # nvim on host
 nvh() {
-  nvim --listen /tmp/nvim-server.pipe $@
+  nvim --listen "$(pwd)/.nvim-server.pipe" $@
 }
 
 # docker

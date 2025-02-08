@@ -13,5 +13,5 @@ git:
 refresher:
   refreshInterval: 3
 os:
-  open: 'nvim --server /tmp/nvim-server.pipe --remote-tab "{{filename}}"'
+  open: 'nvim --server "$(pwd)/.nvim-server.pipe" --remote-tab "{{filename}}"'
 
