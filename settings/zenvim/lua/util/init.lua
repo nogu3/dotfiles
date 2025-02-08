@@ -47,7 +47,10 @@ function M.list_append_with_nil(target_list, key, value)
 end
 
 function M.get_relative_path()
-  return vim.fn.expand("%")
+  -- relative path or absolute path
+  local path = vim.fn.expand("%")
+  -- modify the path relative to the current directory
+  return vim.fn.fnamemodify(path, ":.")
 end
 
 function M.get_line_number_on_cursol()
