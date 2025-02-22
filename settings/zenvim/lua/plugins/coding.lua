@@ -5,8 +5,6 @@ return {
     event = Zenvim.event_lazy_file(),
     -- last release is way too old
     version = false,
-    build = ":TSUpdate",
-    opts_extend = { "ensure_installed" },
     opts = {
       highlight = { enable = true },
       indent = { enable = true },
