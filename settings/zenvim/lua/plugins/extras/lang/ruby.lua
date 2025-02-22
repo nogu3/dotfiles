@@ -6,6 +6,21 @@ return {
       opts.ensure_installed = Zenvim.list_extend_with_nil(opts.ensure_installed, {
         "ruby",
       })
+      opts.parser = Zenvim.list_extend_with_nil(opts.parser, {
+        embedded_template = {
+          install_info = {
+            url = "https://github.com/tree-sitter/tree-sitter-embedded-template.git",
+            files = { "src/parser.c" },
+            branch = "main",
+          },
+        },
+      })
+      vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+        pattern = "*.erb",
+        callback = function()
+          vim.bo.filetype = "embedded_template"
+        end,
+      })
     end,
   },
 
