@@ -37,7 +37,7 @@ end
 
 function M.list_extend_with_nil(target_list, append_list)
   target_list = target_list or {}
-  vim.list_extend(target_list, append_list)
+  return vim.list_extend(target_list, append_list)
 end
 
 function M.list_append_with_nil(target_list, key, value)
