@@ -5,6 +5,8 @@ return {
     opts = function(_, opts)
       opts.ensure_installed = Zenvim.list_extend_with_nil(opts.ensure_installed, {
         "ruby",
+        -- for erb
+        "html",
       })
       opts.parser = Zenvim.list_extend_with_nil(opts.parser, {
         embedded_template = {
