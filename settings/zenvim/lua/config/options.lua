@@ -2,6 +2,11 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- disabled language provider
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+
+
 local opt = vim.opt
 opt.timeoutlen = 300
 
