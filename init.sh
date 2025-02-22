@@ -37,7 +37,7 @@ ln -s "$SCRIPT_DIR/settings/zsh/.zshrc_local" ~/.zshrc_local
 rm -f ~/.scripts
 ln -s "$SCRIPT_DIR/.scripts" ~/.scripts
 
-if [[ $OS -eq "WINDOWS" ]]; then
+if [[ $OS = "WINDOWS" ]]; then
   echo "copy to alacritty setting files for Windows"
 
   cp -r "$SCRIPT_DIR/settings/alacritty/windows/alacritty.toml" /mnt/c/Users/noguk/AppData/Roaming/alacritty/alacritty.toml
