@@ -7,6 +7,9 @@ Zenvim.keymap_silent("n", "<leader>nc", "<cmd>checkhealth<cr>", "Checkhealth")
 -- lazy
 Zenvim.keymap_silent("n", "<leader>nL", "<cmd>Lazy<cr>", "Lazy.nvim")
 
+-- messages(for pring debug)
+Zenvim.keymap_silent("n", "<leader>nM", "<cmd>messages<cr>", "messages")
+
 -- text edit
 -- mark
 Zenvim.keymap_silent("n", "cm", function()
