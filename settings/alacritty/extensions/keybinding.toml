@@ -3,8 +3,8 @@ bindings = [
   {key = "c", mods = "Control", action = "Copy"},
   {key = "v", mods = "Control", action = "Paste"},
   {key = ".", mods = "Control", chars = "\u0003"},
-  {key = "+", mods = "Control", chars = "IncreaseFontSize"},
-  {key = "=", mods = "Control", chars = "IncreaseFontSize"},
-  {key = "-", mods = "Control", chars = "DecreaseFontSize"},
+  {key = "+", mods = "Control", action = "IncreaseFontSize"},
+  {key = "=", mods = "Control", action = "IncreaseFontSize"},
+  {key = "-", mods = "Control", action = "DecreaseFontSize"},
   {key = "n", mods = "Control|Shift", action = "CreateNewWindow"},
 ]
