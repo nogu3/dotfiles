@@ -145,6 +145,11 @@ return {
         },
       })
 
+      -- TODO move to Zenvim
+      function _lazygit_toggle()
+        lazygit:toggle()
+      end
+
       Zenvim.keymap_silent("n", "<leader><Space>", function()
         lazygit:toggle()
       end, "Lazygit")
