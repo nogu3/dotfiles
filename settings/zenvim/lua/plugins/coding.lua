@@ -16,6 +16,23 @@ return {
     end,
   },
 
+  -- show top level key
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      require("treesitter-context").setup({
+        enable = true,
+        max_lines = 3,
+        trim_scope = "outer",
+        patterns = {
+          -- show top level key
+          yaml = { "block_mapping_pair" },
+        },
+      })
+    end,
+  },
+
   -- formatter
   {
     "stevearc/conform.nvim",
