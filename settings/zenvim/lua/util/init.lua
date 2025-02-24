@@ -22,10 +22,15 @@ end
 
 local M = {}
 
+M.pr_number = nil
 M.keymap = vim.keymap.set
 M.delmap = vim.keymap.del
 -- FIXME load timing
 -- M.async = require("plenary.async")
+
+function M.set_pr_number_in_current_brame(commit_message)
+  M.pr_number = commit_message:match("%(#(%d+)%)")
+end
 
 function M.keymap_silent(mode, lhs, rhs, desc)
   M.keymap(mode, lhs, rhs, keymap_options_silent(desc))

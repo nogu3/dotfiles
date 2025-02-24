@@ -90,3 +90,19 @@ Zenvim.keymap_silent("n", "<leader>gl", function()
     Zenvim.set_register_with_print_message("+", url, "Copy github url to clipboard")
   end)
 end, "Copy github url to clipboard")
+
+Zenvim.keymap_silent("n", "<leader>gp", function()
+  -- TODO move to ghurl. add -p option
+  -- TODO get remote url without gh command.
+  local url = vim.fn.system("git config --get remote.origin.url")
+  url = url:gsub("%s+", "")
+  url = url:gsub("%.git$", "")
+
+  if Zenvim.pr_number == nil then
+    vim.notify("Warning: PR number not found", vim.log.levels.WARN)
+    return
+  end
+
+  local pr_url = url .. "/pull/".. Zenvim.pr_number
+  Zenvim.set_register_with_print_message("+", pr_url, "Copy github pr link to clipboard")
+end, "Copy github pr link to clipboard")

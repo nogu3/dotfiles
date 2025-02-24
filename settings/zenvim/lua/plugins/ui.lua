@@ -22,6 +22,19 @@ return {
         untracked = { text = "▎" },
       },
       current_line_blame = true,
+      current_line_blame_formatter = function(name, blame_info, opts)
+        if blame_info.author == "Not Committed Yet" then
+          return { { "Not Committed Yet", "GitSignsCurrentLineBlame" } }
+        end
+
+        -- save pr number
+        Zenvim.set_pr_number_in_current_brame(blame_info.summary)
+
+        local relative_time = require("gitsigns.util").get_relative_time(blame_info.author_time)
+        local formatted = string.format(" %s, %s - %s", blame_info.author, relative_time, blame_info.summary)
+
+        return { { formatted, "GitSignsCurrentLineBlame" } }
+      end,
     },
     keys = {
       {
