@@ -1,6 +1,6 @@
 #!/bin/sh
 
-url=$(gh repo view --json url -q .url)
+url=$(git config --get remote.origin.url | sed 's/\.git$//')
 commit_hash=$(git rev-parse HEAD)
 file_path=$1
 line_number=$2
