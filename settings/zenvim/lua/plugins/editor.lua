@@ -143,7 +143,12 @@ return {
             return math.floor(vim.o.lines * 0.9)
           end,
         },
-        on_close = function(term)
+        on_open = function(_)
+          vim.defer_fn(function()
+            vim.cmd("startinsert")
+          end, 100)
+        end,
+        on_close = function(_)
           require("gitsigns").refresh()
         end,
       })
