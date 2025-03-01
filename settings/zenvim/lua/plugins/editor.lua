@@ -143,6 +143,9 @@ return {
             return math.floor(vim.o.lines * 0.9)
           end,
         },
+        on_close = function(term)
+          require("gitsigns").refresh()
+        end,
       })
 
       -- TODO move to Zenvim
