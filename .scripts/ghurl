@@ -1,8 +1,22 @@
 #!/bin/sh
 
+subcommand=$1
 url=$(git config --get remote.origin.url | sed 's/\.git$//')
-commit_hash=$(git rev-parse HEAD)
-file_path=$1
-line_number=$2
 
-echo "${url}/blob/$commit_hash/${file_path}#L${line_number}"
+case $subcommand in
+  link)
+    commit_hash=$(git rev-parse HEAD)
+    file_path=$2
+    line_number=$3
+
+    echo "${url}/blob/$commit_hash/${file_path}#L${line_number}"
+    ;;
+  pr)
+    line_number=$2
+    echo "${url}/pull/${line_number}"
+    ;;
+  *)
+    echo "invalid subcommand: $subcommand"
+    ;;
+esac
+
