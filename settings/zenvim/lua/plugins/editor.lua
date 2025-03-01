@@ -130,7 +130,7 @@ return {
       require("toggleterm").setup(opts)
 
       local Terminal = require("toggleterm.terminal").Terminal
-      local lazygit = Terminal:new({
+      Zenvim.lazygit = Terminal:new({
         cmd = "lazygit",
         direction = "float",
         hidden = true,
@@ -148,13 +148,8 @@ return {
         end,
       })
 
-      -- TODO move to Zenvim
-      function _lazygit_toggle()
-        lazygit:toggle()
-      end
-
       Zenvim.keymap_silent("n", "<leader><Space>", function()
-        lazygit:toggle()
+        Zenvim.lazygit:toggle()
       end, "Lazygit")
     end,
   },

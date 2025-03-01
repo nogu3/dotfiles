@@ -23,10 +23,20 @@ end
 local M = {}
 
 M.pr_number = nil
+M.lazygit = nil
 M.keymap = vim.keymap.set
 M.delmap = vim.keymap.del
 -- FIXME load timing
 -- M.async = require("plenary.async")
+
+function M.toggle_lazygit()
+  if M.lazygit == nil then
+    return
+  end
+
+  M.lazygit:toggle()
+end
+
 
 function M.set_pr_number_in_current_brame(commit_message)
   M.pr_number = commit_message:match("%(#(%d+)%)")

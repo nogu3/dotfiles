@@ -13,5 +13,5 @@ git:
 refresher:
   refreshInterval: 3
 os:
-  open: 'nvim --server "$(pwd)/.nvim-server.pipe" --remote-send "<C-\><C-N>:execute \"lua _lazygit_toggle()\" | e {{filename}}<CR>"'
+  open: 'nvim --server "$(pwd)/.nvim-server.pipe" --remote-send "<C-\><C-N>:execute \"lua Zenvim.toggle_lazygit()\" | e {{filename}}<CR>"'
 
