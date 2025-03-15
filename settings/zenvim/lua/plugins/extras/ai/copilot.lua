@@ -8,7 +8,8 @@ return {
   --   optional = true,
   --   event = "VeryLazy",
   --   opts = function(_, opts)
-  --     require("plenary.async").run(function()
+  --     local async = require("plenary.async")
+  --    async.wrap(function()
   --       FIXME vim.fn.execute is blocking function.
   --       local result = vim.fn.execute("Copilot status")
   --       return string.find(result, "Ready") ~= nil

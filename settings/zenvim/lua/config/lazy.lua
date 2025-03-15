@@ -23,7 +23,7 @@ require("lazy").setup({
     { import = "plugins.extras.lang.ruby" },
     { import = "plugins.extras.lang.json" },
     { import = "plugins.extras.lang.c" },
-    { import = "plugins.extras.copilot" },
+    { import = "plugins.extras.ai" },
   },
   performance = {
     rtp = {
