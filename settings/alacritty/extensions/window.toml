@@ -1,0 +1,7 @@
+[window]
+decorations = "Full"
+startup_mode = "Maximized"
+opacity = 0.87
+
+[font]
+normal = { family = "Hack Nerd Font", style = "Regular" }
