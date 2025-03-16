@@ -159,4 +159,23 @@ return {
       end, "Lazygit")
     end,
   },
+
+  -- folding
+  {
+    "kevinhwang91/nvim-ufo",
+    dependencies = {
+      "kevinhwang91/promise-async",
+    },
+    event = "VeryLazy",
+    keys = {
+      { "zR", "<cmd>lua require('ufo').openAllFolds()<cr>", desc = "Open all folds" },
+      { "zM", "<cmd>lua require('ufo').closeAllFolds()<cr>", desc = "Close all folds" },
+    },
+    opts = {
+      provider_selector = function(_, _, _)
+        return { "treesitter", "indent" }
+      end,
+    },
+    config = true,
+  },
 }
