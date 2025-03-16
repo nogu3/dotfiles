@@ -5,6 +5,10 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
   },
+  keys = {
+    { "<leader>cn", "<cmd>CodeCompanionChat<cr>", desc = "New CodeCompanionChat" },
+    { "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle CodeCompanionChat" },
+  },
   opts = {
     adapters = {
       copilot = function()
@@ -12,7 +16,7 @@ return {
           streaming = true,
           schema = {
             model = {
-              default = "claude-3.7-sonnet"
+              default = "claude-3.7-sonnet",
             },
           },
         })
