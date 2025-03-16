@@ -34,8 +34,6 @@ opt.scrolloff = 4
 
 -- show line number
 opt.number = true
--- Relative line numbers
-opt.relativenumber = true
 -- convert tabs to spaces
 opt.tabstop = 2
 -- space count when auto indent
