@@ -9,6 +9,13 @@ return {
     { "<leader>cn", "<cmd>CodeCompanionChat<cr>", desc = "New CodeCompanionChat" },
     { "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle CodeCompanionChat" },
   },
+  cmd = {
+    "CodeCompanionChat",
+    "CodeCompanionContext",
+    "CodeCompanionToggle",
+    "CodeCompanionClear",
+    "CodeCompanionActions",
+  },
   opts = {
     adapters = {
       copilot = function()
@@ -66,3 +73,4 @@ return {
     },
   },
 }
+
