@@ -44,9 +44,9 @@ Zenvim.keymap_silent("n", "<leader>\\", "<C-W>v", "Split Window Right")
 Zenvim.keymap_silent("n", "<leader>wd", "<C-W>c", "Delete Window")
 
 -- select all copy
-Zenvim.keymap_silent("n", "<leader>a", "gg<S-v>Gy", "Select all and Copy")
+Zenvim.keymap_silent("n", "<leader>ca", "gg<S-v>Gy", "Select all and Copy")
 -- select all delete
-Zenvim.keymap_silent("n", "<leader>A", "gg<S-v>Gd", "Select all and Delete")
+Zenvim.keymap_silent("n", "<leader>cA", "gg<S-v>Gd", "Select all and Delete")
 
 -- redo
 Zenvim.keymap_silent("n", "U", "<C-r>", "Redo")
