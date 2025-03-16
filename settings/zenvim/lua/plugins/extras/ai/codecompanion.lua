@@ -17,13 +17,22 @@ return {
     "CodeCompanionActions",
   },
   opts = {
+    display = {
+      chat = {
+        window = {
+          layout = "vertical",
+          position = "right",
+          width = 0.3,
+        },
+      },
+    },
     adapters = {
       copilot = function()
         return require("codecompanion.adapters").extend("copilot", {
           streaming = true,
           schema = {
             model = {
-              default = "claude-3.7-sonnet",
+              default = "claude-3.5-sonnet",
             },
           },
         })
@@ -73,4 +82,3 @@ return {
     },
   },
 }
-
