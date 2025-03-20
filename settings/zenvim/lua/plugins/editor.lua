@@ -151,6 +151,9 @@ return {
         end,
         on_close = function(_)
           require("gitsigns").refresh()
+          vim.defer_fn(function()
+            vim.cmd("edit")
+          end, 100)
         end,
       })
 
