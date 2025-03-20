@@ -5,6 +5,7 @@ gui:
       - underline
   nerdFontsVersion: '3'
   showCommandLog: false
+  skipDiscardChangeWarning: true
 git:
   paging:
     colorArg: always
