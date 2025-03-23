@@ -10,6 +10,7 @@ show_help() {
     echo "  --run       Run Docker container for Ruby development"
     echo "  --update    Update Ruby dependencies"
     echo "  --format    Format Ruby code using RuboCop auto-correct"
+    echo "             (Requires file path to format)"
     echo "  --lint      Run RuboCop lint check"
     echo "  -h, --help  Show this help message"
 }
@@ -107,8 +108,29 @@ while [ $# -gt 0 ]; do
             shift
             ;;
         --format)
-            echo "Format option selected (not implemented yet)"
-            # TODO: implement format logic
+            # 現在のディレクトリ名からコンテナ名を生成
+            container_name="ruby-dev-tool_$(basename "$(pwd)")"
+
+            if [ -z "$2" ]; then
+                echo "Error: --format requires a file path"
+                echo "Usage: $0 --format <file_path>"
+                exit 1
+            fi
+
+            # コンテナが実行中か確認
+            if docker ps --format '{{.Names}}' | grep -q "^${container_name}$"; then
+                if [ -f "$2" ]; then
+                    docker exec -i "${container_name}" rubocop -A --format files --stdin "$2" --stderr
+                    shift
+                else
+                    echo "Error: File $2 does not exist"
+                    exit 1
+                fi
+            else
+                echo "Error: Container ${container_name} is not running"
+                echo "Please start the container first with --run option"
+                exit 1
+            fi
             shift
             ;;
         --lint)
