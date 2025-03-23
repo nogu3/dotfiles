@@ -67,8 +67,22 @@ while [ $# -gt 0 ]; do
             shift
             ;;
         --stop)
-            echo "Stop option selected (not implemented yet)"
-            # TODO: implement update logic
+            # 現在のディレクトリ名からコンテナ名を生成
+            container_name="ruby-dev-tool_$(basename "$(pwd)")"
+
+            # コンテナの存在確認と停止処理
+            if docker ps --format '{{.Names}}' | grep -q "^${container_name}$"; then
+                echo "Stopping ${container_name} container..."
+                docker stop "${container_name}"
+                if [ $? -eq 0 ]; then
+                    echo "Successfully stopped ${container_name} container"
+                else
+                    echo "Failed to stop ${container_name} container"
+                    exit 1
+                fi
+            else
+                echo "Container ${container_name} is not running"
+            fi
             shift
             ;;
         --update)
