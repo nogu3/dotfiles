@@ -1,0 +1,201 @@
+#!/bin/bash
+
+# ヘルプメッセージ
+show_help() {
+    echo "Usage: $(basename "$0") [OPTIONS]"
+    echo ""
+    echo "Options:"
+    echo "  --build     Build Docker container for Ruby development"
+    echo "  --setup     Setup Docker container (requires dotfiles directory path)"
+    echo "  --run       Run Docker container for Ruby development"
+    echo "  --update    Update Ruby dependencies"
+    echo "  --format    Format Ruby code using RuboCop auto-correct"
+    echo "             (Requires file path to format)"
+    echo "  --lint      Run RuboCop lint check"
+    echo "             (Requires file path to lint)"
+    echo "  -h, --help  Show this help message"
+}
+
+# オプションが指定されていない場合
+if [ $# -eq 0 ]; then
+    show_help
+    exit 1
+fi
+
+# オプション処理
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --build)
+            if [ -z "$2" ]; then
+                echo "Error: --setup requires a dotfiles directory path"
+                echo "Usage: $0 --setup <dotfiles_path>"
+                exit 1
+            fi
+
+            dotfiles_path="$2"
+            if [ ! -d "$dotfiles_path" ]; then
+                echo "Error: Directory $dotfiles_path does not exist"
+                exit 1
+            fi
+
+            echo "Docker image not found. Building ruby-dev-tool image..."
+            docker build -t ruby-dev-tool -f "$dotfiles_path/settings/docker/ruby-dev-tool/Dockerfile" .
+            if [ $? -eq 0 ]; then
+                echo "Successfully built ruby-dev-tool Docker image"
+            else
+                echo "Failed to build Docker image"
+                exit 1
+            fi
+
+            shift 2
+            ;;
+        --run)
+            # 現在のディレクトリ名からコンテナ名を生成
+            container_name="ruby-dev-tool_$(basename "$(pwd)")"
+
+            # コンテナの存在確認
+            if docker ps -a --format '{{.Names}}' | grep -q "^${container_name}$"; then
+                echo "${container_name} container already exists"
+            else
+                # Bundlerキャッシュ用のボリューム名を生成
+                bundle_cache_volume="${container_name}_bundle_cache"
+
+                # ボリュームが存在しない場合は作成
+                if ! docker volume ls --format '{{.Name}}' | grep -q "^${bundle_cache_volume}$"; then
+                    echo "Creating bundle cache volume: ${bundle_cache_volume}"
+                    docker volume create "${bundle_cache_volume}"
+                fi
+
+                # 新規コンテナ作成と起動
+                echo "Creating and starting new ${container_name} container..."
+                docker run -d \
+                    --rm \
+                    --init \
+                    --name "${container_name}" \
+                    -v "$(pwd):/app" \
+                    -v "${bundle_cache_volume}:/usr/local/bundle" \
+                    ruby-dev-tool
+            fi
+
+            shift
+            ;;
+        --stop)
+            # 現在のディレクトリ名からコンテナ名を生成
+            container_name="ruby-dev-tool_$(basename "$(pwd)")"
+
+            # コンテナの存在確認と停止処理
+            if docker ps --format '{{.Names}}' | grep -q "^${container_name}$"; then
+                echo "Stopping ${container_name} container..."
+                docker stop "${container_name}"
+                if [ $? -eq 0 ]; then
+                    echo "Successfully stopped ${container_name} container"
+                else
+                    echo "Failed to stop ${container_name} container"
+                    exit 1
+                fi
+            else
+                echo "Container ${container_name} is not running"
+            fi
+            shift
+            ;;
+        --update)
+            # 現在のディレクトリ名からコンテナ名を生成
+            container_name="ruby-dev-tool_$(basename "$(pwd)")"
+
+            # コンテナが実行中か確認
+            if docker ps --format '{{.Names}}' | grep -q "^${container_name}$"; then
+                echo "Updating Ruby dependencies in ${container_name}..."
+
+                # bundle installの実行
+                echo "Running bundle install..."
+                if ! docker exec -i "${container_name}" bundle install; then
+                    echo "Error: Failed to run bundle install"
+                    exit 1
+                fi
+
+                echo "Successfully updated Ruby dependencies"
+            else
+                echo "Error: Container ${container_name} is not running"
+                echo "Please start the container first with --run option"
+                exit 1
+            fi
+            shift
+            ;;
+        --lsp)
+            # 現在のディレクトリ名からコンテナ名を生成
+            container_name="ruby-dev-tool_$(basename "$(pwd)")"
+
+            # コンテナが実行中か確認
+            if docker ps --format '{{.Names}}' | grep -q "^${container_name}$"; then
+                echo "Starting Ruby LSP server in ${container_name}..."
+                docker exec -i "${container_name}" ruby-lsp
+            else
+                echo "Error: Container ${container_name} is not running"
+                echo "Please start the container first with --run option"
+                exit 1
+            fi
+            shift
+            ;;
+        --format)
+            # 現在のディレクトリ名からコンテナ名を生成
+            container_name="ruby-dev-tool_$(basename "$(pwd)")"
+
+            if [ -z "$2" ]; then
+                echo "Error: --format requires a file path"
+                echo "Usage: $0 --format <file_path>"
+                exit 1
+            fi
+
+            # コンテナが実行中か確認
+            if docker ps --format '{{.Names}}' | grep -q "^${container_name}$"; then
+                if [ -f "$2" ]; then
+                    docker exec -i "${container_name}" rubocop -A --format files --stdin "$2" --stderr
+                    shift
+                else
+                    echo "Error: File $2 does not exist"
+                    exit 1
+                fi
+            else
+                echo "Error: Container ${container_name} is not running"
+                echo "Please start the container first with --run option"
+                exit 1
+            fi
+            shift
+            ;;
+        --lint)
+            # 現在のディレクトリ名からコンテナ名を生成
+            container_name="ruby-dev-tool_$(basename "$(pwd)")"
+
+            if [ -z "$2" ]; then
+                echo "Error: --lint requires a file path"
+                echo "Usage: $0 --lint <file_path>"
+                exit 1
+            fi
+
+            # コンテナが実行中か確認
+            if docker ps --format '{{.Names}}' | grep -q "^${container_name}$"; then
+                if [ -f "$2" ]; then
+                    docker exec -i "${container_name}" rubocop --format emacs "$2"
+                else
+                    echo "Error: File $2 does not exist"
+                    exit 1
+                fi
+            else
+                echo "Error: Container ${container_name} is not running"
+                echo "Please start the container first with --run option"
+                exit 1
+            fi
+            shift 2
+            ;;
+        -h|--help)
+            show_help
+            exit 0
+            ;;
+        *)
+            echo "Error: Unknown option $1"
+            show_help
+            exit 1
+            ;;
+    esac
+done
+
