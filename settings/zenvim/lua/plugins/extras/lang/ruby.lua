@@ -43,7 +43,9 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = function(_, opts)
-      opts.formatters_by_ft = Zenvim.list_append_with_nil(opts.formatters_by_ft, "solargraph", {})
+      opts.formatters_by_ft = Zenvim.list_append_with_nil(opts.formatters_by_ft, "ruby_lsp", {
+        cmd = { "ruby-dev-tool", "--lsp" },
+      })
     end,
   },
 
