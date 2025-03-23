@@ -57,6 +57,15 @@ while [ $# -gt 0 ]; do
             if docker ps -a --format '{{.Names}}' | grep -q "^${container_name}$"; then
                 echo "${container_name} container already exists"
             else
+                # Bundlerキャッシュ用のボリューム名を生成
+                bundle_cache_volume="${container_name}_bundle_cache"
+
+                # ボリュームが存在しない場合は作成
+                if ! docker volume ls --format '{{.Name}}' | grep -q "^${bundle_cache_volume}$"; then
+                    echo "Creating bundle cache volume: ${bundle_cache_volume}"
+                    docker volume create "${bundle_cache_volume}"
+                fi
+
                 # 新規コンテナ作成と起動
                 echo "Creating and starting new ${container_name} container..."
                 docker run -d \
@@ -64,6 +73,7 @@ while [ $# -gt 0 ]; do
                     --init \
                     --name "${container_name}" \
                     -v "$(pwd):/app" \
+                    -v "${bundle_cache_volume}:/usr/local/bundle" \
                     ruby-dev-tool
             fi
 
