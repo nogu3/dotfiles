@@ -99,8 +99,26 @@ while [ $# -gt 0 ]; do
             shift
             ;;
         --update)
-            echo "Update option selected (not implemented yet)"
-            # TODO: implement update logic
+            # 現在のディレクトリ名からコンテナ名を生成
+            container_name="ruby-dev-tool_$(basename "$(pwd)")"
+
+            # コンテナが実行中か確認
+            if docker ps --format '{{.Names}}' | grep -q "^${container_name}$"; then
+                echo "Updating Ruby dependencies in ${container_name}..."
+
+                # bundle installの実行
+                echo "Running bundle install..."
+                if ! docker exec -i "${container_name}" bundle install; then
+                    echo "Error: Failed to run bundle install"
+                    exit 1
+                fi
+
+                echo "Successfully updated Ruby dependencies"
+            else
+                echo "Error: Container ${container_name} is not running"
+                echo "Please start the container first with --run option"
+                exit 1
+            fi
             shift
             ;;
         --lsp)
