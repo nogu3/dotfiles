@@ -21,14 +21,9 @@ fi
 # オプション処理
 while [ $# -gt 0 ]; do
     case "$1" in
-        --format)
-            echo "Format option selected (not implemented yet)"
-            # TODO: implement format logic
-            shift
-            ;;
-        --lint)
-            echo "Lint option selected (not implemented yet)"
-            # TODO: implement lint logic
+        --setup)
+            echo "Setup option selected (not implemented yet)"
+            # TODO: implement setup logic
             shift
             ;;
         --update)
@@ -36,9 +31,14 @@ while [ $# -gt 0 ]; do
             # TODO: implement update logic
             shift
             ;;
-        --setup)
-            echo "Setup option selected (not implemented yet)"
-            # TODO: implement setup logic
+        --lint)
+            echo "Lint option selected (not implemented yet)"
+            # TODO: implement lint logic
+            shift
+            ;;
+        --format)
+            echo "Format option selected (not implemented yet)"
+            # TODO: implement format logic
             shift
             ;;
         -h|--help)
