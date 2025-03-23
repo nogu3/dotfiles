@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# ヘルプメッセージ
+show_help() {
+    echo "Usage: $(basename "$0") [OPTIONS]"
+    echo ""
+    echo "Options:"
+    echo "  --format    Format Ruby code using RuboCop auto-correct"
+    echo "  --lint      Run RuboCop lint check"
+    echo "  --update    Update Ruby dependencies"
+    echo "  --setup     Build and setup Docker container for Ruby development"
+    echo "  -h, --help  Show this help message"
+}
+
+# オプションが指定されていない場合
+if [ $# -eq 0 ]; then
+    show_help
+    exit 1
+fi
+
+# オプション処理
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --format)
+            echo "Format option selected (not implemented yet)"
+            # TODO: implement format logic
+            shift
+            ;;
+        --lint)
+            echo "Lint option selected (not implemented yet)"
+            # TODO: implement lint logic
+            shift
+            ;;
+        --update)
+            echo "Update option selected (not implemented yet)"
+            # TODO: implement update logic
+            shift
+            ;;
+        --setup)
+            echo "Setup option selected (not implemented yet)"
+            # TODO: implement setup logic
+            shift
+            ;;
+        -h|--help)
+            show_help
+            exit 0
+            ;;
+        *)
+            echo "Error: Unknown option $1"
+            show_help
+            exit 1
+            ;;
+    esac
+done
+
