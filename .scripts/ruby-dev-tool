@@ -5,10 +5,12 @@ show_help() {
     echo "Usage: $(basename "$0") [OPTIONS]"
     echo ""
     echo "Options:"
+    echo "  --build     Build Docker container for Ruby development"
+    echo "  --setup     Setup Docker container (requires dotfiles directory path)"
+    echo "  --run       Run Docker container for Ruby development"
+    echo "  --update    Update Ruby dependencies"
     echo "  --format    Format Ruby code using RuboCop auto-correct"
     echo "  --lint      Run RuboCop lint check"
-    echo "  --update    Update Ruby dependencies"
-    echo "  --setup     Build and setup Docker container for Ruby development"
     echo "  -h, --help  Show this help message"
 }
 
@@ -21,9 +23,33 @@ fi
 # オプション処理
 while [ $# -gt 0 ]; do
     case "$1" in
-        --setup)
-            echo "Setup option selected (not implemented yet)"
-            # TODO: implement setup logic
+        --build)
+            if [ -z "$2" ]; then
+                echo "Error: --setup requires a dotfiles directory path"
+                echo "Usage: $0 --setup <dotfiles_path>"
+                exit 1
+            fi
+
+            dotfiles_path="$2"
+            if [ ! -d "$dotfiles_path" ]; then
+                echo "Error: Directory $dotfiles_path does not exist"
+                exit 1
+            fi
+
+            echo "Docker image not found. Building ruby-dev-tool image..."
+            docker build -t ruby-dev-tool -f "$dotfiles_path/settings/docker/ruby-dev-tool/Dockerfile" .
+            if [ $? -eq 0 ]; then
+                echo "Successfully built ruby-dev-tool Docker image"
+            else
+                echo "Failed to build Docker image"
+                exit 1
+            fi
+
+            shift 2
+            ;;
+        --run)
+            echo "Run option selected (not implemented yet)"
+            # TODO: implement update logic
             shift
             ;;
         --update)
