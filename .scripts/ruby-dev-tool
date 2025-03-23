@@ -91,14 +91,29 @@ while [ $# -gt 0 ]; do
             # TODO: implement update logic
             shift
             ;;
-        --lint)
-            echo "Lint option selected (not implemented yet)"
-            # TODO: implement lint logic
+        --lsp)
+            # 現在のディレクトリ名からコンテナ名を生成
+            container_name="ruby-dev-tool_$(basename "$(pwd)")"
+
+            # コンテナが実行中か確認
+            if docker ps --format '{{.Names}}' | grep -q "^${container_name}$"; then
+                echo "Starting Ruby LSP server in ${container_name}..."
+                docker exec -it "${container_name}" ruby-lsp
+            else
+                echo "Error: Container ${container_name} is not running"
+                echo "Please start the container first with --run option"
+                exit 1
+            fi
             shift
             ;;
         --format)
             echo "Format option selected (not implemented yet)"
             # TODO: implement format logic
+            shift
+            ;;
+        --lint)
+            echo "Lint option selected (not implemented yet)"
+            # TODO: implement lint logic
             shift
             ;;
         -h|--help)
