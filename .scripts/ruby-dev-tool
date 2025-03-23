@@ -48,7 +48,26 @@ while [ $# -gt 0 ]; do
             shift 2
             ;;
         --run)
-            echo "Run option selected (not implemented yet)"
+            # 現在のディレクトリ名からコンテナ名を生成
+            container_name="ruby-dev-tool_$(basename "$(pwd)")"
+
+            # コンテナの存在確認
+            if docker ps -a --format '{{.Names}}' | grep -q "^${container_name}$"; then
+                echo "${container_name} container already exists"
+            else
+                # 新規コンテナ作成と起動
+                echo "Creating and starting new ${container_name} container..."
+                docker run -d \
+                    --rm \
+                    --name "${container_name}" \
+                    -v "$(pwd):/app" \
+                    ruby-dev-tool
+            fi
+
+            shift
+            ;;
+        --stop)
+            echo "Stop option selected (not implemented yet)"
             # TODO: implement update logic
             shift
             ;;
