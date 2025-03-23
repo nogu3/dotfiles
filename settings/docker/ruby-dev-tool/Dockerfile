@@ -5,6 +5,8 @@ RUN apt-get update \
    build-essential \
    ruby-dev
 
+RUN gem update --no-document
+
 WORKDIR /app
 
 CMD ["sleep", "infinity"]
