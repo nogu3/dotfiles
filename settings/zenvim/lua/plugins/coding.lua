@@ -238,7 +238,20 @@ return {
         linters_by_ft = {},
       },
       config = function(_, opts)
-        require("lint").linters_by_ft = opts.linters_by_ft
+        local lint = require("lint")
+        lint.linters.docker_rubocop = {
+          name = "docker_rubocop",
+          cmd = "ruby-dev-tool",
+          args = {
+            "--lint",
+            function()
+              return Zenvim.get_relative_path()
+            end,
+          },
+          stdin = true,
+          parser = lint.linters.rubocop.parser,
+        }
+        lint.linters_by_ft = opts.linters_by_ft
       end,
     },
   },

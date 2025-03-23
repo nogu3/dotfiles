@@ -12,6 +12,7 @@ show_help() {
     echo "  --format    Format Ruby code using RuboCop auto-correct"
     echo "             (Requires file path to format)"
     echo "  --lint      Run RuboCop lint check"
+    echo "             (Requires file path to lint)"
     echo "  -h, --help  Show this help message"
 }
 
@@ -134,9 +135,29 @@ while [ $# -gt 0 ]; do
             shift
             ;;
         --lint)
-            echo "Lint option selected (not implemented yet)"
-            # TODO: implement lint logic
-            shift
+            # 現在のディレクトリ名からコンテナ名を生成
+            container_name="ruby-dev-tool_$(basename "$(pwd)")"
+
+            if [ -z "$2" ]; then
+                echo "Error: --lint requires a file path"
+                echo "Usage: $0 --lint <file_path>"
+                exit 1
+            fi
+
+            # コンテナが実行中か確認
+            if docker ps --format '{{.Names}}' | grep -q "^${container_name}$"; then
+                if [ -f "$2" ]; then
+                    docker exec -i "${container_name}" rubocop --format emacs "$2"
+                else
+                    echo "Error: File $2 does not exist"
+                    exit 1
+                fi
+            else
+                echo "Error: Container ${container_name} is not running"
+                echo "Please start the container first with --run option"
+                exit 1
+            fi
+            shift 2
             ;;
         -h|--help)
             show_help
