@@ -59,6 +59,7 @@ while [ $# -gt 0 ]; do
                 echo "Creating and starting new ${container_name} container..."
                 docker run -d \
                     --rm \
+                    --init \
                     --name "${container_name}" \
                     -v "$(pwd):/app" \
                     ruby-dev-tool
