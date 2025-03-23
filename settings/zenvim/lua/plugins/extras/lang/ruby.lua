@@ -26,18 +26,8 @@ return {
     end,
   },
 
-  -- HACK one method define
   -- lsp install
-  {
-    "williamboman/mason.nvim",
-    optional = true,
-    opts = function(_, opts)
-      Zenvim.list_extend_with_nil(opts.ensure_installed, {
-        "rubocop",
-        "solargraph",
-      })
-    end,
-  },
+  -- Mason is not needed since execution is done via Docker.
 
   -- lsp config
   {
@@ -54,7 +44,16 @@ return {
     "stevearc/conform.nvim",
     optional = true,
     opts = function(_, opts)
-      opts.formatters_by_ft = Zenvim.list_append_with_nil(opts.formatters_by_ft, "ruby", { "rubocop" })
+      opts.formatters_by_ft = Zenvim.list_append_with_nil(opts.formatters_by_ft, "ruby", { "docker_rubocop" })
+      opts.formatters = {
+        docker_rubocop = {
+          command = "ruby-dev-tool",
+          args = {
+            "--format",
+            "$FILENAME",
+          },
+        },
+      }
     end,
   },
 
@@ -63,7 +62,7 @@ return {
     "mfussenegger/nvim-lint",
     optional = true,
     opts = function(_, opts)
-      opts.linters_by_ft = Zenvim.list_append_with_nil(opts.linters_by_ft, "ruby", { "rubocop" })
+      opts.linters_by_ft = Zenvim.list_append_with_nil(opts.linters_by_ft, "ruby", { "docker_rubocop" })
     end,
   },
 }
