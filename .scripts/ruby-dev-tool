@@ -76,6 +76,8 @@ while [ $# -gt 0 ]; do
                     -v "$(pwd):/app" \
                     -v "${bundle_cache_volume}:/usr/local/bundle" \
                     ruby-dev-tool
+                # FIXME ruby-lspがworkdir配下の.rubocop.ymlを読んでくれないので、一旦シンボリックリンクで対処する
+                docker exec -it "${container_name}" ln -sf /app/.rubocop.yml /root/.rubocop.yml
             fi
 
             shift
@@ -129,7 +131,7 @@ while [ $# -gt 0 ]; do
             # コンテナが実行中か確認
             if docker ps --format '{{.Names}}' | grep -q "^${container_name}$"; then
                 echo "Starting Ruby LSP server in ${container_name}..."
-                docker exec -i "${container_name}" ruby-lsp
+                docker exec -i "${container_name}" bundle exec ruby-lsp
             else
                 echo "Error: Container ${container_name} is not running"
                 echo "Please start the container first with --run option"

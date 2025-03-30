@@ -35,34 +35,37 @@ return {
     opts = function(_, opts)
       opts.formatters_by_ft = Zenvim.list_append_with_nil(opts.formatters_by_ft, "ruby_lsp", {
         cmd = { "ruby-dev-tool", "--lsp" },
+        init_options = {
+          formatting = true,
+        },
       })
     end,
   },
 
   -- formatter
-  {
-    "stevearc/conform.nvim",
-    optional = true,
-    opts = function(_, opts)
-      opts.formatters_by_ft = Zenvim.list_append_with_nil(opts.formatters_by_ft, "ruby", { "docker_rubocop" })
-      opts.formatters = {
-        docker_rubocop = {
-          command = "ruby-dev-tool",
-          args = {
-            "--format",
-            "$FILENAME",
-          },
-        },
-      }
-    end,
-  },
-
+  -- {
+  --   "stevearc/conform.nvim",
+  --   optional = true,
+  --   opts = function(_, opts)
+  --     opts.formatters_by_ft = Zenvim.list_append_with_nil(opts.formatters_by_ft, "ruby", { "docker_rubocop" })
+  --     opts.formatters = {
+  --       docker_rubocop = {
+  --         command = "ruby-dev-tool",
+  --         args = {
+  --           "--format",
+  --           "$FILENAME",
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- },
+  --
   -- linter
-  {
-    "mfussenegger/nvim-lint",
-    optional = true,
-    opts = function(_, opts)
-      opts.linters_by_ft = Zenvim.list_append_with_nil(opts.linters_by_ft, "ruby", { "docker_rubocop" })
-    end,
-  },
+  -- {
+  --   "mfussenegger/nvim-lint",
+  --   optional = true,
+  --   opts = function(_, opts)
+  --     opts.linters_by_ft = Zenvim.list_append_with_nil(opts.linters_by_ft, "ruby", { "docker_rubocop" })
+  --   end,
+  -- },
 }
