@@ -108,6 +108,7 @@ alias ta="tmux a"
 alias nv="nvh"
 # nvim on host
 nvh() {
+  rm -f "$(pwd)/.nvim-server.pipe"
   nvim --listen "$(pwd)/.nvim-server.pipe" $@
 }
 
