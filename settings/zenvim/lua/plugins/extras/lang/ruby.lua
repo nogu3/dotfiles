@@ -30,42 +30,16 @@ return {
   -- Mason is not needed since execution is done via Docker.
 
   -- lsp config
+  -- TODO use ruby-lsp. Issue is not search /app/.rubocop.yml
   {
     "neovim/nvim-lspconfig",
     opts = function(_, opts)
-      opts.formatters_by_ft = Zenvim.list_append_with_nil(opts.formatters_by_ft, "ruby_lsp", {
-        cmd = { "ruby-dev-tool", "--lsp" },
+      opts.formatters_by_ft = Zenvim.list_append_with_nil(opts.formatters_by_ft, "rubocop", {
+        cmd = { "ruby-dev-tool", "--rubocop" },
         init_options = {
           formatting = true,
         },
       })
     end,
   },
-
-  -- formatter
-  -- {
-  --   "stevearc/conform.nvim",
-  --   optional = true,
-  --   opts = function(_, opts)
-  --     opts.formatters_by_ft = Zenvim.list_append_with_nil(opts.formatters_by_ft, "ruby", { "docker_rubocop" })
-  --     opts.formatters = {
-  --       docker_rubocop = {
-  --         command = "ruby-dev-tool",
-  --         args = {
-  --           "--format",
-  --           "$FILENAME",
-  --         },
-  --       },
-  --     }
-  --   end,
-  -- },
-  --
-  -- linter
-  -- {
-  --   "mfussenegger/nvim-lint",
-  --   optional = true,
-  --   opts = function(_, opts)
-  --     opts.linters_by_ft = Zenvim.list_append_with_nil(opts.linters_by_ft, "ruby", { "docker_rubocop" })
-  --   end,
-  -- },
 }
