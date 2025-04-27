@@ -154,7 +154,8 @@ while [ $# -gt 0 ]; do
             # コンテナが実行中か確認
             if docker ps --format '{{.Names}}' | grep -q "^${container_name}$"; then
                 echo "Starting Ruby LSP server in ${container_name}..."
-                docker exec -i "${container_name}" rubocop --lsp
+                # FIXME --configを指定しなくてもみるようにする
+                docker exec -i "${container_name}" rubocop --lsp --config /app/.rubocop.yml
             else
                 echo "Error: Container ${container_name} is not running"
                 echo "Please start the container first with --run option"
