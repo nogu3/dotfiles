@@ -6,6 +6,14 @@ vim.g.maplocalleader = "\\"
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_python3_provider = 0
 
+-- show diagnostic
+vim.diagnostic.config({
+  virtual_text = true,
+  underline = true,
+  signs = true,
+  update_in_insert = false,
+  severity_sort = true,
+})
 
 local opt = vim.opt
 opt.timeoutlen = 300
