@@ -1,8 +1,8 @@
 FROM ruby:3.2.7-slim
 
 ENV GEM_HOME=/usr/local/system_gems
-ENV BUNDLE_HOME=/usr/local/bundle
-ENV PATH=$GEM_HOME/bin:$BUNDLE_HOME/bin:$PATH
+ENV BUNDLE_PATH=/usr/local/bundle
+ENV PATH=$GEM_HOME/bin:$BUNDLE_PATH/bin:$PATH
 
 RUN apt-get update \
  && apt-get -y install \
