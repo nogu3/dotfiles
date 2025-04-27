@@ -63,7 +63,17 @@ export PATH=$PATH:~/.local/bin
 eval "$(zoxide init zsh)"
 
 # setup fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
+# select repository with fzf
+fzf-ghq-widget() {
+  local selected_dir=$(ghq list | fzf)
+  if [[ -n "$selected_dir" ]]; then
+    cd "$HOME/ghq/$selected_dir"
+    zle reset-prompt
+  fi
+}
+zle -N fzf-ghq-widget
+bindkey '^g' fzf-ghq-widget
 
 # setup tmux
 export TMUX_TMPDIR=~/.tmux/sessions
