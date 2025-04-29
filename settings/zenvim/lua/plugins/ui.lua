@@ -270,10 +270,10 @@ return {
           header = vim.split(logo, "\n"),
           -- stylua: ignore
           center = {
-            { action = "Telescope find_files",                           desc = " Find File",       icon = " ", key = "f" },
+            { action = "FzfLua files",                           desc = " Find File",       icon = " ", key = "f" },
             { action = "ene | startinsert",                              desc = " New File",        icon = " ", key = "n" },
-            { action = "Telescope oldfiles",                             desc = " Recent Files",    icon = " ", key = "r" },
-            { action = "Telescope live_grep",                            desc = " Find Text",       icon = " ", key = "g" },
+            { action = "FzfLua oldfiles",                             desc = " Recent Files",    icon = " ", key = "r" },
+            { action = "FzfLua live_grep",                            desc = " Find Text",       icon = " ", key = "g" },
             { action = function() vim.api.nvim_input("<cmd>qa<cr>") end, desc = " Quit",            icon = " ", key = "q" },
           },
           footer = function()
