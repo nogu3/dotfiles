@@ -34,6 +34,8 @@ opt.showcmd = true
 opt.showmode = false
 -- tab to space
 opt.expandtab = true
+-- splitright is default
+opt.splitright = true
 
 -- fold
 -- Enable folding functionality
