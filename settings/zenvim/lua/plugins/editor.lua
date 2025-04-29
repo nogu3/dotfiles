@@ -58,7 +58,7 @@ return {
       window = {
         position = "float",
         mappings = {
-          ["<esc>"] = "close",
+          ["<esc>"] = "close_window",
           ["s"] = "open_split",
           ["v"] = "open_vsplit",
         },
