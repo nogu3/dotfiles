@@ -64,6 +64,7 @@ eval "$(zoxide init zsh)"
 
 # setup fzf
 source <(fzf --zsh)
+
 # select repository with fzf
 fzf-ghq-widget() {
   local selected_dir=$(ghq list | fzf)
@@ -74,6 +75,8 @@ fzf-ghq-widget() {
 }
 zle -N fzf-ghq-widget
 bindkey '^g' fzf-ghq-widget
+# not working bindkey for warp
+alias g="fzf-ghq-widget"
 
 # setup tmux
 export TMUX_TMPDIR=~/.tmux/sessions
@@ -81,7 +84,7 @@ mkdir -p $TMUX_TMPDIR
 
 # tmux start session or attach session when tmux installed.
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-  tmux attach-session -t default || tmux new-session -s default
+  # tmux attach-session -t default || tmux new-session -s default
 fi
 
 
