@@ -5,6 +5,21 @@ local act = wezterm.action
 local config = wezterm.config_builder()
 
 ----------------------------------------------------------------------
+-- OS判定
+----------------------------------------------------------------------
+local function is_windows()
+	return wezterm.target_os == "Windows"
+end
+
+local function is_linux()
+	return wezterm.target_os == "Linux"
+end
+
+local function is_mac()
+	return wezterm.target_os == "macOS"
+end
+
+----------------------------------------------------------------------
 -- 1. 基本設定 / パフォーマンス
 ----------------------------------------------------------------------
 
@@ -21,7 +36,9 @@ config.leader = { key = "w", mods = "CTRL" }
 config.enable_kitty_graphics = true
 
 -- for wsl
-config.default_domain = "WSL:Ubuntu"
+if is_windows() then
+	config.default_domain = "WSL:Ubuntu"
+end
 
 ----------------------------------------------------------------------
 -- 2. キーバインド
@@ -55,6 +72,10 @@ config.keys = {
 
 	-- 中断
 	{ key = ".", mods = "CTRL", action = act.SendString("\x03") },
+
+	-- フォントサイズ変更
+	{ key = "+", mods = "CTRL", action = act.IncreaseFontSize },
+	{ key = "-", mods = "CTRL", action = act.DecreaseFontSize },
 
 	-- 設定リロード
 	{ key = "r", mods = "LEADER", action = act.ReloadConfiguration },
