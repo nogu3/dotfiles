@@ -53,6 +53,9 @@ config.keys = {
 	{ key = "c", mods = "CTRL", action = act.CopyTo("Clipboard") },
 	{ key = "v", mods = "CTRL", action = act.PasteFrom("Clipboard") },
 
+	-- 中断
+	{ key = ".", mods = "CTRL", action = act.SendString("\x03") },
+
 	-- 設定リロード
 	{ key = "r", mods = "LEADER", action = act.ReloadConfiguration },
 }
