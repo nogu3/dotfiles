@@ -35,8 +35,8 @@ config.keys = {
 	{ key = "l", mods = "ALT", action = act.ActivatePaneDirection("Right") },
 
 	-- Tab移動
-	{ key = "n", mods = "ALT", action = act.MoveTabRelative(1) },
-	{ key = "p", mods = "ALT", action = act.MoveTabRelative(-1) },
+	{ key = "n", mods = "ALT", action = act.ActivateTabRelative(1) },
+	{ key = "p", mods = "ALT", action = act.ActivateTabRelative(-1) },
 
 	-- Tab作成
 	{ key = "n", mods = "LEADER", action = act.SpawnTab("DefaultDomain") },
