@@ -8,15 +8,15 @@ local config = wezterm.config_builder()
 -- OS判定
 ----------------------------------------------------------------------
 local function is_windows()
-	return wezterm.target_os == "Windows"
+	return wezterm.target_triple:find("windows")
 end
 
 local function is_mac()
-	return wezterm.target_os == "macOS"
+	return wezterm.target_triple:find("darwin")
 end
 
 local function is_linux()
-	return wezterm.target_os == "Linux"
+	return wezterm.target_triple:find("linux")
 end
 
 ----------------------------------------------------------------------
