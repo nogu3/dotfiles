@@ -11,12 +11,12 @@ local function is_windows()
 	return wezterm.target_os == "Windows"
 end
 
-local function is_linux()
-	return wezterm.target_os == "Linux"
-end
-
 local function is_mac()
 	return wezterm.target_os == "macOS"
+end
+
+local function is_linux()
+	return wezterm.target_os == "Linux"
 end
 
 ----------------------------------------------------------------------
