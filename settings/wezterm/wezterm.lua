@@ -73,6 +73,9 @@ config.keys = {
 	{ key = "x", mods = "LEADER", action = act.CloseCurrentPane({ confirm = false }) },
 	{ key = "X", mods = "LEADER", action = act.CloseCurrentTab({ confirm = false }) },
 
+	-- ペインズーム
+	{ key = "z", mods = "LEADER", action = act.TogglePaneZoomState },
+
 	-- コピペ
 	{ key = "c", mods = "CTRL", action = act.CopyTo("Clipboard") },
 	{ key = "v", mods = "CTRL", action = act.PasteFrom("Clipboard") },
