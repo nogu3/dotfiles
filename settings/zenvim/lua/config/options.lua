@@ -102,3 +102,6 @@ vim.g.clipboard = {
     ["*"] = paste,
   },
 }
+
+-- Enable blinking cursor
+opt.guicursor = "n-v-c-i:block-blinkwait100-blinkon100-blinkoff100"
