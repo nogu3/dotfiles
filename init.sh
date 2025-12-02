@@ -42,6 +42,9 @@ if [[ $OS = "WINDOWS" ]]; then
 
   echo "copy to warp settings files for Windows"
   cp -r "$SCRIPT_DIR/settings/warp/config/keybindings.yaml" /mnt/c/Users/noguk/AppData/Local/warp/Warp/config/keybindings.yaml
+
+  echo "copy to wezterm settings files for Windows"
+  cp -r "$SCRIPT_DIR/settings/wezterm/wezterm.lua" /mnt/c/Users/noguk/.config/wezterm/wezterm.lua
 else
   # TODO fix ln
 fi
