@@ -86,7 +86,6 @@ return {
     },
   },
 
-  -- FIXME migrate own script
   -- show marks
   {
     "chentoast/marks.nvim",
@@ -261,7 +260,6 @@ return {
     lazy = false, -- As https://github.com/nvimdev/dashboard-nvim/pull/450, dashboard-nvim shouldn't be lazy-loaded to properly handle stdin.
     event = "VimEnter",
     opts = function()
-      -- FIXME indent
       local logo = [[
 ███████╗███████╗███╗   ██╗██╗   ██╗██╗███╗   ███╗
 ╚══███╔╝██╔════╝████╗  ██║██║   ██║██║████╗ ████║
