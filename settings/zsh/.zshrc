@@ -87,7 +87,6 @@ if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
   # tmux attach-session -t default || tmux new-session -s default
 fi
 
-
 # setup lazygit
 if [[ "$(uname)" == "Darwin" ]]; then
   export XDG_CONFIG_HOME=~/.config
@@ -98,7 +97,6 @@ fi
 # setup my scripts
 export PATH=$PATH:~/.scripts
 
-
 ### aliases
 alias ls='eza -a --icons'
 alias ll='eza -lag --sort=type --icons --header --time-style=long-iso'
@@ -106,31 +104,6 @@ alias ll='eza -lag --sort=type --icons --header --time-style=long-iso'
 # tmux
 alias ta="tmux a"
 
-# nvim
-# main
-alias nv="nvh"
-# nvim on host
-nvh() {
-  rm -f "$(pwd)/.nvim-server.pipe"
-  nvim --listen "$(pwd)/.nvim-server.pipe" $@
-}
-
-# docker
-du() {
-  docker compose up -d $@
-}
-
-dd() {
-  docker compose down $@
-}
-
-de() {
-  docker compose exec $@ bash
-}
-
-dez() {
-  docker compose exec $@ zsh
-}
 alias dl="docker compose logs -f"
 alias dp="docker ps -a"
 
