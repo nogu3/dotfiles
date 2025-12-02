@@ -41,7 +41,7 @@ opt.splitright = true
 -- Enable folding functionality
 opt.foldenable = true
 -- Set fold column width to 1 character
-opt.foldcolumn = "1"
+opt.foldcolumn = "0"
 -- Set maximum fold level to 99 (essentially unfolds everything)
 opt.foldlevel = 99
 -- Start editing with all folds open (level 99)
