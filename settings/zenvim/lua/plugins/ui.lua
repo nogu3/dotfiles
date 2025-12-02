@@ -8,6 +8,20 @@ return {
     end,
   },
 
+  {
+    "mvllow/modes.nvim",
+    tag = "v0.2.1",
+    opts = function()
+      line_opacity = {
+        copy = 0.4,
+        delete = 0.4,
+        insert = 0.4,
+        visual = 0.4,
+      }
+    end,
+    config = true,
+  },
+
   -- gitsigns
   {
     "lewis6991/gitsigns.nvim",
