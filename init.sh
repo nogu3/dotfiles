@@ -40,9 +40,6 @@ if [[ $OS = "WINDOWS" ]]; then
   cp -r "$SCRIPT_DIR/settings/alacritty/windows/alacritty.toml" /mnt/c/Users/noguk/AppData/Roaming/alacritty/alacritty.toml
   cp -r "$SCRIPT_DIR/settings/alacritty/extensions/" /mnt/c/Users/noguk/AppData/Roaming/alacritty/
 
-  echo "copy to warp settings files for Windows"
-  cp -r "$SCRIPT_DIR/settings/warp/config/keybindings.yaml" /mnt/c/Users/noguk/AppData/Local/warp/Warp/config/keybindings.yaml
-
   echo "copy to wezterm settings files for Windows"
   cp -r "$SCRIPT_DIR/settings/wezterm/wezterm.lua" /mnt/c/Users/noguk/.config/wezterm/wezterm.lua
 else
