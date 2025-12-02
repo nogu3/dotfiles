@@ -118,7 +118,6 @@ return {
       { "<leader>nl", "<cmd>LspInfo<cr>", desc = "LspInfo" },
     },
     opts = {
-      -- TODO understand parameter
       diagnostics = {
         underline = true,
         update_in_insert = false,
