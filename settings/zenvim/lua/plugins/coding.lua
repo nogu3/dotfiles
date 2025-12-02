@@ -55,13 +55,6 @@ return {
         ["*"] = { "codespell" },
         ["_"] = { "trim_whitespace" },
       },
-      -- FIXME toggle auto format
-      -- format_on_save = {
-      --   timeout_ms = 3000,
-      --   lsp_fallback = true,
-      --   quiet = false,
-      --   async = false,
-      -- },
     },
     config = true,
     init = function()
