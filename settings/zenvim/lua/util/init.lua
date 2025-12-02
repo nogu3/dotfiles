@@ -26,8 +26,22 @@ M.pr_number = nil
 M.lazygit = nil
 M.keymap = vim.keymap.set
 M.delmap = vim.keymap.del
--- FIXME load timing
--- M.async = require("plenary.async")
+
+-- Lazy load plenary.async to avoid load timing issues
+local plenary_async_module = nil
+local mt = {
+  __index = function(_, key)
+    if key == "async" then
+      if plenary_async_module == nil then
+        plenary_async_module = require("plenary.async")
+      end
+      rawset(M, "async", plenary_async_module) -- Cache the module in M for direct access next time
+      return plenary_async_module
+    end
+    return nil
+  end,
+}
+setmetatable(M, mt)
 
 function M.toggle_lazygit()
   if M.lazygit == nil then

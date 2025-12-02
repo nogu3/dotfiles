@@ -82,7 +82,7 @@ Zenvim.keymap_silent({ "x", "n", "s" }, "<leader>s", "<cmd>w<cr><esc>", "Save Fi
 -- git
 -- copy github url to clipboard
 Zenvim.keymap_silent("n", "<leader>gl", function()
-  require("plenary.async").run(function()
+  Zenvim.async.run(function()
     local relative_path = Zenvim.get_relative_path()
     local line_number = Zenvim.get_line_number_on_cursol()
     return vim.fn.system("ghurl link " .. relative_path .. " " .. line_number)
