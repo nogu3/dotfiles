@@ -2,6 +2,7 @@
 ".scripts" = "/home/noguk/.scripts"
 "settings/alacritty" = "/home/noguk/.config/alacritty"
 "settings/aqua" = "/home/noguk/.config/aquaproj-aqua"
+"settings/lazygit" = "/home/noguk/.config/lazygit"
 "settings/wezterm" = "/home/noguk/.config/wezterm"
 "settings/zenvim" = "/home/noguk/.config/nvim"
 "settings/zsh/.zshrc" = "/home/noguk/.zshrc"
