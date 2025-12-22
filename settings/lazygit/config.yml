@@ -7,12 +7,11 @@ gui:
   showCommandLog: false
   skipDiscardChangeWarning: true
 git:
-  paging:
-    colorArg: always
-    pager: delta --paging=never --side-by-side
+  pagers:
+    - colorArg: always
+      pager: delta --paging=never --side-by-side
   disableForcePushing: true
 refresher:
   refreshInterval: 3
 os:
   open: 'nvim --server "$NVIM" --remote-send "<C-\><C-N>:execute \"lua Zenvim.toggle_lazygit()\" | e {{filename}}<CR>"'
-
