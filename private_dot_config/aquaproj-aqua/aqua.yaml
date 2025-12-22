@@ -22,3 +22,4 @@ packages:
 - name: x-motemen/ghq@v1.8.0
 - name: twpayne/chezmoi@v2.68.1
 - name: MordechaiHadad/bob@v4.1.6
+- name: go-task/task@v3.46.3
