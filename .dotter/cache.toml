@@ -1,0 +1,10 @@
+[symlinks]
+".scripts" = "/home/noguk/.scripts"
+"settings/alacritty" = "/home/noguk/.config/alacritty"
+"settings/aqua" = "/home/noguk/.config/aquaproj-aqua"
+"settings/wezterm" = "/home/noguk/.config/wezterm"
+"settings/zenvim" = "/home/noguk/.config/nvim"
+"settings/zsh/.zshrc" = "/home/noguk/.zshrc"
+"settings/zsh/.zshrc_local" = "/home/noguk/.zshrc_local"
+
+[templates]
