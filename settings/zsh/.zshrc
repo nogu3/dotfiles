@@ -77,15 +77,6 @@ bindkey '^g' fzf-ghq-widget
 # not working bindkey for warp
 alias g="fzf-ghq-widget"
 
-# setup tmux
-export TMUX_TMPDIR=~/.tmux/sessions
-mkdir -p $TMUX_TMPDIR
-
-# tmux start session or attach session when tmux installed.
-if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-  # tmux attach-session -t default || tmux new-session -s default
-fi
-
 # setup lazygit
 if [[ "$(uname)" == "Darwin" ]]; then
   export XDG_CONFIG_HOME=~/.config
@@ -99,9 +90,6 @@ export PATH=$PATH:~/.scripts
 ### aliases
 alias ls='eza -a --icons'
 alias ll='eza -lag --sort=type --icons --header --time-style=long-iso'
-
-# tmux
-alias ta="tmux a"
 
 alias dl="docker compose logs -f"
 alias dp="docker ps -a"
