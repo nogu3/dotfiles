@@ -56,12 +56,7 @@ export LS_COLORS="$(vivid generate iceberg-dark)"
 
 
 ### setup utility
-# setup aqua
-export PATH=${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH
-export AQUA_GLOBAL_CONFIG=${AQUA_GLOBAL_CONFIG:-}:${XDG_CONFIG_HOME:-$HOME/.config}/aquaproj-aqua/aqua.yaml
-
-# chezmoi
-chezmoi init --source $(ghq list --full-path | grep dotfiles)
+eval "$(flox activate -d ~ -m run)"
 
 # setup zoxide
 eval "$(zoxide init zsh)"
