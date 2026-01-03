@@ -30,6 +30,8 @@ fd.pkg-path = "fd"
 jq.pkg-path = "jq"
 vivid.pkg-path = "vivid"
 mise.pkg-path = "mise"
+gemini-cli.pkg-path = "gemini-cli"
+gemini-cli.version = "0.21.1"
 
 ## Environment Variables ---------------------------------------------
 ##  ... available for use in the activated environment
