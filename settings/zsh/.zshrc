@@ -56,7 +56,8 @@ export LS_COLORS="$(vivid generate iceberg-dark)"
 
 
 ### setup utility
-eval "$(flox activate -d ~ -m run)"
+eval "$(mise activate zsh)"
+# eval "$(flox activate -d ~ -m run)"
 
 # setup zoxide
 eval "$(zoxide init zsh)"
