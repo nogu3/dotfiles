@@ -10,6 +10,7 @@ depends = []
 "settings/zenvim" = { target = "~/.config/nvim", type = "symbolic", recurse = false}
 "settings/wezterm" = { target = "~/.config/wezterm", type = "symbolic", recurse = false}
 "settings/lazygit" = { target = "~/.config/lazygit", type = "symbolic", recurse = false}
+"settings/helix" = { target = "~/.config/helix", type = "symbolic", recurse = false}
 ".scripts" = { target = "~/.scripts", type = "symbolic", recurse = false}
 
 [default.variables]
