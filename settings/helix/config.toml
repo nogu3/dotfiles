@@ -1,1 +1,4 @@
 theme = "rose_pine_moon_transparent"
+
+[keys.normal.space]
+"space" = ":sh wezterm cli split-pane -- sh -c 'wezterm cli zoom-pane --pane-id $WEZTERM_PANE; lazygit' > /dev/null 2>&1"
