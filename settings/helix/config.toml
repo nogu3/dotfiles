@@ -4,6 +4,16 @@ theme = "rose_pine_moon_transparent"
 hidden = false
 git-ignore = false
 
+[keys.normal]
+"A-up" = "copy_selection_on_prev_line"
+"A-down" = "copy_selection_on_next_line"
+esc = ["collapse_selection", "keep_primary_selection"]
+D = ["extend_to_line_end", "delete_selection"]
+
+[keys.select]
+"A-up" = "copy_selection_on_prev_line"
+"A-down" = "copy_selection_on_next_line"
+
 [keys.normal.space]
 "space" = ":sh wezterm cli split-pane -- sh -c 'wezterm cli zoom-pane --pane-id $WEZTERM_PANE; lazygit' > /dev/null 2>&1"
 "s" = ":w"
