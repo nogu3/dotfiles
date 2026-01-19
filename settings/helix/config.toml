@@ -9,3 +9,4 @@ git-ignore = false
 "s" = ":w"
 "S" = "symbol_picker"
 "r" = ":reset-diff-change"
+"q" = ":q!"
