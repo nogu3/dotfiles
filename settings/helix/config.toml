@@ -6,3 +6,6 @@ git-ignore = false
 
 [keys.normal.space]
 "space" = ":sh wezterm cli split-pane -- sh -c 'wezterm cli zoom-pane --pane-id $WEZTERM_PANE; lazygit' > /dev/null 2>&1"
+"s" = ":w"
+"S" = "symbol_picker"
+"r" = ":reset-diff-change"
