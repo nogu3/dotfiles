@@ -5,10 +5,8 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 DRY_RUN=false
 
 # Targets
-TARGET_TMUX=false
 TARGET_MISE=false
 TARGET_DOTTER=false
-TARGET_WINDOWS=false
 
 # Function to display usage
 usage() {
@@ -17,8 +15,6 @@ usage() {
     echo "  -n, --dry-run     Show commands without executing"
     echo "  --mise            Link mise config and run mise install"
     echo "  --dotter          Run dotter deploy"
-    echo "  --tmux            Link tmux config"
-    echo "  --windows         Copy Windows specific configs (if on WSL)"
     echo "  -h, --help        Show this help message"
 }
 
@@ -40,16 +36,6 @@ while [[ $# -gt 0 ]]; do
             HAS_TARGET=true
             shift
             ;;
-        --tmux)
-            TARGET_TMUX=true
-            HAS_TARGET=true
-            shift
-            ;;
-        --windows)
-            TARGET_WINDOWS=true
-            HAS_TARGET=true
-            shift
-            ;;
         -h|--help)
             usage
             exit 0
@@ -64,16 +50,8 @@ done
 
 # If no target specified, enable all defaults
 if [[ "$HAS_TARGET" == false ]]; then
-    TARGET_TMUX=true
     TARGET_MISE=true
     TARGET_DOTTER=true
-
-    # Check if WSL for Windows target
-    if uname -r | grep -qi microsoft; then
-        TARGET_WINDOWS=true
-    else
-        TARGET_WINDOWS=false
-    fi
 fi
 
 # Execute function
@@ -85,13 +63,6 @@ execute() {
         echo "[EXEC] $cmd"
         eval "$cmd"
     fi
-}
-
-# Task functions
-setup_tmux() {
-    echo "Setting up tmux..."
-    execute "rm -f ~/.tmux.conf"
-    execute "ln -s \"$SCRIPT_DIR/settings/tmux/.tmux.conf\" ~/.tmux.conf"
 }
 
 setup_mise() {
@@ -107,32 +78,11 @@ setup_dotter() {
     execute "dotter deploy"
 }
 
-setup_windows() {
-    echo "Copying Windows specific configurations..."
-    local alacritty_dest="/mnt/c/Users/noguk/AppData/Roaming/alacritty"
-    local wezterm_dest="/mnt/c/Users/noguk/.config/wezterm"
-
-    # Alacritty
-    execute "cp -r \"$SCRIPT_DIR/settings/alacritty/windows/alacritty.toml\" \"$alacritty_dest/alacritty.toml\""
-    execute "cp -r \"$SCRIPT_DIR/settings/alacritty/extensions/\" \"$alacritty_dest/\""
-
-    # Wezterm
-    execute "cp -r \"$SCRIPT_DIR/settings/wezterm/wezterm.lua\" \"$wezterm_dest/wezterm.lua\""
-}
-
 # Main execution
-if [[ "$TARGET_TMUX" == true ]]; then
-    setup_tmux
-fi
-
 if [[ "$TARGET_MISE" == true ]]; then
     setup_mise
 fi
 
 if [[ "$TARGET_DOTTER" == true ]]; then
     setup_dotter
-fi
-
-if [[ "$TARGET_WINDOWS" == true ]]; then
-    setup_windows
 fi
