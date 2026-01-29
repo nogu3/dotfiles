@@ -1,4 +1,5 @@
 #!/bin/bash
+# Refactored to support mise and dotter setup with modular execution
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
