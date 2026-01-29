@@ -1,57 +1,58 @@
 # mise-brew-backend
 
-A custom `mise` plugin that uses Homebrew as a backend for installing tools.
-This allows you to manage tools via `mise` while leveraging Homebrew's package management on macOS.
+Homebrewをバックエンドとして使用し、`mise`経由でツールをインストールするためのカスタムプラグインです。
+これにより、`mise`での管理を維持しながら、macOS上ではHomebrewのパッケージ管理機能を活用できます。
 
-## Usage
+## 使い方
 
-You can use this plugin to override the default installation method for specific tools.
+特定のツールに対して、デフォルトのインストール方法の代わりにこのプラグインを使用することができます。
 
-### Installation
+### インストール
 
-To use this backend for a tool (e.g., `jq`), you need to register this plugin directory as the plugin for that tool.
+ツール（例：`jq`）でこのバックエンドを使用するには、そのツールのプラグインとしてこのディレクトリを登録する必要があります。
 
 ```bash
-# Register the brew-backend plugin for 'jq'
+# 'jq' 用に brew-backend プラグインを登録する
 mise plugin install jq /path/to/settings/mise/plugins/brew-backend
 
-# Or if you are developing/linking locally
+# ローカルで開発/リンクする場合
 mise plugin link jq ./settings/mise/plugins/brew-backend
 ```
 
-### Installing Tools
+### ツールのインストール
 
-Once registered, you can install the tool using `mise`. It will internally call `brew install`.
+登録が完了すると、`mise` を使用してツールをインストールできます。内部的に `brew install` が呼び出されます。
 
 ```bash
 mise install jq@latest
 ```
 
-This will run `brew install jq` and symlink the installed binary into `mise`'s directory structure.
+これにより `brew install jq` が実行され、インストールされたバイナリが `mise` のディレクトリ構造にシンボリックリンクされます。
 
-### Unified Management (Mac vs Linux)
+### 統一的な管理 (Mac vs Linux)
 
-To achieve unified management where Mac uses Brew and Linux uses standard mise plugins:
+MacではBrewを使用し、Linuxでは標準のmiseプラグインを使用するという統一的な管理を実現するには、以下のようにします。
 
-1.  Define your tools in `mise.toml` as usual:
+1.  通常通り `mise.toml` でツールを定義します。
 
     ```toml
     [tools]
     jq = "latest"
     ```
 
-2.  On macOS, run a setup script (like your `init.sh`) to link this backend plugin for the desired tools.
+2.  macOS上では、セットアップスクリプト（`init.sh`など）を実行して、対象のツールに対してこのバックエンドプラグインをリンクします。
 
     ```bash
-    # In your init.sh for macOS
+    # macOS用の init.sh 内で
     mise plugin link jq /path/to/settings/mise/plugins/brew-backend
-    # Repeat for other tools you want to manage via brew
+    # brewで管理したい他のツールについても同様に行う
     ```
 
-3.  On Linux, just let `mise` use the default registry plugins.
+3.  Linux上では、`mise` に標準のレジストリプラグインを使用させます。
 
-## Features
+## 機能
 
--   **Install**: Runs `brew install <tool>`. Supports `latest` or specific versions (if available in brew as `@version`).
--   **List**: Uses `brew list --versions`.
--   **Link**: Automatically finds the installed binary (even keg-only ones) and symlinks it to `mise`'s shim path.
+*   **インストール**: `brew install <tool>` を実行します。`latest` または特定のバージョン（brewが `@version` として提供している場合）をサポートします。
+*   **リスト表示**: `brew list --versions` を使用します。
+*   **リンク**: インストールされたバイナリ（keg-onlyのものも含む）を自動的に見つけ、`mise` の shim パスにシンボリックリンクを作成します。
+*   **アンインストール**: `brew uninstall <tool>` を実行してパッケージを削除します。
