@@ -47,7 +47,9 @@ if [ ! -d "$BIN_DIR" ]; then
     BREW_PREFIX_ROOT=$(brew --prefix)
     KEG_DIR="$BREW_PREFIX_ROOT/Cellar/$TOOL_NAME"
     if [ -d "$KEG_DIR" ]; then
-         VERSION_DIR=$(ls -1 "$KEG_DIR" | sort -V | tail -n 1)
+         # sort -V is GNU specific, not reliable on mac
+         # Using sort -n might be okay but better to rely on brew info or simpler sort
+         VERSION_DIR=$(ls -1 "$KEG_DIR" | sort | tail -n 1)
          if [ -n "$VERSION_DIR" ]; then
              BIN_DIR="$KEG_DIR/$VERSION_DIR/bin"
          fi

@@ -3,6 +3,8 @@ SCRIPT_DIR="${0:a:h}"
 
 if uname -r | grep -qi microsoft; then
   OS="WINDOWS"
+elif uname -s | grep -qi darwin; then
+  OS="MACOS"
 else
   OS="LINUX"
 fi
@@ -42,6 +44,15 @@ if [[ $OS = "WINDOWS" ]]; then
 
   echo "copy to wezterm settings files for Windows"
   cp -r "$SCRIPT_DIR/settings/wezterm/wezterm.lua" /mnt/c/Users/noguk/.config/wezterm/wezterm.lua
+elif [[ $OS = "MACOS" ]]; then
+  echo "Setting up mise brew-backend for macOS..."
+  BREW_TOOLS=("jq" "ripgrep" "fd" "fzf" "bat" "delta" "zoxide" "eza" "gh" "ghq" "git-delta" "starship" "yazi" "lazygit")
+
+  for tool in "${BREW_TOOLS[@]}"; do
+      echo "Linking brew-backend for $tool"
+      mise plugin link "$tool" "$SCRIPT_DIR/settings/mise/plugins/brew-backend"
+  done
 else
+  :
   # TODO fix ln
 fi
