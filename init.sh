@@ -7,10 +7,6 @@ else
   OS="LINUX"
 fi
 
-# tmux
-rm -f ~/.tmux.conf
-ln -s "$SCRIPT_DIR/settings/tmux/.tmux.conf" ~/.tmux.conf
-
 # lazygit
 # mkdir -p ~/.config/lazygit
 # rm -f ~/.config/lazygit/config.yml
@@ -35,11 +31,6 @@ ln -s "$SCRIPT_DIR/settings/tmux/.tmux.conf" ~/.tmux.conf
 # ln -s "$SCRIPT_DIR/.scripts" ~/.scripts
 
 if [[ $OS = "WINDOWS" ]]; then
-  echo "copy to alacritty setting files for Windows"
-
-  cp -r "$SCRIPT_DIR/settings/alacritty/windows/alacritty.toml" /mnt/c/Users/noguk/AppData/Roaming/alacritty/alacritty.toml
-  cp -r "$SCRIPT_DIR/settings/alacritty/extensions/" /mnt/c/Users/noguk/AppData/Roaming/alacritty/
-
   echo "copy to wezterm settings files for Windows"
   cp -r "$SCRIPT_DIR/settings/wezterm/wezterm.lua" /mnt/c/Users/noguk/.config/wezterm/wezterm.lua
 else
