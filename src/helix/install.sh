@@ -92,7 +92,13 @@ mkdir -p "$_REMOTE_USER_HOME/.config/helix"
 
 # Copy files
 if [ -d "$FEATURE_DIR/config" ]; then
-    cp -r "$FEATURE_DIR/config/"* "$_REMOTE_USER_HOME/.config/helix/"
+    # Use -L to dereference symlinks (important if config is a symlink)
+    cp -r -L "$FEATURE_DIR/config/"* "$_REMOTE_USER_HOME/.config/helix/"
+
+    # Patch config to remove environment specific settings (e.g. wezterm)
+    if [ -f "$_REMOTE_USER_HOME/.config/helix/config.toml" ]; then
+        sed -i 's/.*wezterm.*/# &/' "$_REMOTE_USER_HOME/.config/helix/config.toml"
+    fi
 
     # Set permissions
     if [ "$_REMOTE_USER" != "root" ]; then
@@ -103,4 +109,3 @@ else
 fi
 
 echo "Done!"
-# Updated description

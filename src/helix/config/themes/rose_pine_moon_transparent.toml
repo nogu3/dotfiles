@@ -1,6 +1,0 @@
-inherits = "rose_pine_moon"
-
-# 背景を透過（ターミナルの背景色を使用）に設定
-"ui.background" = { bg = "none" }
-# ステータスライン下の余白なども透過させたい場合
-"ui.window" = { bg = "none" }
