@@ -5,8 +5,6 @@ depends = []
 
 [default.files]
 "settings/zsh" = { target = "~/", type = "symbolic", recurse = true}
-"settings/aqua" = { target = "~/.config/aquaproj-aqua", type = "symbolic" , recurse = false}
-"settings/alacritty" = { target = "~/.config/alacritty", type = "symbolic", recurse = false}
 "settings/zenvim" = { target = "~/.config/nvim", type = "symbolic", recurse = false}
 "settings/wezterm" = { target = "~/.config/wezterm", type = "symbolic", recurse = false}
 "settings/lazygit" = { target = "~/.config/lazygit", type = "symbolic", recurse = false}
