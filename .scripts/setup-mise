@@ -1,3 +1,4 @@
 #!/bin/sh
-mkdir -p ~/.config/mise
-ln -sf ~/ghq/github.com/nogu3/dotfiles/settings/mise/config.toml ~/.config/mise/config.toml
+mkdir -p ~/.config
+rm -rf ~/.config/mise
+ln -sf ~/ghq/github.com/nogu3/dotfiles/settings/mise ~/.config/mise
