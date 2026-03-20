@@ -29,6 +29,7 @@ config.color_scheme = "iceberg-dark"
 -- font size
 if is_mac() then
 	config.font_size = 14
+	config.front_end = "WebGpu"
 else
 	config.font_size = 12
 end
