@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+set -e
+
+if [ -z "$1" ]; then
+  echo "Usage: gh pr-worktree <PR_URL>"
+  exit 1
+fi
+
+PR_URL="$1"
+
+# URL parsing
+if [[ "$PR_URL" =~ ^https://github\.com/([^/]+)/([^/]+)/pull/([0-9]+) ]]; then
+  OWNER="${BASH_REMATCH[1]}"
+  REPO="${BASH_REMATCH[2]}"
+  PR_NUM="${BASH_REMATCH[3]}"
+else
+  echo "Invalid PR URL: $PR_URL"
+  exit 1
+fi
+
+if ! command -v gh &> /dev/null; then
+  echo "gh command could not be found. Please install GitHub CLI."
+  exit 1
+fi
+
+if ! command -v ghq &> /dev/null; then
+  echo "ghq command could not be found. Please install ghq."
+  exit 1
+fi
+
+echo "Fetching PR details for $OWNER/$REPO#$PR_NUM..."
+# Use gh api --jq to get the branch name directly without needing jq installed
+BRANCH_NAME=$(gh api "repos/$OWNER/$REPO/pulls/$PR_NUM" --jq '.head.ref')
+
+if [ -z "$BRANCH_NAME" ]; then
+  echo "Failed to get branch name for PR $PR_NUM"
+  exit 1
+fi
+
+echo "Branch name: $BRANCH_NAME"
+
+GHQ_ROOT=$(ghq root)
+# Support various git hosting services if ghq returns path like ghq_root/host/user/repo
+# But based on the prompt we should expect standard github.com paths or use ghq list
+MAIN_REPO_PATH="$GHQ_ROOT/github.com/$OWNER/$REPO"
+
+# If the repo is not at standard github.com path, try to find it with ghq list --full-path
+if [ ! -d "$MAIN_REPO_PATH" ]; then
+  FOUND_PATH=$(ghq list --exact --full-path "$OWNER/$REPO" || true)
+  if [ -n "$FOUND_PATH" ] && [ -d "$FOUND_PATH" ]; then
+     MAIN_REPO_PATH="$FOUND_PATH"
+  fi
+fi
+
+if [ ! -d "$MAIN_REPO_PATH" ]; then
+  echo "Repository not found locally. Cloning with ghq..."
+  ghq get "https://github.com/$OWNER/$REPO"
+  MAIN_REPO_PATH=$(ghq list --exact --full-path "$OWNER/$REPO")
+fi
+
+echo "Repository path: $MAIN_REPO_PATH"
+
+# User wants it in ghq root dir: `ghq_root/dotfiles_worktrees/<branch-name>`
+WORKTREE_BASE_DIR="$GHQ_ROOT/${REPO}_worktrees"
+WORKTREE_PATH="$WORKTREE_BASE_DIR/$BRANCH_NAME"
+
+if [ -d "$WORKTREE_PATH" ]; then
+  echo "Worktree already exists at $WORKTREE_PATH"
+  exit 0
+fi
+
+echo "Creating worktree at $WORKTREE_PATH..."
+mkdir -p "$WORKTREE_BASE_DIR"
+
+cd "$MAIN_REPO_PATH"
+
+# Fetch the PR branch
+echo "Fetching PR #$PR_NUM branch ($BRANCH_NAME)..."
+git fetch origin "pull/$PR_NUM/head:$BRANCH_NAME"
+
+# Create worktree
+git worktree add "$WORKTREE_PATH" "$BRANCH_NAME"
+
+echo "Successfully created worktree for PR #$PR_NUM ($BRANCH_NAME) at $WORKTREE_PATH"
