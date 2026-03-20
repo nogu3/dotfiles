@@ -2,7 +2,7 @@
 set -e
 
 if [ -z "$1" ]; then
-  echo "Usage: gh pr-worktree <PR_URL>"
+  echo "Usage: gh prw <PR_URL>"
   exit 1
 fi
 
