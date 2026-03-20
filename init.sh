@@ -8,7 +8,6 @@ DRY_RUN=false
 # Targets
 TARGET_MISE=false
 TARGET_DOTTER=false
-TARGET_WINDOWS=false
 
 # Function to display usage
 usage() {
@@ -17,7 +16,6 @@ usage() {
     echo "  -n, --dry-run     Show commands without executing"
     echo "  --mise            Link mise config and run mise install"
     echo "  --dotter          Run dotter deploy"
-    echo "  --windows         Copy Windows specific configs (if on WSL)"
     echo "  -h, --help        Show this help message"
 }
 
@@ -39,11 +37,6 @@ while [[ $# -gt 0 ]]; do
             HAS_TARGET=true
             shift
             ;;
-        --windows)
-            TARGET_WINDOWS=true
-            HAS_TARGET=true
-            shift
-            ;;
         -h|--help)
             usage
             exit 0
@@ -60,10 +53,6 @@ done
 if [[ "$HAS_TARGET" == false ]]; then
     TARGET_MISE=true
     TARGET_DOTTER=true
-
-    if uname -r | grep -qi microsoft; then
-        TARGET_WINDOWS=true
-    fi
 fi
 
 # Execute function
@@ -90,11 +79,6 @@ setup_dotter() {
     execute "dotter deploy"
 }
 
-setup_windows() {
-    echo "copy to wezterm settings files for Windows"
-    execute "cp -r \"$SCRIPT_DIR/settings/wezterm/wezterm.lua\" /mnt/c/Users/noguk/.config/wezterm/wezterm.lua"
-}
-
 # Main execution
 if [[ "$TARGET_MISE" == true ]]; then
     setup_mise
@@ -102,8 +86,4 @@ fi
 
 if [[ "$TARGET_DOTTER" == true ]]; then
     setup_dotter
-fi
-
-if [[ "$TARGET_WINDOWS" == true ]]; then
-    setup_windows
 fi
