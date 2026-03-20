@@ -22,3 +22,5 @@ D = ["extend_to_line_end", "delete_selection"]
 "q" = ":q!"
 "p" = "file_picker"
 "f" = "no_op"
+"e" = "file_explorer_in_current_buffer_directory"
+"E" = "file_explorer"
