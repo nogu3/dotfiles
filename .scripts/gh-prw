@@ -1,8 +1,30 @@
 #!/usr/bin/env bash
 set -e
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+CYAN='\033[0;36m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+info() {
+  echo -e "${CYAN}==>${NC} $1"
+}
+
+success() {
+  echo -e "${GREEN}==>${NC} $1"
+}
+
+warning() {
+  echo -e "${YELLOW}==>${NC} $1"
+}
+
+error() {
+  echo -e "${RED}==>${NC} $1"
+}
+
 if [ -z "$1" ]; then
-  echo "Usage: gh prw <PR_URL>"
+  error "Usage: gh prw <PR_URL>"
   exit 1
 fi
 
@@ -14,30 +36,30 @@ if [[ "$PR_URL" =~ ^https://github\.com/([^/]+)/([^/]+)/pull/([0-9]+) ]]; then
   REPO="${BASH_REMATCH[2]}"
   PR_NUM="${BASH_REMATCH[3]}"
 else
-  echo "Invalid PR URL: $PR_URL"
+  error "Invalid PR URL: $PR_URL"
   exit 1
 fi
 
 if ! command -v gh &> /dev/null; then
-  echo "gh command could not be found. Please install GitHub CLI."
+  error "gh command could not be found. Please install GitHub CLI."
   exit 1
 fi
 
 if ! command -v ghq &> /dev/null; then
-  echo "ghq command could not be found. Please install ghq."
+  error "ghq command could not be found. Please install ghq."
   exit 1
 fi
 
-echo "Fetching PR details for $OWNER/$REPO#$PR_NUM..."
+info "Fetching PR details for $OWNER/$REPO#$PR_NUM..."
 # Use gh api --jq to get the branch name directly without needing jq installed
 BRANCH_NAME=$(gh api "repos/$OWNER/$REPO/pulls/$PR_NUM" --jq '.head.ref')
 
 if [ -z "$BRANCH_NAME" ]; then
-  echo "Failed to get branch name for PR $PR_NUM"
+  error "Failed to get branch name for PR $PR_NUM"
   exit 1
 fi
 
-echo "Branch name: $BRANCH_NAME"
+info "Branch name: $BRANCH_NAME"
 
 GHQ_ROOT=$(ghq root)
 # Support various git hosting services if ghq returns path like ghq_root/host/user/repo
@@ -53,32 +75,32 @@ if [ ! -d "$MAIN_REPO_PATH" ]; then
 fi
 
 if [ ! -d "$MAIN_REPO_PATH" ]; then
-  echo "Repository not found locally. Cloning with ghq..."
+  warning "Repository not found locally. Cloning with ghq..."
   ghq get "https://github.com/$OWNER/$REPO"
   MAIN_REPO_PATH=$(ghq list --exact --full-path "$OWNER/$REPO")
 fi
 
-echo "Repository path: $MAIN_REPO_PATH"
+info "Repository path: $MAIN_REPO_PATH"
 
 # User wants it alongside the main repo: `~/ghq/github.com/owner/repo_worktree/<branch-name>`
 WORKTREE_BASE_DIR="${MAIN_REPO_PATH}_worktree"
 WORKTREE_PATH="$WORKTREE_BASE_DIR/$BRANCH_NAME"
 
 if [ -d "$WORKTREE_PATH" ]; then
-  echo "Worktree already exists at $WORKTREE_PATH"
+  warning "Worktree already exists at $WORKTREE_PATH"
   exit 0
 fi
 
-echo "Creating worktree at $WORKTREE_PATH..."
+info "Creating worktree at $WORKTREE_PATH..."
 mkdir -p "$WORKTREE_BASE_DIR"
 
 cd "$MAIN_REPO_PATH"
 
 # Fetch the PR branch
-echo "Fetching PR #$PR_NUM branch ($BRANCH_NAME)..."
+info "Fetching PR #$PR_NUM branch ($BRANCH_NAME)..."
 git fetch origin "pull/$PR_NUM/head:$BRANCH_NAME"
 
 # Create worktree
 git worktree add "$WORKTREE_PATH" "$BRANCH_NAME"
 
-echo "Successfully created worktree for PR #$PR_NUM ($BRANCH_NAME) at $WORKTREE_PATH"
+success "Successfully created worktree for PR #$PR_NUM ($BRANCH_NAME) at $WORKTREE_PATH"
