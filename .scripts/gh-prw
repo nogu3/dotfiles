@@ -60,8 +60,8 @@ fi
 
 echo "Repository path: $MAIN_REPO_PATH"
 
-# User wants it in ghq root dir: `ghq_root/dotfiles_worktrees/<branch-name>`
-WORKTREE_BASE_DIR="$GHQ_ROOT/${REPO}_worktrees"
+# User wants it alongside the main repo: `~/ghq/github.com/owner/repo_worktree/<branch-name>`
+WORKTREE_BASE_DIR="${MAIN_REPO_PATH}_worktree"
 WORKTREE_PATH="$WORKTREE_BASE_DIR/$BRANCH_NAME"
 
 if [ -d "$WORKTREE_PATH" ]; then
