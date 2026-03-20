@@ -33,6 +33,11 @@ else
 	config.font_size = 12
 end
 
+-- rendering engine
+if is_mac() then
+	config.front_end = "WebGpu"
+end
+
 -- opacity
 config.window_background_opacity = 0.9
 
