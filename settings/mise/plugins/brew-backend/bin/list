@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+SCRIPT_DIR=$(cd $(dirname "$0") && pwd)
+PLUGIN_ROOT=$(dirname "$SCRIPT_DIR")
+TOOL_NAME=$(basename "$PLUGIN_ROOT")
+
+if [ -n "$MISE_PLUGIN_NAME" ]; then
+    TOOL_NAME="$MISE_PLUGIN_NAME"
+elif [ -n "$ASDF_PLUGIN_NAME" ]; then
+    TOOL_NAME="$ASDF_PLUGIN_NAME"
+fi
+
+OUTPUT=$(brew list --versions "$TOOL_NAME" 2>/dev/null)
+if [ -n "$OUTPUT" ]; then
+    echo "$OUTPUT" | sed "s/^$TOOL_NAME //" | tr ' ' '\n'
+fi

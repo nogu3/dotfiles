@@ -1,0 +1,5 @@
+[plugins]
+testtool = "/app/settings/mise/plugins/brew-backend"
+
+[tools]
+testtool = "latest"

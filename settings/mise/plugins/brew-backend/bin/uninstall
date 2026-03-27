@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -e
+
+VERSION="${ASDF_INSTALL_VERSION:-$1}"
+
+SCRIPT_DIR=$(cd $(dirname "$0") && pwd)
+PLUGIN_ROOT=$(dirname "$SCRIPT_DIR")
+TOOL_NAME=$(basename "$PLUGIN_ROOT")
+
+if [ -n "$MISE_PLUGIN_NAME" ]; then
+    TOOL_NAME="$MISE_PLUGIN_NAME"
+elif [ -n "$ASDF_PLUGIN_NAME" ]; then
+    TOOL_NAME="$ASDF_PLUGIN_NAME"
+fi
+
+if [ "$VERSION" = "system" ]; then
+    exit 0
+fi
+
+BREW_PKG="$TOOL_NAME"
+if [ "$VERSION" != "latest" ]; then
+    BREW_PKG="${TOOL_NAME}@${VERSION}"
+fi
+
+echo "Uninstalling $BREW_PKG via brew..."
+brew uninstall "$BREW_PKG" || echo "Warning: brew uninstall failed, possibly already removed or dependencies exist."
+
+exit 0
