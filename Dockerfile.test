@@ -1,0 +1,21 @@
+FROM ubuntu:22.04
+
+RUN apt-get update && apt-get install -y curl git build-essential procps file \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN useradd -m -s /bin/bash linuxbrew
+USER linuxbrew
+
+RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
+
+RUN brew install gcc
+
+RUN curl -fsSL https://mise.run -o install-mise.sh && chmod +x install-mise.sh && ./install-mise.sh
+ENV PATH="/home/linuxbrew/.local/bin:/home/linuxbrew/.local/share/mise/shims:${PATH}"
+
+WORKDIR /app
+COPY --chown=linuxbrew:linuxbrew settings /app/settings
+COPY --chown=linuxbrew:linuxbrew mise.test.toml /app/mise.toml
+
+RUN mise install && mise exec jq -- jq --version

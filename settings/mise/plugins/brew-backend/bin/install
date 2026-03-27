@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+set -e
+
+VERSION="${ASDF_INSTALL_VERSION:-$1}"
+INSTALL_PATH="${ASDF_INSTALL_PATH:-$2}"
+
+if [ -z "$INSTALL_PATH" ] && [ -n "$3" ]; then
+    INSTALL_PATH="$3"
+fi
+
+if [ -z "$VERSION" ] || [ -z "$INSTALL_PATH" ]; then
+    echo "Usage: $0 <version> <install-path>"
+    exit 1
+fi
+
+SCRIPT_DIR=$(cd $(dirname "$0") && pwd)
+PLUGIN_ROOT=$(dirname "$SCRIPT_DIR")
+TOOL_NAME=$(basename "$PLUGIN_ROOT")
+
+if [ -n "$MISE_PLUGIN_NAME" ]; then
+    TOOL_NAME="$MISE_PLUGIN_NAME"
+elif [ -n "$ASDF_PLUGIN_NAME" ]; then
+    TOOL_NAME="$ASDF_PLUGIN_NAME"
+fi
+
+echo "Deploying $TOOL_NAME version $VERSION via brew backend..."
+
+if [ "$VERSION" = "system" ]; then
+    echo "Using system version."
+    exit 0
+fi
+
+BREW_PKG="$TOOL_NAME"
+if [ "$VERSION" != "latest" ]; then
+    BREW_PKG="${TOOL_NAME}@${VERSION}"
+fi
+
+echo "Running: brew install $BREW_PKG"
+brew install "$BREW_PKG"
+
+# Find installed binary directory
+PREFIX=$(brew --prefix "$BREW_PKG")
+BIN_DIR="$PREFIX/bin"
+
+# Fallback mechanism if direct prefix/bin doesn't exist
+if [ ! -d "$BIN_DIR" ]; then
+    BREW_PREFIX_ROOT=$(brew --prefix)
+    KEG_DIR="$BREW_PREFIX_ROOT/Cellar/$TOOL_NAME"
+    if [ -d "$KEG_DIR" ]; then
+         # sort -V is GNU specific, not reliable on mac
+         # Using sort (default alphanumeric) + tail should suffice for basic versioning
+         VERSION_DIR=$(ls -1 "$KEG_DIR" | sort | tail -n 1)
+         if [ -n "$VERSION_DIR" ]; then
+             BIN_DIR="$KEG_DIR/$VERSION_DIR/bin"
+         fi
+    fi
+fi
+
+if [ ! -d "$BIN_DIR" ]; then
+    echo "Could not find bin directory for $TOOL_NAME at $BIN_DIR"
+    exit 1
+fi
+
+echo "Linking binaries from $BIN_DIR to $INSTALL_PATH/bin"
+mkdir -p "$INSTALL_PATH/bin"
+
+# Iterate over all files in the bin directory
+for BIN_FILE in "$BIN_DIR"/*; do
+    if [ -x "$BIN_FILE" ] && [ ! -d "$BIN_FILE" ]; then
+        BASENAME=$(basename "$BIN_FILE")
+        echo "Linking $BASENAME"
+        ln -sf "$BIN_FILE" "$INSTALL_PATH/bin/$BASENAME"
+    fi
+done

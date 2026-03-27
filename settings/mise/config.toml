@@ -6,3 +6,21 @@ delta = "latest"
 "github:SuperCuber/dotter" = "latest"
 ghq = "latest"
 yazi = "latest"
+
+[_]
+brew_tools = [
+    "jq",
+    "ripgrep",
+    "fd",
+    "fzf",
+    "bat",
+    "delta",
+    "zoxide",
+    "eza",
+    "gh",
+    "ghq",
+    "git-delta",
+    "starship",
+    "yazi",
+    "lazygit",
+]
