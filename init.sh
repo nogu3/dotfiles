@@ -1,38 +1,89 @@
-#!/bin/zsh
-SCRIPT_DIR="${0:a:h}"
+#!/bin/bash
+# Refactored to support mise and dotter setup with modular execution
+set -e
 
-if uname -r | grep -qi microsoft; then
-  OS="WINDOWS"
-else
-  OS="LINUX"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+DRY_RUN=false
+
+# Targets
+TARGET_MISE=false
+TARGET_DOTTER=false
+
+# Function to display usage
+usage() {
+    echo "Usage: $0 [options]"
+    echo "Options:"
+    echo "  -n, --dry-run     Show commands without executing"
+    echo "  --mise            Link mise config and run mise install"
+    echo "  --dotter          Run dotter deploy"
+    echo "  -h, --help        Show this help message"
+}
+
+# Parse arguments
+HAS_TARGET=false
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -n|--dry-run)
+            DRY_RUN=true
+            shift
+            ;;
+        --mise)
+            TARGET_MISE=true
+            HAS_TARGET=true
+            shift
+            ;;
+        --dotter)
+            TARGET_DOTTER=true
+            HAS_TARGET=true
+            shift
+            ;;
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $1"
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+# If no target specified, enable all defaults
+if [[ "$HAS_TARGET" == false ]]; then
+    TARGET_MISE=true
+    TARGET_DOTTER=true
 fi
 
-# lazygit
-# mkdir -p ~/.config/lazygit
-# rm -f ~/.config/lazygit/config.yml
-# ln -s "$SCRIPT_DIR/settings/lazygit/config.yml" ~/.config/lazygit/config.yml
+# Execute function
+execute() {
+    local cmd="$*"
+    if [[ "$DRY_RUN" == true ]]; then
+        echo "[DRY-RUN] $cmd"
+    else
+        echo "[EXEC] $cmd"
+        eval "$cmd"
+    fi
+}
 
-# neovim
-# mkdir -p ~/.config
-# rm -f ~/.config/nvim
-# ln -s "$SCRIPT_DIR/settings/zenvim" ~/.config/nvim
+setup_mise() {
+    echo "Setting up mise..."
+    execute "mkdir -p ~/.config"
+    execute "rm -rf ~/.config/mise"
+    execute "ln -s \"$SCRIPT_DIR/settings/mise\" ~/.config/mise"
+    execute "mise install"
+}
 
-# zsh
-# common
-# rm -f ~/.zshrc
-# ln -s "$SCRIPT_DIR/settings/zsh/.zshrc" ~/.zshrc
+setup_dotter() {
+    echo "Running dotter deploy..."
+    execute "dotter deploy"
+}
 
-# specific
-# rm -f ~/.zshrc_local
-# ln -s "$SCRIPT_DIR/settings/zsh/.zshrc_local" ~/.zshrc_local
+# Main execution
+if [[ "$TARGET_MISE" == true ]]; then
+    setup_mise
+fi
 
-# scripts
-# rm -f ~/.scripts
-# ln -s "$SCRIPT_DIR/.scripts" ~/.scripts
-
-if [[ $OS = "WINDOWS" ]]; then
-  echo "copy to wezterm settings files for Windows"
-  cp -r "$SCRIPT_DIR/settings/wezterm/wezterm.lua" /mnt/c/Users/noguk/.config/wezterm/wezterm.lua
-else
-  # TODO fix ln
+if [[ "$TARGET_DOTTER" == true ]]; then
+    setup_dotter
 fi
