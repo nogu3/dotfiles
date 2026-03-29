@@ -5,6 +5,10 @@ hidden = false
 git-ignore = false
 
 [keys.normal]
+"C-a" = "goto_line_start"
+"C-e" = "goto_line_end"
+"S-up" = "page_up"
+"S-down" = "page_down"
 "A-up" = "copy_selection_on_prev_line"
 "A-down" = "copy_selection_on_next_line"
 esc = ["collapse_selection", "keep_primary_selection"]
@@ -16,11 +20,11 @@ D = ["extend_to_line_end", "delete_selection"]
 
 [keys.normal.space]
 "space" = ":sh wezterm cli split-pane -- sh -c 'wezterm cli zoom-pane --pane-id $WEZTERM_PANE; lazygit' > /dev/null 2>&1"
-"s" = ":w"
-"S" = "symbol_picker"
 "r" = ":reset-diff-change"
-"q" = ":q!"
 "p" = "file_picker"
-"f" = "no_op"
+"f" = [":new", ":insert-output sh -c 'echo -n %{buffer_name} | sed \"s|^$PWD/||\"'", "select_all", "yank_main_selection_to_clipboard", ":q!"]
 "e" = "file_explorer_in_current_buffer_directory"
 "E" = "file_explorer"
+"G" = "changed_file_picker"
+"g" = [":new", ":insert-output ghurl link %{buffer_name} %{cursor_line}", "select_all", "yank_main_selection_to_clipboard", ":q!"]
+"," = "global_search"

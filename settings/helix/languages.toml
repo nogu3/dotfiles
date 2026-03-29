@@ -1,0 +1,3 @@
+[[language]]
+name = "json"
+formatter = { command = "jq" }
