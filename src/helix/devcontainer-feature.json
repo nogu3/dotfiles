@@ -1,0 +1,10 @@
+{
+    "id": "helix",
+    "version": "1.0.0",
+    "name": "Helix Editor",
+    "description": "Installs Helix editor, related tools (rg, fd, lazygit) and configuration.",
+    "containerEnv": {
+        "HELIX_RUNTIME": "/usr/local/lib/helix/runtime"
+    },
+    "options": {}
+}
