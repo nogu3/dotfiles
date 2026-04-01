@@ -51,15 +51,31 @@ if ! command -v ghq &> /dev/null; then
 fi
 
 info "Fetching PR details for $OWNER/$REPO#$PR_NUM..."
-# Use gh api --jq to get the branch name directly without needing jq installed
-BRANCH_NAME=$(gh api "repos/$OWNER/$REPO/pulls/$PR_NUM" --jq '.head.ref')
+# Use gh api --jq to get the necessary PR metadata directly without needing jq installed
+PR_METADATA=$(gh api "repos/$OWNER/$REPO/pulls/$PR_NUM" --jq '.head.ref + "|" + (.head.repo.owner.login // "") + "|" + (.head.repo.full_name // "")')
 
-if [ -z "$BRANCH_NAME" ]; then
-  error "Failed to get branch name for PR $PR_NUM"
+if [ -z "$PR_METADATA" ]; then
+  error "Failed to get metadata for PR $PR_NUM. Does the PR exist?"
   exit 1
 fi
 
-info "Branch name: $BRANCH_NAME"
+IFS='|' read -r HEAD_REF HEAD_REPO_OWNER HEAD_REPO_FULL_NAME <<< "$PR_METADATA"
+
+if [ -z "$HEAD_REF" ] || [ -z "$HEAD_REPO_OWNER" ] || [ -z "$HEAD_REPO_FULL_NAME" ]; then
+  error "Failed to get branch details for PR $PR_NUM. The head repository or branch might have been deleted."
+  exit 1
+fi
+
+info "Branch name: $HEAD_REF"
+info "Head repository: $HEAD_REPO_FULL_NAME"
+
+# Verify remote branch exists
+info "Checking if remote branch '$HEAD_REF' exists in '$HEAD_REPO_FULL_NAME'..."
+HEAD_REPO_URL="https://github.com/$HEAD_REPO_FULL_NAME.git"
+if ! git ls-remote --exit-code --heads "$HEAD_REPO_URL" "$HEAD_REF" >/dev/null 2>&1; then
+  error "Remote branch '$HEAD_REF' does not exist in $HEAD_REPO_FULL_NAME."
+  exit 1
+fi
 
 GHQ_ROOT=$(ghq root)
 # Support various git hosting services if ghq returns path like ghq_root/host/user/repo
@@ -84,7 +100,7 @@ info "Repository path: $MAIN_REPO_PATH"
 
 # User wants it alongside the main repo: `~/ghq/github.com/owner/repo_worktree/<branch-name>`
 WORKTREE_BASE_DIR="${MAIN_REPO_PATH}_worktree"
-WORKTREE_PATH="$WORKTREE_BASE_DIR/$BRANCH_NAME"
+WORKTREE_PATH="$WORKTREE_BASE_DIR/$HEAD_REF"
 
 if [ -d "$WORKTREE_PATH" ]; then
   warning "Worktree already exists at $WORKTREE_PATH"
@@ -96,11 +112,31 @@ mkdir -p "$WORKTREE_BASE_DIR"
 
 cd "$MAIN_REPO_PATH"
 
-# Fetch the PR branch
-info "Fetching PR #$PR_NUM branch ($BRANCH_NAME)..."
-git fetch origin "pull/$PR_NUM/head:$BRANCH_NAME"
+if [ "$HEAD_REPO_FULL_NAME" = "$OWNER/$REPO" ]; then
+  # PR is from a branch within the same repository
+  REMOTE_NAME="origin"
+else
+  # PR is from a fork
+  REMOTE_NAME="$HEAD_REPO_OWNER"
+  if ! git remote get-url "$REMOTE_NAME" >/dev/null 2>&1; then
+    info "Adding remote '$REMOTE_NAME' for fork $HEAD_REPO_FULL_NAME..."
+    git remote add "$REMOTE_NAME" "$HEAD_REPO_URL"
+  fi
+fi
+
+# Fetch the specific branch from the remote
+info "Fetching branch '$HEAD_REF' from remote '$REMOTE_NAME'..."
+git fetch "$REMOTE_NAME" "+refs/heads/$HEAD_REF:refs/remotes/$REMOTE_NAME/$HEAD_REF"
+
+# Create a local branch tracking the remote branch if it doesn't exist
+if ! git show-ref --verify --quiet "refs/heads/$HEAD_REF"; then
+  info "Creating local branch '$HEAD_REF' tracking '$REMOTE_NAME/$HEAD_REF'..."
+  git branch --track "$HEAD_REF" "$REMOTE_NAME/$HEAD_REF"
+else
+  info "Local branch '$HEAD_REF' already exists."
+fi
 
 # Create worktree
-git worktree add "$WORKTREE_PATH" "$BRANCH_NAME"
+git worktree add "$WORKTREE_PATH" "$HEAD_REF"
 
-success "Successfully created worktree for PR #$PR_NUM ($BRANCH_NAME) at $WORKTREE_PATH"
+success "Successfully created worktree for PR #$PR_NUM ($HEAD_REF) at $WORKTREE_PATH"
