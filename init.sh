@@ -88,7 +88,7 @@ setup_mise() {
 
 setup_dotter() {
     echo "Running dotter deploy..."
-    execute_in_user_shell "dotter deploy"
+    execute_in_user_shell "mise exec -- dotter deploy"
 }
 
 # Main execution
