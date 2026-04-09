@@ -66,17 +66,29 @@ execute() {
     fi
 }
 
+# Helper function to execute command in the available user shell
+execute_in_user_shell() {
+    local cmd="$*"
+    if type fish >/dev/null 2>&1; then
+        execute "fish -c '$cmd'"
+    elif type zsh >/dev/null 2>&1; then
+        execute "zsh -c 'source ~/.zshrc && $cmd'"
+    else
+        execute "$cmd"
+    fi
+}
+
 setup_mise() {
     echo "Setting up mise..."
     execute "mkdir -p ~/.config"
     execute "rm -rf ~/.config/mise"
     execute "ln -s \"$SCRIPT_DIR/settings/mise\" ~/.config/mise"
-    execute "mise install"
+    execute_in_user_shell "mise install"
 }
 
 setup_dotter() {
     echo "Running dotter deploy..."
-    execute "dotter deploy"
+    execute_in_user_shell "dotter deploy"
 }
 
 # Main execution
