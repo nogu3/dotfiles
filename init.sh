@@ -66,17 +66,28 @@ execute() {
     fi
 }
 
+run_in_user_shell() {
+    local cmd="$1"
+    if [[ "$SHELL" == *"/zsh"* ]]; then
+        execute "zsh -c '[ -f ~/.zshrc ] && source ~/.zshrc; $cmd'"
+    elif [[ "$SHELL" == *"/fish"* ]]; then
+        execute "fish -c '[ -f ~/.config/fish/config.fish ] && source ~/.config/fish/config.fish; $cmd'"
+    else
+        execute "bash -c '[ -f ~/.bashrc ] && source ~/.bashrc; $cmd'"
+    fi
+}
+
 setup_mise() {
     echo "Setting up mise..."
     execute "mkdir -p ~/.config"
     execute "rm -rf ~/.config/mise"
     execute "ln -s \"$SCRIPT_DIR/settings/mise\" ~/.config/mise"
-    execute "zsh -c 'source ~/.zshrc && mise install'"
+    run_in_user_shell "mise install"
 }
 
 setup_dotter() {
     echo "Running dotter deploy..."
-    execute "dotter deploy"
+    run_in_user_shell "dotter deploy"
 }
 
 # Main execution
