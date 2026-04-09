@@ -71,7 +71,7 @@ setup_mise() {
     execute "mkdir -p ~/.config"
     execute "rm -rf ~/.config/mise"
     execute "ln -s \"$SCRIPT_DIR/settings/mise\" ~/.config/mise"
-    execute "mise install"
+    execute "zsh -c 'source ~/.zshrc && mise install'"
 }
 
 setup_dotter() {
