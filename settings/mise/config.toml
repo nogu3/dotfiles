@@ -1,5 +1,5 @@
 [tools]
-"npm:@anthropic-ai/claude-code" = "latest"
+claude = "latest"
 helix = "latest"
 fzf = "latest"
 zoxide = "latest"
