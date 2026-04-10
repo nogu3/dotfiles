@@ -16,3 +16,9 @@ depends = []
 
 [settings]
 default_target_type = "automatic"
+
+[linux]
+depends = []
+
+[linux.files]
+"settings/xremap" = { target = "~/.config/xremap", type = "symbolic", recurse = false }
