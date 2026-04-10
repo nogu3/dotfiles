@@ -1,4 +1,5 @@
 [tools]
+claude = "latest"
 helix = "latest"
 fzf = "latest"
 zoxide = "latest"
