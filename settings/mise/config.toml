@@ -9,5 +9,6 @@ ghq = "latest"
 yazi = "latest"
 "github:googleworkspace/cli" = "latest"
 gcloud = "latest"
+lazygit = "latest"
 rust = { version = "latest", os = ["linux"] }
 "cargo:xremap" = { version = "latest", os = ["linux"] }
