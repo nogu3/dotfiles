@@ -1,0 +1,19 @@
+#!/bin/bash
+# Setup xremap autostart (requires sudo)
+set -e
+
+USER_NAME="${SUDO_USER:-$(whoami)}"
+
+echo "[1/2] Adding $USER_NAME to input group..."
+sudo usermod -aG input "$USER_NAME"
+
+echo "[2/2] Creating udev rule for /dev/uinput..."
+sudo tee /etc/udev/rules.d/99-uinput.rules > /dev/null << 'EOF'
+KERNEL=="uinput", MODE="0660", GROUP="input", TAG+="uaccess"
+EOF
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+
+echo ""
+echo "Done. Please re-login and then run:"
+echo "  systemctl --user enable --now xremap"

@@ -22,3 +22,4 @@ depends = []
 
 [linux.files]
 "settings/xremap" = { target = "~/.config/xremap", type = "symbolic", recurse = false }
+"settings/systemd/user" = { target = "~/.config/systemd/user", type = "symbolic", recurse = false }
