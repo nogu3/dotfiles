@@ -52,6 +52,11 @@ if is_windows() then
 	config.default_domain = "WSL:Ubuntu"
 end
 
+-- IME (fcitx5)
+if is_linux() then
+	config.use_ime = true
+end
+
 ----------------------------------------------------------------------
 -- 2. キーバインド
 ----------------------------------------------------------------------
@@ -100,6 +105,7 @@ config.keys = {
 
 	-- 設定リロード
 	{ key = "r", mods = "LEADER", action = act.ReloadConfiguration },
+
 }
 
 return config
