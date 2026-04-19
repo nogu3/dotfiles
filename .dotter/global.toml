@@ -11,7 +11,7 @@ depends = []
 "settings/lazygit" = { target = "~/.config/lazygit", type = "symbolic", recurse = false}
 "settings/helix" = { target = "~/.config/helix", type = "symbolic", recurse = false}
 ".scripts" = { target = "~/.scripts", type = "symbolic", recurse = false}
-"settings/claude/settings.json" = { target = "~/.claude/settings.json", type = "symbolic" }
+"settings/.claude" = { target = "~/.claude", type = "symbolic", recurse = true }
 
 [default.variables]
 
