@@ -14,4 +14,3 @@ node = "latest"
 rust = { version = "latest", os = ["linux"] }
 "cargo:xremap" = { version = "latest", os = ["linux"] }
 "npm:@google/jules" = { version = "latest", os = ["linux"] }
-"1password-cli" = "latest"
