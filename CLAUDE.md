@@ -64,9 +64,42 @@ dotter のリンク対象。`global.toml` の `[default.files]` / `[linux.files]
 
 - 新しい設定ファイルを追加するときは `settings/<tool>/` に配置し、`.dotter/global.toml` にエントリを追加する
 - Linux 限定なら `[linux.files]` に書く
-- ツール導入は `settings/mise/config.toml` に追記する (brew / apt 直接は原則使わない)
+- ツール導入は原則 `settings/mise/config.toml` に追記する。ただし後述の「パッケージマネージャ使い分け」に該当するシステム統合ツールは OS 標準 PM (pacman / apt / dnf / brew) を使う
 - 各 PC 固有の設定 (ホスト名依存の PATH / env var / 秘匿値など) は `settings/zsh/.zshrc_local` または `settings/fish/config_local.fish` に書く。リポジトリ共通設定 (`.zshrc` / `config.fish`) には書かない
 - コミットメッセージは Conventional Commits (`feat:` / `fix:` / `refactor:` など) を使用
+
+## パッケージマネージャ使い分け
+
+### OS 標準 PM (pacman / apt / dnf / brew) を使う
+
+システム統合が必要なツール:
+
+- OS の権限モデル連携 (setgid / setuid / capabilities / 専用グループ)
+- デスクトップアプリとの統合 (例: 1Password CLI ↔ 1Password desktop)
+- systemd サービス / デーモン
+- PAM / 認証系
+- カーネルモジュール
+- 署名検証が必要なバイナリ
+
+### userland PM (mise / flox / nix / asdf / homebrew-linux) を使う
+
+- 言語ランタイム (node / python / ruby / go)
+- 開発ツール (fzf / ripgrep / lazygit / delta)
+- プロジェクト単位バージョン固定
+- システム統合不要な CLI ユーティリティ
+
+### 判断基準
+
+「バイナリに特殊な所有権 / 権限ビット / 専用グループが必要か？」
+
+- Yes → OS 標準 PM
+- No → userland PM (mise 優先)
+
+### 実例
+
+- `1password-cli`: OS 標準 PM 必須。`/usr/bin/op` に `root:onepassword-cli` mode `2755` (setgid) 必要。desktop 統合がグループ所有権で検証するため userland PM 不可
+- `docker`: OS 標準 PM 推奨。`docker` グループ + systemd 統合
+- `node` / `fzf` / `lazygit` 等: mise 可
 
 ## Claude Code 連携
 
