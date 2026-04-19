@@ -42,10 +42,6 @@ if [[ -f "$ZPROFILE" ]]; then
   source "$ZPROFILE"
 fi
 
-# import local setting
-source "${HOME}/.zshrc_local"
-
-
 ### color theme for eza
 # theme dracura for eza
 # https://draculatheme.com/exa
@@ -56,6 +52,7 @@ export LS_COLORS="$(vivid generate iceberg-dark)"
 
 
 ### setup utility
+export PATH=$PATH:~/.local/bin
 eval "$(mise activate zsh)"
 # eval "$(flox activate -d ~ -m run)"
 
@@ -88,6 +85,9 @@ fi
 # setup my scripts
 export PATH=$PATH:~/.scripts
 
+# import local setting
+source "${HOME}/.zshrc_local"
+
 ### aliases
 alias ls='eza -a --icons'
 alias ll='eza -lag --sort=type --icons --header --time-style=long-iso'
@@ -98,3 +98,10 @@ alias dp="docker ps -a"
 # git
 alias gp="git pull"
 alias gf="git fetch"
+
+# 1Password SSH agent (WSL2)
+# SSH ログイン経由のときは forwarded agent を優先（上書きしない）
+if [ -z "$SSH_CONNECTION" ] && [ -S "$HOME/.1password/agent.sock" ]; then
+  export SSH_AUTH_SOCK=$HOME/.1password/agent.sock
+fi
+export GIT_SSH=/usr/bin/ssh
