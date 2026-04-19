@@ -10,6 +10,7 @@ yazi = "latest"
 "github:googleworkspace/cli" = "latest"
 gcloud = "latest"
 lazygit = "latest"
+node = "latest"
 rust = { version = "latest", os = ["linux"] }
 "cargo:xremap" = { version = "latest", os = ["linux"] }
 "npm:@google/jules" = { version = "latest", os = ["linux"] }
