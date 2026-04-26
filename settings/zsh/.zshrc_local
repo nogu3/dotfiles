@@ -1,7 +1,2 @@
 alias wezterm='wezterm.exe'
 
-if [ -z "$SSH_CONNECTION" ]; then
-  export SSH_AUTH_SOCK=/mnt/c/Users/noguk/.1password/agent.sock
-fi
-
-eval $(op signin)
