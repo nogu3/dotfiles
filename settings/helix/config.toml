@@ -15,6 +15,7 @@ D = ["extend_to_line_end", "delete_selection"]
 "A-down" = "copy_selection_on_next_line"
 
 [keys.normal.space]
+"," = "global_search"
 "space" = ":sh pane=$(wezterm cli split-pane -- sh -c 'lazygit'); wezterm cli zoom-pane --pane-id \"$pane\""
 "s" = ":w"
 "S" = "symbol_picker"
