@@ -9,10 +9,18 @@ git-ignore = false
 "A-down" = "copy_selection_on_next_line"
 esc = ["collapse_selection", "keep_primary_selection"]
 D = ["extend_to_line_end", "delete_selection"]
+"C-a" = "goto_line_start"
+"C-e" = "goto_line_end"
+"S-up" = "page_up"
+"S-down" = "page_down"
 
 [keys.select]
 "A-up" = "copy_selection_on_prev_line"
 "A-down" = "copy_selection_on_next_line"
+"C-a" = "goto_line_start"
+"C-e" = "goto_line_end"
+"S-up" = "page_up"
+"S-down" = "page_down"
 
 [keys.normal.space]
 "," = "global_search"
