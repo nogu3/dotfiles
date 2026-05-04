@@ -24,3 +24,9 @@ depends = []
 [linux.files]
 "settings/xremap" = { target = "~/.config/xremap", type = "symbolic", recurse = false }
 "settings/systemd/user" = { target = "~/.config/systemd/user", type = "symbolic", recurse = false }
+
+[wsl]
+depends = []
+
+[wsl.files]
+"settings/wsl/ssh" = { target = "/usr/local/bin/ssh", type = "symbolic" }

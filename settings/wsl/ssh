@@ -1,0 +1,6 @@
+#!/bin/bash
+if [[ "$(uname -r)" == *microsoft* ]] && [[ -z "$SSH_CONNECTION" ]]; then
+  exec ssh.exe "$@"
+else
+  exec /usr/bin/ssh "$@"
+fi
