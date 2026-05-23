@@ -101,9 +101,6 @@ alias gf="git fetch"
 
 # 1Password SSH agent (WSL2)
 if [[ "$(uname -r)" == *microsoft* ]] && [[ -z "$SSH_CONNECTION" ]]; then
+  export PATH="$HOME/.local/bin:$PATH"
   export SSH_AUTH_SOCK=/mnt/c/Users/noguk/.1password/agent.sock
-  export GIT_SSH_COMMAND=ssh.exe
-  alias op='op.exe'
-  alias ssh='ssh.exe'
-  alias ssh-add='ssh-add.exe'
 fi

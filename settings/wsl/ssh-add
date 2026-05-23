@@ -1,0 +1,6 @@
+#!/bin/bash
+if [[ "$(uname -r)" == *microsoft* ]] && [[ -z "$SSH_CONNECTION" ]]; then
+  exec ssh-add.exe "$@"
+else
+  exec /usr/bin/ssh-add "$@"
+fi
