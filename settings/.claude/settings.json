@@ -1,17 +1,4 @@
 {
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "echo '{\"hookSpecificOutput\": {\"hookEventName\": \"SessionStart\", \"additionalContext\": \"セッション開始時の指示: 今すぐ /genshijin スキルをSkillツールで起動してください。\"}}'",
-            "statusMessage": "genshijin起動中..."
-          }
-        ]
-      }
-    ]
-  },
   "statusLine": {
     "type": "command",
     "command": "npx -y @owloops/claude-powerline@latest --style=powerline --theme=rose-pine"
@@ -27,5 +14,6 @@
         "repo": "InterfaceX-co-jp/genshijin"
       }
     }
-  }
+  },
+  "theme": "dark-ansi"
 }
