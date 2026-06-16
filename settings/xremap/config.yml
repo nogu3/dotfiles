@@ -46,4 +46,3 @@ keymap:
       Ctrl_R-a: KEY_0
       Ctrl_L-CapsLock-j: Home
       Ctrl_L-CapsLock-l: End
-      Ctrl_L-KEY_DOT: Ctrl_L-c
