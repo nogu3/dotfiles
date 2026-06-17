@@ -31,4 +31,5 @@ depends = []
 [wsl.files]
 "settings/wsl/ssh" = { target = "~/.local/bin/ssh", type = "symbolic" }
 "settings/wsl/ssh-add" = { target = "~/.local/bin/ssh-add", type = "symbolic" }
+"settings/wsl/scp" = { target = "~/.local/bin/scp", type = "symbolic" }
 "settings/wsl/op" = { target = "~/.local/bin/op", type = "symbolic" }

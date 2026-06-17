@@ -1,0 +1,6 @@
+#!/bin/bash
+if [[ "$(uname -r)" == *microsoft* ]] && [[ -z "$SSH_CONNECTION" ]]; then
+  exec scp.exe "$@"
+else
+  exec /usr/bin/scp "$@"
+fi
