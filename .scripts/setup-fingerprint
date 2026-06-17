@@ -1,0 +1,96 @@
+#!/bin/bash
+# Setup fingerprint auth for Synaptics 06cb:009a (Validity, e.g. ThinkPad X280)
+# Native libfprint does NOT support this sensor; uses the reverse-engineered
+# python-validity driver + open-fprintd. Requires AUR (paru) and sudo.
+set -e
+
+if [[ "$(uname -s)" != "Linux" ]]; then
+    echo "This script is Linux-only (fprintd / paru / systemd). Aborting on $(uname -s)."
+    exit 1
+fi
+
+SENSOR_ID="06cb:009a"
+
+echo "[0/4] Checking sensor..."
+if ! lsusb | grep -qi "$SENSOR_ID"; then
+    echo "  WARN: Synaptics $SENSOR_ID not found in lsusb."
+    echo "        This script targets that specific sensor; aborting."
+    exit 1
+fi
+echo "  Found Synaptics $SENSOR_ID."
+
+echo "[1/4] Installing driver from AUR (pulls open-fprintd, fprintd-clients)..."
+paru -S --needed python-validity
+
+echo "[2/4] Enabling systemd services..."
+# open-fprintd itself is D-Bus activated (no socket/enable needed); it starts on
+# demand via net.reactivated.Fprint. Enable the driver + the suspend/resume
+# hooks (they fire on sleep, so no --now).
+sudo systemctl enable --now python3-validity.service
+sudo systemctl enable open-fprintd-resume.service open-fprintd-suspend.service
+
+# Disable the suspend "hotfix": it HARD-restarts python3-validity on resume,
+# which makes the fingerprint device briefly vanish. The KDE lock screen queries
+# fprintd once on resume, sees no device, and then never offers fingerprint
+# after a lid-close/idle suspend. The X280 sensor survives suspend fine, so the
+# gentle open-fprintd-resume.py is enough; killing the hotfix fixes resume.
+sudo systemctl disable --now python3-validity-suspend-hotfix.service 2>/dev/null || true
+
+# Idempotently insert pam_fprintd as 'sufficient' before the first auth line.
+# 'sufficient' => fingerprint success passes; failure/timeout falls through to
+# password. No lockout risk.
+add_fprint_pam() {
+    local file="$1"
+    if [[ ! -f "$file" ]]; then
+        echo "  skip (absent): $file"
+        return
+    fi
+    if grep -q 'pam_fprintd.so' "$file"; then
+        echo "  already configured: $file"
+        return
+    fi
+    sudo sed -i '0,/^auth/s//auth\tsufficient\tpam_fprintd.so\n&/' "$file"
+    echo "  patched: $file"
+}
+
+echo "[3/4] Wiring PAM..."
+# sudo: CLI has no parallel password UI, so pam_fprintd blocks until scan or
+# timeout, then falls through to password. Acceptable trade-off for sudo.
+add_fprint_pam /etc/pam.d/sudo
+
+# 1Password "unlock with system authentication" (and other polkit prompts)
+# authenticate via the polkit-1 PAM service. The vendor /usr/lib/pam.d/polkit-1
+# is password-only; override it in /etc to offer fingerprint first. 'sufficient'
+# => if no finger, it falls through to password as before. polkit (unlike the
+# KDE lock screen) does not loop fingerprint scans itself, so bump max-tries to
+# give this finicky sensor several touches before giving up.
+if [[ ! -f /etc/pam.d/polkit-1 ]] || ! grep -q 'pam_fprintd.so' /etc/pam.d/polkit-1; then
+    sudo tee /etc/pam.d/polkit-1 > /dev/null << 'EOF'
+#%PAM-1.0
+auth       sufficient   pam_fprintd.so   max-tries=5
+auth       include      system-auth
+account    include      system-auth
+password   include      system-auth
+session    include      system-auth
+EOF
+    echo "  wired: /etc/pam.d/polkit-1 (1Password / polkit)"
+else
+    echo "  already configured: /etc/pam.d/polkit-1"
+fi
+
+# KDE Plasma lock & login screens need NOTHING here: the vendor PAM service
+# /usr/lib/pam.d/kde-fingerprint already loads pam_fprintd, and Plasma runs it
+# in PARALLEL with the password path. Do NOT create /etc/pam.d/kde — overriding
+# the vendor file breaks the parallel design and forces a blocking fingerprint
+# wait. Just having an enrolled finger is enough for the lock screen to offer it.
+
+echo "[4/4] Done."
+echo ""
+echo "Next, enroll a finger (per-machine, interactive — not stored in dotfiles)."
+echo "Tip: enrolling the SAME finger into two slots boosts match rate a lot:"
+echo "  fprintd-enroll                          # right-index-finger (default)"
+echo "  fprintd-enroll -f right-middle-finger   # same physical finger, new angles"
+echo "  fprintd-verify                          # 'Match!' confirms it works"
+echo ""
+echo "Lock screen (Meta+L) offers fingerprint automatically once enrolled."
+echo "If the sensor freezes after suspend: sudo systemctl restart python3-validity"
