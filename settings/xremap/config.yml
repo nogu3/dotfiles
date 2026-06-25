@@ -21,6 +21,10 @@ modmap:
 
 # key combination to key combination
 keymap:
+  - name: Launch
+    remap:
+      Ctrl-Alt-t:
+        launch: ["/usr/bin/wezterm"]
   - name: Global
     remap:
       Alt-w: Alt-tab
