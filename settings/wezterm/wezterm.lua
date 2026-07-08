@@ -57,23 +57,7 @@ end
 ----------------------------------------------------------------------
 -- 2. キーバインド
 ----------------------------------------------------------------------
--- ペイン/タブ管理は herdr に委譲 (settings/herdr/config.toml)。
--- WezTerm 内蔵のペイン/タブ管理に戻したいときは、この config と同じ
--- ディレクトリに use-builtin-mux ファイルを置く:
---   touch ~/.config/wezterm/use-builtin-mux   (herdr に戻すときは rm)
--- 反映されない場合は Ctrl+Shift+R (デフォルトの設定リロード) を押す。
-local builtin_mux_flag = wezterm.config_dir .. "/use-builtin-mux"
-wezterm.add_to_config_reload_watch_list(builtin_mux_flag)
-
-local function builtin_mux_enabled()
-	local f = io.open(builtin_mux_flag, "r")
-	if f then
-		f:close()
-		return true
-	end
-	return false
-end
-
+-- ペイン/タブ管理は herdr に委譲 (settings/herdr/config.toml)
 config.keys = {
 
 	-- コピペ
@@ -94,40 +78,5 @@ config.keys = {
 	{ key = "-", mods = "CTRL", action = act.DecreaseFontSize },
 
 }
-
--- use-builtin-mux フラグがあるときだけ旧来のペイン/タブ管理を有効化
-if builtin_mux_enabled() then
-	config.leader = { key = "w", mods = "CTRL" }
-
-	local mux_keys = {
-		-- ペイン移動
-		{ key = "j", mods = "ALT", action = act.ActivatePaneDirection("Left") },
-		{ key = "k", mods = "ALT", action = act.ActivatePaneDirection("Down") },
-		{ key = "i", mods = "ALT", action = act.ActivatePaneDirection("Up") },
-		{ key = "l", mods = "ALT", action = act.ActivatePaneDirection("Right") },
-
-		-- Tab移動
-		{ key = "n", mods = "ALT", action = act.ActivateTabRelative(1) },
-		{ key = "p", mods = "ALT", action = act.ActivateTabRelative(-1) },
-
-		-- Tab作成
-		{ key = "n", mods = "LEADER", action = act.SpawnTab("DefaultDomain") },
-
-		-- ペイン分割
-		{ key = "\\", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-		{ key = "-", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-
-		-- ペイン/タブ強制終了
-		{ key = "x", mods = "LEADER", action = act.CloseCurrentPane({ confirm = false }) },
-		{ key = "X", mods = "LEADER", action = act.CloseCurrentTab({ confirm = false }) },
-
-		-- ペインズーム
-		{ key = "z", mods = "LEADER", action = act.TogglePaneZoomState },
-	}
-
-	for _, key in ipairs(mux_keys) do
-		table.insert(config.keys, key)
-	end
-end
 
 return config

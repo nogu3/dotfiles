@@ -44,7 +44,7 @@ dotter のリンク対象。`global.toml` の `[default.files]` / `[linux.files]
 | `settings/fish/` | `~/.config/fish/` | `config.fish` 本体 + `config_local.fish` は各 PC 固有設定用 |
 | `settings/mise/config.toml` | `~/.config/mise/` (init.sh がリンク) | 全言語・CLI のバージョン管理 (claude / helix / fzf / zoxide / delta / dotter / ghq / yazi / gws / gcloud / lazygit / rust / xremap / jules)。Linux 限定ツールは `os = ["linux"]` |
 | `settings/claude/settings.json` | `~/.claude/settings.json` | Claude Code の hooks (SessionStart で genshijin 自動起動) / statusLine / 有効プラグイン |
-| `settings/wezterm/wezterm.lua` | `~/.config/wezterm/` | WezTerm 設定。macOS フォントサイズ等 OS 分岐あり。ペイン/タブ管理は herdr に委譲済み (`touch ~/.config/wezterm/use-builtin-mux` で内蔵 mux に戻せる) |
+| `settings/wezterm/wezterm.lua` | `~/.config/wezterm/` | WezTerm 設定。macOS フォントサイズ等 OS 分岐あり。ペイン/タブ管理は herdr に委譲済み |
 | `settings/herdr/config.toml` | `~/.config/herdr/` | [herdr](https://github.com/ogulcancelik/herdr) (terminal multiplexer) 設定。prefix `Ctrl+W`、旧 WezTerm キーバインドを踏襲 |
 | `settings/helix/` | `~/.config/helix/` | Helix エディタ設定 + テーマ |
 | `settings/zenvim/` | `~/.config/nvim/` | Neovim (lazy.nvim) 設定。`init.lua` + `lua/` 分割構成 |
