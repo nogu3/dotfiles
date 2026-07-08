@@ -4,3 +4,6 @@ settings/zenvim/lazy-lock.json
 
 .dotter/cache.toml
 .dotter/local.toml
+
+# WezTerm 内蔵 mux へ切り替えるローカルフラグ (settings/wezterm/wezterm.lua 参照)
+settings/wezterm/use-builtin-mux
