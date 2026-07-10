@@ -20,6 +20,10 @@ focus_pane_right = "alt+l"
 next_tab = "alt+n"
 previous_tab = "alt+p"
 
+# workspace 移動 (サイドバーの並び順で上下)
+previous_workspace = "alt+up"
+next_workspace = "alt+down"
+
 # タブ作成
 new_tab = "prefix+n"
 
