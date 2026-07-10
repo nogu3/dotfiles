@@ -64,7 +64,11 @@ config.keys = {
 	{ key = "c", mods = "CTRL", action = act.CopyTo("Clipboard") },
 	{ key = "v", mods = "CTRL", action = act.PasteFrom("Clipboard") },
 
-	-- スクロールは herdr のスクロールバックビュー (PageUp/PageDown) に委譲
+	-- スクロールは herdr のスクロールバックビュー (PageUp/PageDown) に委譲。
+	-- WezTerm 組み込みデフォルトの SHIFT+PageUp/Down (ScrollByPage) がキーを
+	-- 食うため明示的に無効化して herdr に素通しする
+	{ key = "PageUp", mods = "SHIFT", action = act.DisableDefaultAssignment },
+	{ key = "PageDown", mods = "SHIFT", action = act.DisableDefaultAssignment },
 
 	-- 中断
 	{ key = ".", mods = "CTRL", action = act.SendString("\x03") },
