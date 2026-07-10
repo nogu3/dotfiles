@@ -64,11 +64,7 @@ config.keys = {
 	{ key = "c", mods = "CTRL", action = act.CopyTo("Clipboard") },
 	{ key = "v", mods = "CTRL", action = act.PasteFrom("Clipboard") },
 
-	-- スクロール
-	{ key = "PageUp", mods = "NONE", action = act.ScrollByPage(-1) },
-	{ key = "PageDown", mods = "NONE", action = act.ScrollByPage(1) },
-	{ key = "PageUp", mods = "SHIFT", action = act.ScrollByLine(-1) },
-	{ key = "PageDown", mods = "SHIFT", action = act.ScrollByLine(1) },
+	-- スクロールは herdr のスクロールバックビュー (PageUp/PageDown) に委譲
 
 	-- 中断
 	{ key = ".", mods = "CTRL", action = act.SendString("\x03") },
