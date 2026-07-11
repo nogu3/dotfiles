@@ -14,4 +14,7 @@ git:
 refresher:
   refreshInterval: 3
 os:
-  open: 'nvim --server "$NVIM" --remote-send "<C-\><C-N>:execute \"lua Zenvim.toggle_lazygit()\" | e {{filename}}<CR>"'
+  # `o` で選択ファイルを「起動中の Helix」へ送る。Helix はリモート機能を持たないので
+  # herdr の send-keys で :open <file> を Helix ペイン($HELIX_PANE)へ直接キー送出する。
+  # 送出後、この lazygit ペイン($HERDR_PANE_ID)を閉じる → 上の Helix にフォーカスが戻る
+  open: 'herdr pane send-keys "$HELIX_PANE" escape && herdr pane send-text "$HELIX_PANE" ":open {{filename}}" && herdr pane send-keys "$HELIX_PANE" enter && herdr pane close "$HERDR_PANE_ID"'
