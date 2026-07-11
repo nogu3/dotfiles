@@ -45,6 +45,9 @@ config.window_background_opacity = 0.9
 -- 要求してきても点滅させない。形状変更はそのまま反映される)
 config.cursor_blink_rate = 0
 
+-- タブ管理は herdr に委譲済みのためタブバーを非表示
+config.enable_tab_bar = false
+
 -- クリップボード連携の安定化
 config.enable_kitty_graphics = true
 
@@ -73,6 +76,17 @@ config.keys = {
 	-- 食うため明示的に無効化して herdr に素通しする
 	{ key = "PageUp", mods = "SHIFT", action = act.DisableDefaultAssignment },
 	{ key = "PageDown", mods = "SHIFT", action = act.DisableDefaultAssignment },
+
+	-- タブ操作のデフォルトキーを無効化 (タブバー非表示でも生きているため、
+	-- 押すと見えないタブが作られる / 移動する事故を防ぐ)
+	{ key = "t", mods = "CTRL|SHIFT", action = act.DisableDefaultAssignment }, -- SpawnTab
+	{ key = "w", mods = "CTRL|SHIFT", action = act.DisableDefaultAssignment }, -- CloseCurrentTab
+	{ key = "Tab", mods = "CTRL", action = act.DisableDefaultAssignment }, -- ActivateTabRelative(1)
+	{ key = "Tab", mods = "CTRL|SHIFT", action = act.DisableDefaultAssignment }, -- ActivateTabRelative(-1)
+	{ key = "PageUp", mods = "CTRL", action = act.DisableDefaultAssignment }, -- ActivateTabRelative(-1)
+	{ key = "PageDown", mods = "CTRL", action = act.DisableDefaultAssignment }, -- ActivateTabRelative(1)
+	{ key = "PageUp", mods = "CTRL|SHIFT", action = act.DisableDefaultAssignment }, -- MoveTabRelative(-1)
+	{ key = "PageDown", mods = "CTRL|SHIFT", action = act.DisableDefaultAssignment }, -- MoveTabRelative(1)
 
 	-- 中断
 	{ key = ".", mods = "CTRL", action = act.SendString("\x03") },
