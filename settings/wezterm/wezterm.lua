@@ -41,6 +41,10 @@ end
 -- opacity
 config.window_background_opacity = 0.9
 
+-- カーソル点滅を全面無効化 (Claude Code 等が DECSCUSR で点滅カーソルを
+-- 要求してきても点滅させない。形状変更はそのまま反映される)
+config.cursor_blink_rate = 0
+
 -- クリップボード連携の安定化
 config.enable_kitty_graphics = true
 
