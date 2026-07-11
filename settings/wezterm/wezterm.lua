@@ -41,8 +41,12 @@ end
 -- opacity
 config.window_background_opacity = 0.9
 
--- Leader Key (Prefix C-w)
-config.leader = { key = "w", mods = "CTRL" }
+-- カーソル点滅を全面無効化 (Claude Code 等が DECSCUSR で点滅カーソルを
+-- 要求してきても点滅させない。形状変更はそのまま反映される)
+config.cursor_blink_rate = 0
+
+-- タブ管理は herdr に委譲済みのためタブバーを非表示
+config.enable_tab_bar = false
 
 -- クリップボード連携の安定化
 config.enable_kitty_graphics = true
@@ -60,41 +64,29 @@ end
 ----------------------------------------------------------------------
 -- 2. キーバインド
 ----------------------------------------------------------------------
+-- ペイン/タブ管理は herdr に委譲 (settings/herdr/config.toml)
 config.keys = {
-
-	-- ペイン移動
-	{ key = "j", mods = "ALT", action = act.ActivatePaneDirection("Left") },
-	{ key = "k", mods = "ALT", action = act.ActivatePaneDirection("Down") },
-	{ key = "i", mods = "ALT", action = act.ActivatePaneDirection("Up") },
-	{ key = "l", mods = "ALT", action = act.ActivatePaneDirection("Right") },
-
-	-- Tab移動
-	{ key = "n", mods = "ALT", action = act.ActivateTabRelative(1) },
-	{ key = "p", mods = "ALT", action = act.ActivateTabRelative(-1) },
-
-	-- Tab作成
-	{ key = "n", mods = "LEADER", action = act.SpawnTab("DefaultDomain") },
-
-	-- ペイン分割
-	{ key = "\\", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-	{ key = "-", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-
-	-- ペイン/タブ強制終了
-	{ key = "x", mods = "LEADER", action = act.CloseCurrentPane({ confirm = false }) },
-	{ key = "X", mods = "LEADER", action = act.CloseCurrentTab({ confirm = false }) },
-
-	-- ペインズーム
-	{ key = "z", mods = "LEADER", action = act.TogglePaneZoomState },
 
 	-- コピペ
 	{ key = "c", mods = "CTRL", action = act.CopyTo("Clipboard") },
 	{ key = "v", mods = "CTRL", action = act.PasteFrom("Clipboard") },
 
-	-- スクロール
-	{ key = "PageUp", mods = "NONE", action = act.ScrollByPage(-1) },
-	{ key = "PageDown", mods = "NONE", action = act.ScrollByPage(1) },
-	{ key = "PageUp", mods = "SHIFT", action = act.ScrollByLine(-1) },
-	{ key = "PageDown", mods = "SHIFT", action = act.ScrollByLine(1) },
+	-- スクロールは herdr のスクロールバックビュー (PageUp/PageDown) に委譲。
+	-- WezTerm 組み込みデフォルトの SHIFT+PageUp/Down (ScrollByPage) がキーを
+	-- 食うため明示的に無効化して herdr に素通しする
+	{ key = "PageUp", mods = "SHIFT", action = act.DisableDefaultAssignment },
+	{ key = "PageDown", mods = "SHIFT", action = act.DisableDefaultAssignment },
+
+	-- タブ操作のデフォルトキーを無効化 (タブバー非表示でも生きているため、
+	-- 押すと見えないタブが作られる / 移動する事故を防ぐ)
+	{ key = "t", mods = "CTRL|SHIFT", action = act.DisableDefaultAssignment }, -- SpawnTab
+	{ key = "w", mods = "CTRL|SHIFT", action = act.DisableDefaultAssignment }, -- CloseCurrentTab
+	{ key = "Tab", mods = "CTRL", action = act.DisableDefaultAssignment }, -- ActivateTabRelative(1)
+	{ key = "Tab", mods = "CTRL|SHIFT", action = act.DisableDefaultAssignment }, -- ActivateTabRelative(-1)
+	{ key = "PageUp", mods = "CTRL", action = act.DisableDefaultAssignment }, -- ActivateTabRelative(-1)
+	{ key = "PageDown", mods = "CTRL", action = act.DisableDefaultAssignment }, -- ActivateTabRelative(1)
+	{ key = "PageUp", mods = "CTRL|SHIFT", action = act.DisableDefaultAssignment }, -- MoveTabRelative(-1)
+	{ key = "PageDown", mods = "CTRL|SHIFT", action = act.DisableDefaultAssignment }, -- MoveTabRelative(1)
 
 	-- 中断
 	{ key = ".", mods = "CTRL", action = act.SendString("\x03") },
@@ -102,9 +94,6 @@ config.keys = {
 	-- フォントサイズ変更
 	{ key = "+", mods = "CTRL", action = act.IncreaseFontSize },
 	{ key = "-", mods = "CTRL", action = act.DecreaseFontSize },
-
-	-- 設定リロード
-	{ key = "r", mods = "LEADER", action = act.ReloadConfiguration },
 
 }
 

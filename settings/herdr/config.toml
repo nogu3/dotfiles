@@ -1,0 +1,45 @@
+# herdr config
+# https://herdr.dev/docs/configuration/
+# WezTerm 時代のキーバインドを踏襲する (dotfiles issue #30)
+
+# 初回オンボーディングを無効化 (有効だと herdr が config.toml へ
+# onboarding = false を書き込み、dotter 管理下のこのファイルを書き換えるため)
+onboarding = false
+
+[ui]
+# WSL では WezTerm→wsl.exe 間に ConPTY が挟まり、Claude Code 等の常時再描画 TUI
+# でネイティブカーソルがちらつく (点滅して見える)。herdr にカーソルを自前描画
+# させて回避する。ネイティブ Linux / macOS では ConPTY がないため不要 (auto=native)
+host_cursor = "drawn"
+
+[keys]
+# WezTerm の Leader (Ctrl+W) と同じ prefix にする
+prefix = "ctrl+w"
+
+# ペイン移動 (prefix なしの直接ショートカット)
+focus_pane_left = "alt+j"
+focus_pane_down = "alt+k"
+focus_pane_up = "alt+i"
+focus_pane_right = "alt+l"
+
+# タブ移動 (prefix なしの直接ショートカット)
+next_tab = "alt+n"
+previous_tab = "alt+p"
+
+# workspace 移動 (サイドバーの並び順で上下)
+previous_workspace = "alt+up"
+next_workspace = "alt+down"
+
+# タブ作成
+new_tab = "prefix+n"
+
+# ペイン分割: prefix+\ で右に分割 / prefix+- で下に分割
+split_vertical = "prefix+backslash"
+split_horizontal = "prefix+minus"
+
+# ペイン / タブ強制終了 (デフォルトと同じだが明示)
+close_pane = "prefix+x"
+close_tab = "prefix+shift+x"
+
+# ペインズーム (デフォルトと同じだが明示)
+zoom = "prefix+z"
