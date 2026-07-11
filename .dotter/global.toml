@@ -5,14 +5,12 @@ depends = []
 
 [default.files]
 "settings/zsh" = { target = "~/", type = "symbolic", recurse = true}
-"settings/fish" = { target = "~/.config/fish", type = "symbolic", recurse = true}
 "settings/zenvim" = { target = "~/.config/nvim", type = "symbolic", recurse = false}
 "settings/wezterm" = { target = "~/.config/wezterm", type = "symbolic", recurse = false}
 "settings/lazygit" = { target = "~/.config/lazygit", type = "symbolic", recurse = false}
 "settings/herdr" = { target = "~/.config/herdr", type = "symbolic", recurse = true}
 "settings/helix" = { target = "~/.config/helix", type = "symbolic", recurse = false}
 ".scripts" = { target = "~/.scripts", type = "symbolic", recurse = false}
-"settings/.claude" = { target = "~/.claude", type = "symbolic", recurse = true }
 
 [default.variables]
 
@@ -23,6 +21,7 @@ default_target_type = "automatic"
 depends = []
 
 [linux.files]
+"settings/fish" = { target = "~/.config/fish", type = "symbolic", recurse = true}
 "settings/xremap" = { target = "~/.config/xremap", type = "symbolic", recurse = false }
 "settings/systemd/user" = { target = "~/.config/systemd/user", type = "symbolic", recurse = false }
 
