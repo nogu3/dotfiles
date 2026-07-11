@@ -33,3 +33,4 @@ D = ["extend_to_line_end", "delete_selection"]
 "f" = "no_op"
 "e" = "file_explorer_in_current_buffer_directory"
 "E" = "file_explorer"
+"g" = ":sh ghurl link '%{buffer_name}' '%{cursor_line}' | tr -d '\\n' | (pbcopy 2>/dev/null || wl-copy 2>/dev/null || xclip -selection clipboard 2>/dev/null || clip.exe)"

@@ -9,7 +9,15 @@ case $subcommand in
     file_path=$2
     line_number=$3
 
-    echo "${url}/blob/$commit_hash/${file_path}#L${line_number}"
+    # リポジトリ配下ならどのディレクトリから呼んでもルート相対パスに解決する
+    toplevel=$(git rev-parse --show-toplevel)
+    case $file_path in
+      /*) abs_path=$file_path ;;
+      *)  abs_path="$(pwd)/$file_path" ;;
+    esac
+    rel_path=${abs_path#"$toplevel"/}
+
+    echo "${url}/blob/$commit_hash/${rel_path}#L${line_number}"
     ;;
   pr)
     line_number=$2
