@@ -6,6 +6,12 @@
 # onboarding = false を書き込み、dotter 管理下のこのファイルを書き換えるため)
 onboarding = false
 
+[ui]
+# WSL では WezTerm→wsl.exe 間に ConPTY が挟まり、Claude Code 等の常時再描画 TUI
+# でネイティブカーソルがちらつく (点滅して見える)。herdr にカーソルを自前描画
+# させて回避する。ネイティブ Linux / macOS では ConPTY がないため不要 (auto=native)
+host_cursor = "drawn"
+
 [keys]
 # WezTerm の Leader (Ctrl+W) と同じ prefix にする
 prefix = "ctrl+w"
