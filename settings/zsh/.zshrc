@@ -85,6 +85,9 @@ fi
 # setup my scripts
 export PATH=$PATH:~/.scripts
 
+# Claude Code: マウス制御を完全に無効化し、選択/コピーをターミナル(WezTerm)に任せる
+export CLAUDE_CODE_DISABLE_MOUSE=1
+
 # import local setting
 source "${HOME}/.zshrc_local"
 
