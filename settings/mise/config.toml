@@ -13,6 +13,8 @@ gcloud = "latest"
 lazygit = "latest"
 jq = "latest"
 node = "latest"
+"npm:typescript" = "latest"
+"npm:typescript-language-server" = "latest"
 rust = { version = "latest", os = ["linux"] }
 "cargo:xremap" = { version = "latest", os = ["linux"] }
 "npm:@google/jules" = { version = "latest", os = ["linux"] }
