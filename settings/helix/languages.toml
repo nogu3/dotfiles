@@ -1,0 +1,4 @@
+[[language]]
+name = "json"
+formatter = { command = "jq", args = ["."] }
+auto-format = true
