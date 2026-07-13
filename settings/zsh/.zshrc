@@ -103,9 +103,9 @@ alias gp="git pull"
 alias gf="git fetch"
 
 # 1Password SSH agent (WSL2)
-if [[ "$(uname -r)" == *microsoft* ]] && [[ -z "$SSH_CONNECTION" ]]; then
+# ssh/scp/ssh-add wrapper が /usr/bin/* より優先されるよう prepend
+if [[ "$(uname -r)" == *microsoft* ]]; then
   export PATH="$HOME/.local/bin:$PATH"
-  export SSH_AUTH_SOCK=/mnt/c/Users/noguk/.1password/agent.sock
 fi
 
 # SSH ログイン時は forwarded agent socket を安定パスに symlink する。
