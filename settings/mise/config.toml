@@ -17,4 +17,3 @@ node = "latest"
 "npm:typescript-language-server" = "latest"
 rust = "latest"
 "cargo:xremap" = { version = "latest", os = ["linux"] }
-"npm:@google/jules" = { version = "latest", os = ["linux"] }
