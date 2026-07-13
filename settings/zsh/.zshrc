@@ -107,6 +107,9 @@ alias dp="docker ps -a"
 alias gp="git pull"
 alias gf="git fetch"
 
+# claude
+alias claude='claude --permission-mode auto'
+
 # 1Password SSH agent (WSL2)
 # ssh/scp/ssh-add wrapper が /usr/bin/* より優先されるよう prepend
 if [[ "$(uname -r)" == *microsoft* ]]; then

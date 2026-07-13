@@ -85,3 +85,9 @@ alias dp="docker ps -a"
 # git
 alias gp="git pull"
 alias gf="git fetch"
+
+# claude
+# alias ではなく function + command で定義する (自己参照 alias の再帰を確実に避けるため)
+function claude --wraps claude --description 'claude with permission-mode auto'
+    command claude --permission-mode auto $argv
+end
