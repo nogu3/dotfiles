@@ -66,6 +66,11 @@ else
     set -x LG_CONFIG_PATH ~/.config/lazygit/config.yml
 end
 
+# 1Password SSH agent
+if test -S "$HOME/.1password/agent.sock"
+    set -x SSH_AUTH_SOCK "$HOME/.1password/agent.sock"
+end
+
 # setup my scripts
 set -x PATH $PATH ~/.scripts
 
