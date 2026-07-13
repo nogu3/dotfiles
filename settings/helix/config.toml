@@ -26,8 +26,11 @@ D = ["extend_to_line_end", "delete_selection"]
 "," = "global_search"
 # lazygit を herdr ペインで下に開き zoom(全画面)する。呼び出し元 Helix の pane id を
 # HELIX_PANE で渡し、lazygit 側の `o` (os.open) がそのペインへファイルを送り返せるようにする。
-# agent start の JSON から新ペイン id を取り出して zoom --on する
-"space" = ''':sh id=$(herdr agent start lazygit --split down --focus --env HELIX_PANE=$HERDR_PANE_ID -- lazygit | grep -oE '"pane_id":"[^"]+"' | head -1 | cut -d'"' -f4); herdr pane zoom "$id" --on >/dev/null 2>&1'''
+# agent start の JSON から新ペイン id を取り出して zoom --on する。
+# lazygit は mise shim の絶対パスで起動する: agent start は herdr サーバーの環境
+# スナップショットで解決するため、素の `lazygit` だと mise upgrade 後に古いパスが死んで
+# /usr/local/bin の野良バイナリ等にフォールバックする。shim はバージョン非依存で常に最新を指す
+"space" = ''':sh id=$(herdr agent start lazygit --split down --focus --env HELIX_PANE=$HERDR_PANE_ID -- "$HOME/.local/share/mise/shims/lazygit" | grep -oE '"pane_id":"[^"]+"' | head -1 | cut -d'"' -f4); herdr pane zoom "$id" --on >/dev/null 2>&1'''
 "s" = ":w"
 "S" = "symbol_picker"
 "r" = ":reset-diff-change"

@@ -54,6 +54,11 @@ export LS_COLORS="$(vivid generate iceberg-dark)"
 ### setup utility
 export PATH=$PATH:~/.local/bin
 eval "$(mise activate zsh)"
+# mise activate はバージョン付き install パスを PATH に入れるため、herdr サーバー等が
+# 環境をスナップショットすると mise upgrade 後にそのパスが消えて古い野良バイナリに
+# フォールバックする。バージョン非依存の shims を前置してフォールバック先を固定する
+# (対話シェルでは activate の動的パスが優先されるので shims は実質使われない)
+export PATH="$HOME/.local/share/mise/shims:$PATH"
 # eval "$(flox activate -d ~ -m run)"
 
 # setup zoxide

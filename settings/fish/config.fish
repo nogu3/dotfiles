@@ -31,6 +31,10 @@ end
 # setup utility
 if type -q mise
     mise activate fish | source
+    # mise activate はバージョン付き install パスを PATH に入れるため、herdr サーバー等が
+    # 環境をスナップショットすると mise upgrade 後にそのパスが消えて古い野良バイナリに
+    # フォールバックする。バージョン非依存の shims を前置してフォールバック先を固定する
+    set -x PATH "$HOME/.local/share/mise/shims" $PATH
 end
 
 # setup zoxide
