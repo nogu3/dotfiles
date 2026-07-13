@@ -1,5 +1,9 @@
 #!/bin/bash
-if [[ "$(uname -r)" == *microsoft* ]] && [[ -z "$SSH_CONNECTION" ]]; then
+# ~/.ssh/agent.sock は SSH ログイン時に .zshrc が張る forwarded agent への symlink。
+# herdr のペインは SSH_CONNECTION を継承しないため、socket の生存で経路を判定する
+if [[ -S "$HOME/.ssh/agent.sock" ]]; then
+  SSH_AUTH_SOCK="$HOME/.ssh/agent.sock" exec /usr/bin/scp "$@"
+elif [[ "$(uname -r)" == *microsoft* ]] && [[ -z "$SSH_CONNECTION" ]]; then
   exec scp.exe "$@"
 else
   exec /usr/bin/scp "$@"

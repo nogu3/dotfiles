@@ -107,3 +107,11 @@ if [[ "$(uname -r)" == *microsoft* ]] && [[ -z "$SSH_CONNECTION" ]]; then
   export PATH="$HOME/.local/bin:$PATH"
   export SSH_AUTH_SOCK=/mnt/c/Users/noguk/.1password/agent.sock
 fi
+
+# SSH ログイン時は forwarded agent socket を安定パスに symlink する。
+# herdr のペインは herdr デーモンの環境を継承していて SSH_CONNECTION も
+# forwarded SSH_AUTH_SOCK も持たないため、wrapper (settings/wsl/ssh) は
+# この安定パスの生存を見て forwarded agent / ssh.exe を切り替える
+if [[ -n "$SSH_CONNECTION" && -S "$SSH_AUTH_SOCK" && "$SSH_AUTH_SOCK" != "$HOME/.ssh/agent.sock" ]]; then
+  ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/agent.sock"
+fi
