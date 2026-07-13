@@ -73,6 +73,7 @@ end
 
 # setup my scripts
 set -x PATH $PATH ~/.scripts
+set -x PATH ~/.local/bin $PATH
 
 # aliases
 alias ls='eza -a --icons'
