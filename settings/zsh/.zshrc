@@ -92,6 +92,8 @@ export PATH=$PATH:~/.scripts
 
 # Claude Code: マウス制御を完全に無効化し、選択/コピーをターミナル(WezTerm)に任せる
 export CLAUDE_CODE_DISABLE_MOUSE=1
+# Claude Code: alternate screen を無効化し、通常のスクロールバックに出力する
+export CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN=1
 
 # import local setting
 source "${HOME}/.zshrc_local"
