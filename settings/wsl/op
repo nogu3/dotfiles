@@ -1,5 +1,26 @@
 #!/bin/bash
-if [[ "$(uname -r)" == *microsoft* ]] && [[ -z "$SSH_CONNECTION" ]]; then
+# op の実行経路を SSH セッションの有無で切り替える (settings/wsl/ssh と同じ思想):
+#   - PC の前: op.exe → Windows 1Password とデスクトップ連携 (生体認証)
+#   - SSH 越し (herdr ペイン含む): 接続元マシンに ssh で戻り、接続元の op を実行
+#     → 承認プロンプトは自分が座っている接続元のデスクトップに出る
+# ~/.ssh/agent.sock と ~/.ssh/op-client は SSH ログイン時に .zshrc が書く。
+# sshd が切断時に socket を消すので、symlink の死活で SSH セッション中かを判定する。
+# 接続元のユーザー名が異なる場合は .zshrc_local で OP_SSH_CLIENT_USER を設定する。
+client_file="$HOME/.ssh/op-client"
+if [[ -S "$HOME/.ssh/agent.sock" && -f "$client_file" ]]; then
+  client="$(<"$client_file")"
+  dest="${OP_SSH_CLIENT_USER:+$OP_SSH_CLIENT_USER@}$client"
+  SSH_AUTH_SOCK="$HOME/.ssh/agent.sock" /usr/bin/ssh \
+    -o BatchMode=yes -o ConnectTimeout=3 \
+    -o ControlMaster=auto -o ControlPath="$HOME/.ssh/cm-op-%r@%h" -o ControlPersist=10m \
+    "$dest" "$(printf '%q ' op "$@")"
+  rc=$?
+  if [[ $rc -eq 255 ]]; then
+    echo "op wrapper: 接続元 ($dest) への ssh に失敗。ローカルの /usr/bin/op を使います (eval \$(op signin) が必要)" >&2
+    exec /usr/bin/op "$@"
+  fi
+  exit $rc
+elif [[ "$(uname -r)" == *microsoft* ]] && [[ -z "$SSH_CONNECTION" ]]; then
   exec op.exe "$@"
 else
   exec /usr/bin/op "$@"

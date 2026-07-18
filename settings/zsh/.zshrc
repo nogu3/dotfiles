@@ -124,4 +124,7 @@ fi
 # この安定パスの生存を見て forwarded agent / ssh.exe を切り替える
 if [[ -n "$SSH_CONNECTION" && -S "$SSH_AUTH_SOCK" && "$SSH_AUTH_SOCK" != "$HOME/.ssh/agent.sock" ]]; then
   ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/agent.sock"
+  # op wrapper (settings/wsl/op) が接続元に ssh で戻って op を実行するための記録。
+  # agent.sock が生きている間だけ有効とみなす
+  print -r -- "${SSH_CONNECTION%% *}" > "$HOME/.ssh/op-client"
 fi
