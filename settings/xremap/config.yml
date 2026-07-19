@@ -10,7 +10,7 @@ modmap:
         alone: Enter
       KEY_RIGHTALT:
         held: CapsLock
-        alone: KEY_RIGHTALT
+        alone: Enter
       Enter:
         held: Ctrl_R
         alone: Henkan
@@ -28,8 +28,6 @@ keymap:
   - name: Global
     remap:
       Alt-w: Alt-tab
-      CapsLock-s: backspace
-      CapsLock-d: delete
       CapsLock-i: Up
       CapsLock-j: Left
       CapsLock-k: Down
@@ -38,15 +36,5 @@ keymap:
       Shift-Enter: Shift-Semicolon
       # for slack
       Alt-Enter: Ctrl_L-Enter
-      Ctrl_R-w: KEY_1
-      Ctrl_R-e: KEY_2
-      Ctrl_R-r: KEY_3
-      Ctrl_R-s: KEY_4
-      Ctrl_R-d: KEY_5
-      Ctrl_R-f: KEY_6
-      Ctrl_R-x: KEY_7
-      Ctrl_R-c: KEY_8
-      Ctrl_R-v: KEY_9
-      Ctrl_R-a: KEY_0
-      Ctrl_L-CapsLock-j: Home
-      Ctrl_L-CapsLock-l: End
+      Ctrl-CapsLock-j: Home
+      Ctrl-CapsLock-l: End
