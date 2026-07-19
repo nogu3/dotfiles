@@ -1,25 +1,16 @@
 #!/bin/bash
 # op の実行経路を SSH セッションの有無で切り替える (settings/wsl/ssh と同じ思想):
 #   - PC の前: op.exe → Windows 1Password とデスクトップ連携 (生体認証)
-#   - SSH 越し (herdr ペイン含む): 接続元マシンに ssh で戻り、接続元の op を実行
-#     → 承認プロンプトは自分が座っている接続元のデスクトップに出る
-# ~/.ssh/agent.sock と ~/.ssh/op-client は SSH ログイン時に .zshrc が書く。
-# sshd が切断時に socket を消すので、symlink の死活で SSH セッション中かを判定する。
-# 接続元のユーザー名が異なる場合は .zshrc_local で OP_SSH_CLIENT_USER を設定する。
-client_file="$HOME/.ssh/op-client"
-if [[ -S "$HOME/.ssh/agent.sock" && -f "$client_file" ]]; then
-  client="$(<"$client_file")"
-  dest="${OP_SSH_CLIENT_USER:+$OP_SSH_CLIENT_USER@}$client"
-  SSH_AUTH_SOCK="$HOME/.ssh/agent.sock" /usr/bin/ssh \
-    -o BatchMode=yes -o ConnectTimeout=3 \
-    -o ControlMaster=auto -o ControlPath="$HOME/.ssh/cm-op-%r@%h" -o ControlPersist=10m \
-    "$dest" "$(printf '%q ' op "$@")"
-  rc=$?
-  if [[ $rc -eq 255 ]]; then
-    echo "op wrapper: 接続元 ($dest) への ssh に失敗。ローカルの /usr/bin/op を使います (eval \$(op signin) が必要)" >&2
-    exec /usr/bin/op "$@"
-  fi
-  exit $rc
+#   - SSH 越し (herdr ペイン含む): native /usr/bin/op を使う
+# op CLI↔desktop 連携はローカル IPC 専用で SSH forwarding が無いため、接続元
+# デスクトップの承認プロンプトは SSH 越しには出せない (接続元に ssh で戻る案は
+# 接続元が sshd を動かしている前提が必要で構造的に破綻)。代わりに SSH 側では
+# `eval $(op signin)` で取得したセッショントークン (承認/パスワード入力は手元の
+# SSH 端末に出る) を使い、native op を実行する。
+# ~/.ssh/agent.sock は SSH ログイン時に .zshrc が張る forwarded agent への symlink。
+# herdr のペインは SSH_CONNECTION を継承しないため、socket の生存で経路を判定する。
+if [[ -S "$HOME/.ssh/agent.sock" ]]; then
+  exec /usr/bin/op "$@"
 elif [[ "$(uname -r)" == *microsoft* ]] && [[ -z "$SSH_CONNECTION" ]]; then
   exec op.exe "$@"
 else
