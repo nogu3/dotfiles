@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -e
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+CYAN='\033[0;36m'
+NC='\033[0m'
+
+info()    { echo -e "${CYAN}==>${NC} $1" >&2; }
+success() { echo -e "${GREEN}==>${NC} $1" >&2; }
+error()   { echo -e "${RED}==>${NC} $1" >&2; }
+
+NAME="$1"
+if [ -z "${NAME:-}" ]; then
+  error "Usage: gwa <name>"
+  exit 1
+fi
+
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  error "Not inside a git repository."
+  exit 1
+fi
+
+# メイン worktree = git worktree list --porcelain の最初の worktree 行
+MAIN="$(git worktree list --porcelain | awk '/^worktree /{print substr($0,10); exit}')"
+BASE="${MAIN}_worktree"
+WT="$BASE/$NAME"
+
+# 冪等: 既存ならそのまま出力
+if [ -d "$WT" ]; then
+  info "Worktree already exists: $WT"
+  echo "$WT"
+  exit 0
+fi
+
+mkdir -p "$BASE"
+
+if git show-ref --verify --quiet "refs/heads/$NAME"; then
+  info "Branch '$NAME' exists. Reusing it."
+  git worktree add "$WT" "$NAME" >&2
+else
+  info "Creating branch '$NAME' from HEAD."
+  git worktree add -b "$NAME" "$WT" >&2
+fi
+
+success "Worktree ready: $WT"
+echo "$WT"
