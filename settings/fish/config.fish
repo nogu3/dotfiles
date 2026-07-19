@@ -87,6 +87,10 @@ alias gp="git pull"
 alias gf="git fetch"
 
 # claude
+# Claude Code: マウス制御を完全に無効化し、選択/コピーをターミナル(WezTerm)に任せる
+set -gx CLAUDE_CODE_DISABLE_MOUSE 1
+# Claude Code: alternate screen を無効化し、通常のスクロールバックに出力する
+set -gx CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN 1
 # alias ではなく function + command で定義する (自己参照 alias の再帰を確実に避けるため)
 function claude --wraps claude --description 'claude with permission-mode auto'
     command claude --permission-mode auto $argv
