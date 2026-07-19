@@ -25,7 +25,7 @@ if [ -z "$NAME" ]; then
   # name 省略: 今いる worktree を推測 (メインでなく BASE 配下にいるとき)
   CUR="$(git rev-parse --show-toplevel)"
   case "$CUR" in
-    "$BASE"/*) NAME="$(basename "$CUR")" ;;
+    "$BASE"/*) NAME="${CUR#"$BASE"/}" ;;
     *)
       error "Usage: gwr <name>  (run inside a worktree to omit <name>)"
       exit 1
