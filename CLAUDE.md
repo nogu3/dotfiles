@@ -61,6 +61,13 @@ dotter のリンク対象。`global.toml` の `[default.files]` / `[linux.files]
 - mise 側でも `os = ["linux"]` 指定で Linux 限定ツールを制御
 - `.dotter/local.toml` の `packages` で適用範囲を決定
 
+## 実装作業のワークフロー
+
+- コード実装 (機能追加・修正) は原則 **worktree の中で行う**。同一リポジトリで複数機能を並行させるため、メインの作業ツリーを直接編集しない
+- worktree は `.scripts/gwa <name>` で作成する (`${repo}_worktree/<name>/` に作られ、パスが stdout に出る)。`cd $(gwa <name>)` で移動して作業を始める
+- 作業が終わったら `.scripts/gwr <name>` で片付ける (ブランチは残す)
+- ドキュメントのみ・設定ファイルのみの軽微な変更はこの限りではない
+
 ## 変更ルール
 
 - 新しい設定ファイルを追加するときは `settings/<tool>/` に配置し、`.dotter/global.toml` にエントリを追加する
