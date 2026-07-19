@@ -30,7 +30,9 @@ D = ["extend_to_line_end", "delete_selection"]
 # lazygit は mise shim の絶対パスで起動する: agent start は herdr サーバーの環境
 # スナップショットで解決するため、素の `lazygit` だと mise upgrade 後に古いパスが死んで
 # /usr/local/bin の野良バイナリ等にフォールバックする。shim はバージョン非依存で常に最新を指す
-"space" = ''':sh id=$(herdr agent start lazygit --split down --focus --env HELIX_PANE=$HERDR_PANE_ID -- "$HOME/.local/share/mise/shims/lazygit" | grep -oE '"pane_id":"[^"]+"' | head -1 | cut -d'"' -f4); herdr pane zoom "$id" --on >/dev/null 2>&1'''
+# --cwd に現在バッファのディレクトリ(絶対パス)を渡す: agent start は cwd も herdr サーバーの
+# スナップショット(=$HOME)で起動するため、指定しないと編集中のリポジトリではなくホームで開いてしまう
+"space" = ''':sh d=$(cd "$(dirname "%{buffer_name}")" 2>/dev/null && pwd); id=$(herdr agent start lazygit --cwd "$d" --split down --focus --env HELIX_PANE=$HERDR_PANE_ID -- "$HOME/.local/share/mise/shims/lazygit" | grep -oE '"pane_id":"[^"]+"' | head -1 | cut -d'"' -f4); herdr pane zoom "$id" --on >/dev/null 2>&1'''
 "s" = ":w"
 "S" = "symbol_picker"
 "r" = ":reset-diff-change"
