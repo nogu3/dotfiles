@@ -1,0 +1,69 @@
+#!/bin/bash
+# Recover a wedged Synaptics 06cb:009a fingerprint sensor (python-validity).
+#
+# Symptom: fprintd never matches / enrollment stalls, and
+#   journalctl -u python3-validity.service
+# shows `USBTimeoutError: [Errno 110]` in a crash loop, or `Unexpected TLS
+# version` on enroll/verify. This happens when the driver detaches (a service
+# restart, a resume from suspend) and the sensor firmware is left in a state
+# where re-init times out. A USB-level reset (unbind/bind) un-wedges it; the
+# fresh open then re-does the TLS handshake. Requires sudo.
+set -e
+
+if [[ "$(uname -s)" != "Linux" ]]; then
+    echo "This script is Linux-only (sysfs USB reset / systemd). Aborting on $(uname -s)."
+    exit 1
+fi
+
+SENSOR_ID="06cb:009a"
+
+# Find the sensor's sysfs bus path (e.g. "1-9") by matching idVendor/idProduct.
+# The path is stable per physical port but the USB device number is not, so we
+# resolve it fresh instead of hardcoding.
+find_port() {
+    local vid="${SENSOR_ID%%:*}" pid="${SENSOR_ID##*:}" idp
+    for idp in /sys/bus/usb/devices/*/idProduct; do
+        local dir; dir="$(dirname "$idp")"
+        if [[ "$(cat "$dir/idVendor" 2>/dev/null)" == "$vid" \
+           && "$(cat "$idp" 2>/dev/null)" == "$pid" ]]; then
+            basename "$dir"
+            return 0
+        fi
+    done
+    return 1
+}
+
+echo "[1/4] Locating sensor $SENSOR_ID..."
+PORT="$(find_port)" || {
+    echo "  Synaptics $SENSOR_ID not found on USB. Aborting."
+    exit 1
+}
+echo "  Found at USB port $PORT."
+
+# One sudo shell so the password is asked once. Stop the driver first so it is
+# not holding the device, then unbind/bind to force re-enumeration, then start.
+echo "[2/4] Resetting USB device and restarting driver (needs sudo)..."
+sudo sh -c "
+    systemctl stop python3-validity.service
+    echo -n '$PORT' > /sys/bus/usb/drivers/usb/unbind
+    sleep 2
+    echo -n '$PORT' > /sys/bus/usb/drivers/usb/bind
+    sleep 3
+    systemctl start python3-validity.service
+"
+
+echo "[3/4] Waiting for the driver to initialize..."
+sleep 4
+
+echo "[4/4] Checking for init timeouts..."
+if journalctl -u python3-validity.service --since "20 sec ago" --no-pager 2>/dev/null \
+     | grep -q "USBTimeoutError"; then
+    echo "  STILL timing out. The sensor may need a full power-off (not a warm"
+    echo "  reboot — that does not cut USB power). Shut down, power on, retry."
+    exit 1
+fi
+echo "  OK: sensor initialized without USB timeout."
+echo ""
+echo "Verify it works:  fprintd-verify"
+echo "If enroll/verify hits 'Unexpected TLS version' once, just run it again —"
+echo "the retry re-establishes the TLS session."
