@@ -39,6 +39,11 @@ if [ ! -d "$WT" ]; then
   exit 1
 fi
 
+INSIDE=0
+case "$(git rev-parse --show-toplevel)" in
+  "$WT"|"$WT"/*) INSIDE=1 ;;
+esac
+
 info "Removing worktree: $WT"
 git worktree remove "$WT" >&2
 
@@ -46,4 +51,7 @@ git worktree remove "$WT" >&2
 rmdir "$BASE" 2>/dev/null || true
 
 success "Removed worktree '$NAME'. Branch kept."
+if [ "$INSIDE" -eq 1 ]; then
+  warning "Your shell is still in the removed directory. Run: cd - (or cd $MAIN)"
+fi
 warning "Delete the branch with: git branch -d $NAME"
