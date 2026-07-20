@@ -12,6 +12,12 @@ onboarding = false
 # させて回避する。ネイティブ Linux / macOS では ConPTY がないため不要 (auto=native)
 host_cursor = "drawn"
 
+[experimental]
+# フル再起動後にペインの画面内容 (スクロールバック) を復元する。
+# 内容は ~/.config/herdr/session-history.json に平文保存されるため
+# シークレットが残りうる点は許容した上で有効化
+pane_history = true
+
 [keys]
 # WezTerm の Leader (Ctrl+W) と同じ prefix にする
 prefix = "ctrl+w"
