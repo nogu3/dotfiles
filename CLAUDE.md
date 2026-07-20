@@ -112,3 +112,13 @@ dotter のリンク対象。`global.toml` の `[default.files]` / `[linux.files]
 
 - `init.sh --claude-skills` で marketplace `InterfaceX-co-jp/genshijin` を user scope に追加し、genshijin プラグインをインストール
 - `~/.claude/settings.json` は dotter 管理外のローカルファイル (hooks / statusLine / 有効プラグイン等)。ツールが直接書き込むため repo には置かない
+
+### AI からの 1Password (op) 利用
+
+- Claude Code の Bash からの `op` は、`~/.config/op/service-account-token` が
+  存在すれば自動で Service Account 経路 (`settings/wsl/op` の分岐) に乗る。
+  signin・デスクトップ承認は不要
+- secret の読み取りは `op read "op://ai/<item>/<field>"`。アクセスできるのは
+  read-only 権限の `ai` vault のみで、それ以外の item はエラーになる (そこからは
+  ユーザーに手動対応を依頼する)
+- トークンファイルは各 PC 固有・dotter 管理外。repo にコミットしない

@@ -1,5 +1,7 @@
 #!/bin/bash
-# op の実行経路を SSH セッションの有無で切り替える (settings/wsl/ssh と同じ思想):
+# op の実行経路を切り替える (settings/wsl/ssh と同じ思想):
+#   - AI (Claude Code) から: Service Account トークンで native op
+#     (signin もデスクトップ承認も不要。ai vault read-only のみ)
 #   - PC の前: op.exe → Windows 1Password とデスクトップ連携 (生体認証)
 #   - SSH 越し (herdr ペイン含む): native /usr/bin/op を使う
 # op CLI↔desktop 連携はローカル IPC 専用で SSH forwarding が無いため、接続元
@@ -9,7 +11,15 @@
 # SSH 端末に出る) を使い、native op を実行する。
 # ~/.ssh/agent.sock は SSH ログイン時に .zshrc が張る forwarded agent への symlink。
 # herdr のペインは SSH_CONNECTION を継承しないため、socket の生存で経路を判定する。
-if [[ -S "$HOME/.ssh/agent.sock" ]]; then
+# CLAUDECODE=1 は Claude Code の Bash セッションに常に設定される env var。
+# トークンファイルが無いマシンでは AI も従来経路に落ちる (挙動不変)。
+sa_token_file="$HOME/.config/op/service-account-token"
+
+if [[ -n "$OP_SERVICE_ACCOUNT_TOKEN" ]]; then
+  exec /usr/bin/op "$@"
+elif [[ -n "$CLAUDECODE" && -f "$sa_token_file" ]]; then
+  OP_SERVICE_ACCOUNT_TOKEN="$(<"$sa_token_file")" exec /usr/bin/op "$@"
+elif [[ -S "$HOME/.ssh/agent.sock" ]]; then
   exec /usr/bin/op "$@"
 elif [[ "$(uname -r)" == *microsoft* ]] && [[ -z "$SSH_CONNECTION" ]]; then
   exec op.exe "$@"
