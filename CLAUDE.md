@@ -43,7 +43,6 @@ dotter のリンク対象。`global.toml` の `[default.files]` / `[linux.files]
 | `settings/zsh/` | `~/` 配下展開 | `.zshrc` (zinit + pure + mise + fzf + ghq), `.zshrc_local` は各 PC 固有設定用 (env var / PATH / 1Password agent パス等) |
 | `settings/fish/` | `~/.config/fish/` | `config.fish` 本体 + `config_local.fish` は各 PC 固有設定用 |
 | `settings/mise/config.toml` | `~/.config/mise/` (init.sh がリンク) | 全言語・CLI のバージョン管理 (claude / helix / fzf / zoxide / delta / dotter / ghq / yazi / gws / gcloud / lazygit / rust / xremap)。Linux 限定ツールは `os = ["linux"]` |
-| `settings/claude/settings.json` | `~/.claude/settings.json` | Claude Code の hooks (SessionStart で genshijin 自動起動) / statusLine / 有効プラグイン |
 | `settings/wezterm/wezterm.lua` | `~/.config/wezterm/` | WezTerm 設定。macOS フォントサイズ等 OS 分岐あり。ペイン/タブ管理は herdr に委譲済み |
 | `settings/herdr/config.toml` | `~/.config/herdr/` | [herdr](https://github.com/ogulcancelik/herdr) (terminal multiplexer) 設定。prefix `Ctrl+W`、旧 WezTerm キーバインドを踏襲 |
 | `settings/helix/` | `~/.config/helix/` | Helix エディタ設定 + テーマ |
@@ -111,6 +110,5 @@ dotter のリンク対象。`global.toml` の `[default.files]` / `[linux.files]
 
 ## Claude Code 連携
 
-- セッション開始時に hook で genshijin スキル起動指示が入る
-- `init.sh --claude-skills` で marketplace `InterfaceX-co-jp/genshijin` を user scope に追加
-- `settings/claude/settings.json` で `enabledPlugins` と `extraKnownMarketplaces` を宣言管理
+- `init.sh --claude-skills` で marketplace `InterfaceX-co-jp/genshijin` を user scope に追加し、genshijin プラグインをインストール
+- `~/.claude/settings.json` は dotter 管理外のローカルファイル (hooks / statusLine / 有効プラグイン等)。ツールが直接書き込むため repo には置かない
