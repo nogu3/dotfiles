@@ -17,4 +17,8 @@ os:
   # `o` で選択ファイルを「起動中の Helix」へ送る。Helix はリモート機能を持たないので
   # herdr の send-keys で :open <file> を Helix ペイン($HELIX_PANE)へ直接キー送出する。
   # 送出後、この lazygit ペイン($HERDR_PANE_ID)を閉じる → 上の Helix にフォーカスが戻る
-  open: 'herdr pane send-keys "$HELIX_PANE" escape && herdr pane send-text "$HELIX_PANE" ":open {{filename}}" && herdr pane send-keys "$HELIX_PANE" enter && herdr pane close "$HERDR_PANE_ID"'
+  # ファイルツリー表示ではディレクトリ行 (ルートの `/` 含む) も選択でき、そこで `o` を
+  # 押すと {{filename}} がディレクトリになる。helix の `:open <dir>` はファイルを開かず
+  # ディレクトリピッカーを開いてしまう (かつ lazygit ペインが閉じるので操作不能に見える)。
+  # ファイルのときだけ送出し、それ以外は何もせず lazygit に留まる
+  open: 'test -f "{{filename}}" || exit 0; herdr pane send-keys "$HELIX_PANE" escape && herdr pane send-text "$HELIX_PANE" ":open {{filename}}" && herdr pane send-keys "$HELIX_PANE" enter && herdr pane close "$HERDR_PANE_ID"'

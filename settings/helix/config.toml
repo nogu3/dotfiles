@@ -26,13 +26,18 @@ D = ["extend_to_line_end", "delete_selection"]
 "," = "global_search"
 # lazygit を herdr ペインで下に開き zoom(全画面)する。呼び出し元 Helix の pane id を
 # HELIX_PANE で渡し、lazygit 側の `o` (os.open) がそのペインへファイルを送り返せるようにする。
-# agent start の JSON から新ペイン id を取り出して zoom --on する。
-# lazygit は mise shim の絶対パスで起動する: agent start は herdr サーバーの環境
-# スナップショットで解決するため、素の `lazygit` だと mise upgrade 後に古いパスが死んで
-# /usr/local/bin の野良バイナリ等にフォールバックする。shim はバージョン非依存で常に最新を指す
-# --cwd に現在バッファのディレクトリ(絶対パス)を渡す: agent start は cwd も herdr サーバーの
-# スナップショット(=$HOME)で起動するため、指定しないと編集中のリポジトリではなくホームで開いてしまう
-"space" = ''':sh d=$(cd "$(dirname "%{buffer_name}")" 2>/dev/null && pwd); id=$(herdr agent start lazygit --cwd "$d" --split down --focus --env HELIX_PANE=$HERDR_PANE_ID -- "$HOME/.local/share/mise/shims/lazygit" | grep -oE '"pane_id":"[^"]+"' | head -1 | cut -d'"' -f4); herdr pane zoom "$id" --on >/dev/null 2>&1'''
+# split の JSON から新ペイン id を取り出して zoom --on する。
+# agent start ではなく pane split を使う: agent start は「分割元ペイン」を指定できず
+# フォーカス中のペインを割るため、別タブの Helix から呼ぶと無関係なタブに lazygit が出る。
+# また agent 名が登録されるので lazygit を 2 つ開こうとすると agent_name_taken で失敗する。
+# pane split は --pane で分割元を明示でき、agent 登録もしないので併用できる
+# exec で起動する: シェルを置き換えるので lazygit を q で抜けたときペインごと閉じる
+# lazygit は mise shim の絶対パスで起動する。素の `lazygit` だと mise upgrade 後に古い
+# versioned パスが死んで /usr/local/bin の野良バイナリ等にフォールバックしうる。
+# shim はバージョン非依存で常に最新を指す
+# --cwd に現在バッファのディレクトリ(絶対パス)を渡す: 指定しないと編集中のリポジトリでは
+# なくホームで開いてしまう
+"space" = ''':sh d=$(cd "$(dirname "%{buffer_name}")" 2>/dev/null && pwd); id=$(herdr pane split --pane "$HERDR_PANE_ID" --direction down --cwd "$d" --env HELIX_PANE=$HERDR_PANE_ID --focus | grep -oE '"pane_id":"[^"]+"' | head -1 | cut -d'"' -f4); herdr pane run "$id" "exec $HOME/.local/share/mise/shims/lazygit" >/dev/null 2>&1; herdr pane zoom "$id" --on >/dev/null 2>&1'''
 "s" = ":w"
 "S" = "symbol_picker"
 "r" = ":reset-diff-change"
