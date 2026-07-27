@@ -28,7 +28,7 @@ config.color_scheme = "iceberg-dark"
 
 -- font size
 if is_mac() then
-	config.font_size = 15
+	config.font_size = 16.5
 else
 	config.font_size = 12
 end
