@@ -8,12 +8,11 @@
 
 ## セットアップフロー
 
-エントリポイントは `init.sh`。3 ターゲットを持つモジュール式。
+エントリポイントは `init.sh`。2 ターゲットを持つモジュール式。
 
 - `--mise`: `settings/mise` を `~/.config/mise` にリンク → `mise install`
 - `--dotter`: `mise exec -- dotter deploy` で全設定をリンク
-- `--claude-skills`: Claude Code の `genshijin` プラグインを marketplace 追加 + インストール
-- 引数なし: 3 つ全実行
+- 引数なし: 2 つ全実行
 - `-n / --dry-run`: 実行せずコマンド表示
 
 シェルは fish → zsh → sh の順で自動フォールバック (`execute_in_user_shell`)。
@@ -110,8 +109,11 @@ dotter のリンク対象。`global.toml` の `[default.files]` / `[linux.files]
 
 ## Claude Code 連携
 
-- `init.sh --claude-skills` で marketplace `InterfaceX-co-jp/genshijin` を user scope に追加し、genshijin プラグインをインストール
 - `~/.claude/settings.json` は dotter 管理外のローカルファイル (hooks / statusLine / 有効プラグイン等)。ツールが直接書き込むため repo には置かない
+- プラグインは always-on で毎ターン再送されるコンテキストを食うので、入れる前に
+  `claude plugin details <plugin>` でトークンコストを確認する。現在は
+  `superpowers` (~688 tok) と `rust-analyzer-lsp` (~0 tok、LSP のみ) のみ有効。
+  `genshijin` (~617 tok) は使っていなかったため 2026-07-30 に削除した
 
 ### AI からの 1Password (op) 利用
 

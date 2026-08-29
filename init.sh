@@ -8,7 +8,6 @@ DRY_RUN=false
 # Targets
 TARGET_MISE=false
 TARGET_DOTTER=false
-TARGET_CLAUDE_SKILLS=false
 
 # Function to display usage
 usage() {
@@ -17,7 +16,6 @@ usage() {
     echo "  -n, --dry-run     Show commands without executing"
     echo "  --mise            Link mise config and run mise install"
     echo "  --dotter          Run dotter deploy"
-    echo "  --claude-skills   Install/update Claude Code skills from GitHub"
     echo "  -h, --help        Show this help message"
 }
 
@@ -39,11 +37,6 @@ while [[ $# -gt 0 ]]; do
             HAS_TARGET=true
             shift
             ;;
-        --claude-skills)
-            TARGET_CLAUDE_SKILLS=true
-            HAS_TARGET=true
-            shift
-            ;;
         -h|--help)
             usage
             exit 0
@@ -60,7 +53,6 @@ done
 if [[ "$HAS_TARGET" == false ]]; then
     TARGET_MISE=true
     TARGET_DOTTER=true
-    TARGET_CLAUDE_SKILLS=true
 fi
 
 # Execute function
@@ -99,12 +91,6 @@ setup_dotter() {
     execute_in_user_shell "mise exec -- dotter deploy"
 }
 
-setup_claude_skills() {
-    echo "Installing/updating Claude Code plugins..."
-    execute "claude plugin marketplace add InterfaceX-co-jp/genshijin --scope user"
-    execute "claude plugin install genshijin@genshijin --scope user"
-}
-
 # Main execution
 if [[ "$TARGET_MISE" == true ]]; then
     setup_mise
@@ -112,8 +98,4 @@ fi
 
 if [[ "$TARGET_DOTTER" == true ]]; then
     setup_dotter
-fi
-
-if [[ "$TARGET_CLAUDE_SKILLS" == true ]]; then
-    setup_claude_skills
 fi
