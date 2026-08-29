@@ -96,7 +96,7 @@ export CLAUDE_CODE_DISABLE_MOUSE=1
 export CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN=1
 
 # import local setting
-source "${HOME}/.zshrc_local"
+[[ -f "${HOME}/.zshrc_local" ]] && source "${HOME}/.zshrc_local"
 
 ### aliases
 alias ls='eza -a --icons'

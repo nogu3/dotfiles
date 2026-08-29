@@ -6,3 +6,7 @@ settings/zenvim/lazy-lock.json
 .dotter/local.toml
 
 settings/.claude/
+
+# 各 PC 固有の設定 (dotter でリンクはするが repo では管理しない)
+settings/zsh/.zshrc_local
+settings/fish/config_local.fish

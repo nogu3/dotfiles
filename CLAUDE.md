@@ -71,7 +71,7 @@ dotter のリンク対象。`global.toml` の `[default.files]` / `[linux.files]
 - 新しい設定ファイルを追加するときは `settings/<tool>/` に配置し、`.dotter/global.toml` にエントリを追加する
 - Linux 限定なら `[linux.files]` に書く
 - ツール導入は原則 `settings/mise/config.toml` に追記する。ただし後述の「パッケージマネージャ使い分け」に該当するシステム統合ツールは OS 標準 PM (pacman / apt / dnf / brew) を使う
-- 各 PC 固有の設定 (ホスト名依存の PATH / env var / 秘匿値など) は `settings/zsh/.zshrc_local` または `settings/fish/config_local.fish` に書く。リポジトリ共通設定 (`.zshrc` / `config.fish`) には書かない
+- 各 PC 固有の設定 (ホスト名依存の PATH / env var / 秘匿値など) は `settings/zsh/.zshrc_local` または `settings/fish/config_local.fish` に書く。リポジトリ共通設定 (`.zshrc` / `config.fish`) には書かない。この 2 ファイルは `.gitignore` で git 管理外にしてあり、dotter でリンクはされるが repo にはコミットされない (`.dotter/local.toml` と同じ扱い)
 - コミットメッセージは Conventional Commits (`feat:` / `fix:` / `refactor:` など) を使用
 
 ## パッケージマネージャ使い分け
