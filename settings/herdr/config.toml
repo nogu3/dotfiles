@@ -12,6 +12,18 @@ onboarding = false
 # させて回避する。ネイティブ Linux / macOS では ConPTY がないため不要 (auto=native)
 host_cursor = "drawn"
 
+# Spaces 行: デフォルト 2 行に加え、Claude の使用率 ($usage_5h / $usage_7d) を出す。
+# 値は ~/.claude/hooks/statusline-herdr-usage.sh が「usage」ワークスペースにだけ送るので、
+# 他のワークスペースでは token が空になり行ごと消える
+[ui.sidebar.spaces]
+row_gap = 0
+rows = [
+  ["state_icon", "workspace"],
+  ["branch", "git_status"],
+  [{ token = "$usage_5h", fg = "#f6c177" }],
+  [{ token = "$usage_7d", fg = "#9ccfd8" }],
+]
+
 [experimental]
 # フル再起動後にペインの画面内容 (スクロールバック) を復元する。
 # 内容は ~/.config/herdr/session-history.json に平文保存されるため
