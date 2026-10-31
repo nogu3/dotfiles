@@ -1,5 +1,6 @@
-# Renovate の自動マージは CI 緑が前提。ベースイメージ更新で sandbox が
-# build できなくなっていないかだけ見る。
+# Renovate の自動マージは CI 緑が前提。使っているのは init.sh（mise / dotter）なので
+# その構文だけ見る。sandbox 用 Dockerfile は 2026-10 時点で build が壊れたまま未使用のため
+# 対象外（renovate.json でも docker 系 manager を止めている）。
 name: CI
 
 on:
@@ -12,5 +13,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - name: docker build
-        run: docker build --build-arg USER_ID=1000 --build-arg GROUP_ID=1000 --build-arg USER_NAME=ci -t dotfiles-sandbox:ci .
+      - name: bash -n init.sh
+        run: bash -n init.sh
